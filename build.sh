@@ -3,6 +3,9 @@ set -e
 export DEBIAN_FRONTEND=noninteractive
 
 echo "==> Installing system dependencies (lean LibreOffice + Poppler)..."
+mkdir -p /var/lib/apt/lists/partial || true
+chmod 755 /var/lib/apt/lists/partial || true
+apt-get clean
 apt-get update
 apt-get install -y --no-install-recommends \
 	libreoffice-writer libreoffice-calc libreoffice-impress libreoffice-draw libreoffice-core libreoffice-common \
