@@ -28,8 +28,12 @@ class CleanURLHandler(http.server.SimpleHTTPRequestHandler):
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
             # Serve the project root index.html (moved out of frontend)
             return os.path.join(os.path.dirname(__file__), 'index.html')
+=======
+            requested = 'index.html'
+>>>>>>> 6f483ce856cce007036ca9bdb94c84f227f68abe
 =======
             requested = 'index.html'
 >>>>>>> 6f483ce856cce007036ca9bdb94c84f227f68abe
