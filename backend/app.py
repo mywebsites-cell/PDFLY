@@ -26,7 +26,8 @@ import io
 # ---------------- CONFIG ----------------
 BASE_DIR = Path(__file__).resolve().parent.parent
 BACKEND_DIR = BASE_DIR / "backend"
-FRONTEND_DIR = BASE_DIR / "frontend"
+# Frontend files now live at repo root; serve from BASE_DIR
+FRONTEND_DIR = BASE_DIR
 UPLOADS_DIR = BACKEND_DIR / "uploads"
 UPLOADS_DIR.mkdir(parents=True, exist_ok=True)
 
