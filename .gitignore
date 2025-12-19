@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+backend/venv/
+backend/env/
+backend/.venv/
+
+# Uploads folder - temporary files
+backend/uploads/*
+!backend/uploads/.gitkeep
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
