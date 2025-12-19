@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="favicon.PNG" />
+  <meta name="description" content="Add text or image watermarks to PDFs in your browser. Customize position, opacity and style to protect or brand documents before downloading." />
+  <meta name="keywords" content="add watermark, watermark PDF, PDF watermark, protect PDF, brand PDF" />
+  <title>Add Watermark - PDFLY</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+</head>
+<body>
+  <header class="navbar">
+    <div class="nav-inner container">
+      <a class="logo" href="index.html">
+        <img class="logo-img logo--light" src="images/logo-light.png" alt="PDFLY (light)" />
+        <img class="logo-img logo--dark" src="images/logo-dark.png" alt="PDFLY (dark)" />
+        <span class="logo-text">PDFLY</span>
+      </a>
+      <nav class="main-nav">
+        <a href="/home">Home</a>
+        <div class="dropdown">
+          <button class="dropbtn">Convert ▾</button>
+          <div class="dropdown-content">
+            <a href="word-to-pdf.html">Word → PDF</a>
+            <a href="pdf-to-word.html">PDF → Word</a>
+            <a href="image-to-pdf.html">Image → PDF</a>
+            <a href="pdf-to-image.html">PDF → Image</a>
+          </div>
+        </div>
+        <div class="dropdown">
+          <button class="dropbtn">Edit ▾</button>
+          <div class="dropdown-content">
+            <a href="merge-pdf.html">Merge</a>
+            <a href="split-pdf.html">Split</a>
+            <a href="rotate-pdf.html">Rotate</a>
+            <a href="compress-pdf.html">Compress</a>
+            <a href="reorder-pages.html">Reorder Pages</a>
+          </div>
+        </div>
+        <div class="dropdown">
+          <button class="dropbtn">Security ▾</button>
+          <div class="dropdown-content">
+            <a href="lock-pdf.html">Lock PDF</a>
+            <a href="unlock-pdf.html">Unlock PDF</a>
+          </div>
+        </div>
+        <div class="dropdown">
+          <button class="dropbtn">Tools ▾</button>
+          <div class="dropdown-content">
+            <a href="add-watermark.html">Add Watermark</a>
+            <a href="excel-to-pdf.html">Excel to PDF</a>
+            <a href="extract-images.html">Extract Images</a>
+            <a href="add-page-numbers.html">Add Page Numbers</a>
+            <a href="qr-code-pdf.html">QR Code Generator</a>
+          </div>
+        </div>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <button id="mobileMenuToggle" class="mobile-menu-toggle">⋮</button>
+        <button id="themeToggle" class="theme-btn">🌙</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="tool-header">
+      <h1>💧 Add Watermark</h1>
+      <p>Add text watermark to your PDF pages (Client-side)</p>
+    </div>
+
+    <div class="ad ad-top">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXX" data-ad-slot="1111111111"></ins>
+    </div>
+
+    <div class="upload-area" id="uploadArea">
+      <div class="upload-icon">📁</div>
+      <h3>Drop PDF file here</h3>
+      <p>or click to browse</p>
+      <button class="btn" onclick="document.getElementById('fileInput').click()">Select PDF</button>
+      <input type="file" id="fileInput" class="file-input" accept=".pdf">
+    </div>
+
+    <div id="fileInfo" class="file-list" style="display:none;">
+      <div class="file-item">
+        <div class="file-info">
+          <span class="file-icon">📄</span>
+          <div class="file-details">
+            <h4 id="fileName"></h4>
+            <p id="fileSize"></p>
+          </div>
+        </div>
+        <div class="file-actions">
+          <button class="icon-btn" onclick="removeFile()">🗑️</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="settings-panel" id="settingsPanel" style="display:none;">
+      <h3>⚙️ Watermark Settings</h3>
+      
+      <div class="setting-group">
+        <label for="watermarkText">Watermark Text *</label>
+        <input type="text" id="watermarkText" placeholder="Enter watermark text" value="CONFIDENTIAL" required
+               style="width:100%; padding:0.75rem; border:1px solid var(--border); border-radius:6px; background:var(--bg); color:var(--text); font-family:inherit; font-size:1rem;">
+      </div>
+
+      <div class="setting-group">
+        <label for="fontSize">Font Size</label>
+        <input type="range" id="fontSize" min="10" max="100" value="50" 
+               oninput="document.getElementById('fontSizeValue').textContent = this.value">
+        <span id="fontSizeValue" style="color: var(--text-secondary);">50</span>
+      </div>
+
+      <div class="setting-group">
+        <label for="opacity">Opacity</label>
+        <input type="range" id="opacity" min="0.1" max="1" step="0.1" value="0.3" 
+               oninput="document.getElementById('opacityValue').textContent = Math.round(this.value * 100) + '%'">
+        <span id="opacityValue" style="color: var(--text-secondary);">30%</span>
+      </div>
+
+      <div class="setting-group">
+        <label for="rotation">Rotation (degrees)</label>
+        <input type="range" id="rotation" min="0" max="360" value="45" 
+               oninput="document.getElementById('rotationValue').textContent = this.value + '°'">
+        <span id="rotationValue" style="color: var(--text-secondary);">45°</span>
+      </div>
+
+      <div class="setting-group">
+        <label for="position">Position</label>
+        <select id="position">
+          <option value="center">Center</option>
+          <option value="diagonal">Diagonal</option>
+          <option value="top-left">Top Left</option>
+          <option value="top-right">Top Right</option>
+          <option value="bottom-left">Bottom Left</option>
+          <option value="bottom-right">Bottom Right</option>
+        </select>
+      </div>
+
+      <div class="setting-group">
+        <label>
+          <input type="checkbox" id="allPages" checked style="margin-right: 0.5rem;">
+          Apply to all pages
+        </label>
+      </div>
+    </div>
+
+    <div class="progress-container" id="progressContainer" style="display:none;">
+      <div class="progress">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+      <p id="progressText" style="text-align:center; margin-top:1rem; color:var(--text-secondary);"></p>
+    </div>
+
+    <div id="downloadSection" style="display:none; text-align:center; margin:2rem 0; padding:2rem; background:var(--bg-secondary); border-radius:12px; border:2px solid var(--success);">
+      <div style="font-size:3rem; margin-bottom:1rem;">✅</div>
+      <h3 style="color:var(--success); margin-bottom:1rem;">Watermark Added!</h3>
+      <p style="color:var(--text-secondary); margin-bottom:1.5rem;">Your watermarked PDF is ready to download</p>
+      <button class="btn" onclick="downloadFile()" style="font-size:1.1rem; padding:1rem 2rem;">📥 Download PDF</button>
+      <button class="btn btn-secondary" onclick="resetTool()" style="margin-left:1rem;">🔄 Add Another Watermark</button>
+    </div>
+
+    <div style="text-align: center; margin: 2rem 0;">
+      <button class="btn" id="applyBtn" style="display:none;" onclick="applyWatermark()">💧 Add Watermark</button>
+    </div>
+
+    <div class="ad ad-bottom">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXX" data-ad-slot="3333333333"></ins>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <nav><a href="about.html">About</a> • <a href="contact.html">Contact</a> • <a href="privacy.html">Privacy Policy</a></nav>
+    <small>© 2025 PDF Suite Tools – All rights reserved.</small>
+  </footer>
+
+  <script src="theme.js"></script>
+  <script>
+    let selectedFile = null;
+    let pdfDoc = null;
+    let downloadBlob = null;
+    let downloadFilename = null;
+
+    document.getElementById('fileInput').addEventListener('change', function(e) {
+      if (e.target.files.length > 0) {
+        handleFileSelect(e.target.files[0]);
+      }
+    });
+
+    const uploadArea = document.getElementById('uploadArea');
+    uploadArea.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      uploadArea.classList.add('dragover');
+    });
+
+    uploadArea.addEventListener('dragleave', () => {
+      uploadArea.classList.remove('dragover');
+    });
+
+    uploadArea.addEventListener('drop', (e) => {
+      e.preventDefault();
+      uploadArea.classList.remove('dragover');
+      if (e.dataTransfer.files.length > 0) {
+        handleFileSelect(e.dataTransfer.files[0]);
+      }
+    });
+
+    async function handleFileSelect(file) {
+      selectedFile = file;
+      const arrayBuffer = await file.arrayBuffer();
+      pdfDoc = await PDFLib.PDFDocument.load(arrayBuffer);
+      
+      document.getElementById('fileName').textContent = file.name;
+      document.getElementById('fileSize').textContent = `${formatFileSize(file.size)} • ${pdfDoc.getPageCount()} pages`;
+      document.getElementById('fileInfo').style.display = 'block';
+      document.getElementById('settingsPanel').style.display = 'block';
+      document.getElementById('applyBtn').style.display = 'inline-flex';
+      document.getElementById('downloadSection').style.display = 'none';
+    }
+
+    function removeFile() {
+      selectedFile = null;
+      pdfDoc = null;
+      downloadBlob = null;
+      downloadFilename = null;
+      document.getElementById('fileInfo').style.display = 'none';
+      document.getElementById('settingsPanel').style.display = 'none';
+      document.getElementById('applyBtn').style.display = 'none';
+      document.getElementById('downloadSection').style.display = 'none';
+      document.getElementById('fileInput').value = '';
+    }
+
+    async function applyWatermark() {
+      if (!pdfDoc) return;
+
+      const text = document.getElementById('watermarkText').value;
+      if (!text) {
+        alert('Please enter watermark text');
+        return;
+      }
+
+      const fontSize = parseInt(document.getElementById('fontSize').value);
+      const opacity = parseFloat(document.getElementById('opacity').value);
+      const rotation = parseInt(document.getElementById('rotation').value);
+      const position = document.getElementById('position').value;
+      const allPages = document.getElementById('allPages').checked;
+
+      document.getElementById('progressContainer').style.display = 'block';
+      document.getElementById('progressText').textContent = 'Adding watermark...';
+      document.getElementById('progressBar').style.width = '50%';
+      document.getElementById('applyBtn').disabled = true;
+
+      try {
+        const pages = pdfDoc.getPages();
+        const pagesToWatermark = allPages ? pages : [pages[0]];
+
+        for (let i = 0; i < pagesToWatermark.length; i++) {
+          const page = pagesToWatermark[i];
+          const { width, height } = page.getSize();
+          
+          document.getElementById('progressBar').style.width = `${50 + ((i + 1) / pagesToWatermark.length) * 50}%`;
+
+          let x, y;
+          switch (position) {
+            case 'center':
+              x = width / 2;
+              y = height / 2;
+              break;
+            case 'diagonal':
+              x = width / 2;
+              y = height / 2;
+              break;
+            case 'top-left':
+              x = 50;
+              y = height - 50;
+              break;
+            case 'top-right':
+              x = width - 50;
+              y = height - 50;
+              break;
+            case 'bottom-left':
+              x = 50;
+              y = 50;
+              break;
+            case 'bottom-right':
+              x = width - 50;
+              y = 50;
+              break;
+            default:
+              x = width / 2;
+              y = height / 2;
+          }
+
+          page.drawText(text, {
+            x: x,
+            y: y,
+            size: fontSize,
+            opacity: opacity,
+            rotate: PDFLib.degrees(rotation),
+            color: PDFLib.rgb(0.5, 0.5, 0.5)
+          });
+        }
+
+        const pdfBytes = await pdfDoc.save();
+        downloadBlob = new Blob([pdfBytes], { type: 'application/pdf' });
+        downloadFilename = selectedFile.name.replace('.pdf', '_watermarked.pdf');
+
+        document.getElementById('progressContainer').style.display = 'none';
+        document.getElementById('downloadSection').style.display = 'block';
+
+      } catch (error) {
+        document.getElementById('progressText').textContent = '❌ Error: ' + error.message;
+        console.error(error);
+        setTimeout(() => {
+          document.getElementById('progressContainer').style.display = 'none';
+        }, 3000);
+      } finally {
+        document.getElementById('applyBtn').disabled = false;
+      }
+    }
+
+    function downloadFile() {
+      if (!downloadBlob) {
+        alert('No file available to download');
+        return;
+      }
+      const url = URL.createObjectURL(downloadBlob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = downloadFilename;
+      document.body.appendChild(a);
+      a.click();
+      URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+    }
+
+    function resetTool() {
+      removeFile();
+    }
+
+    function formatFileSize(bytes) {
+      if (bytes === 0) return '0 Bytes';
+      const k = 1024;
+      const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+      const i = Math.floor(Math.log(bytes) / Math.log(k));
+      return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
+    }
+  </script>
+</body>
+</html>

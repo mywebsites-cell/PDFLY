@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QR Code Generator - PDFLY</title>
+    <meta name="description" content="Generate QR codes from text or URLs and save them as PDF. Customize size and error correction for printable QR code outputs." />
+  <link rel="icon" href="favicon.PNG" />
+    <meta name="keywords" content="QR code, QR generator, generate QR, QR to PDF, QR code PDF" />
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+  <header class="navbar">
+    <div class="nav-inner container">
+         <a class="logo" href="index.html">
+           <img class="logo-img logo--light" src="images/logo-light.png" alt="PDFLY (light)" />
+           <img class="logo-img logo--dark" src="images/logo-dark.png" alt="PDFLY (dark)" />
+           <span class="logo-text">PDFLY</span>
+         </a>
+          <nav class="main-nav">
+            <a href="/home">Home</a>
+        <div class="dropdown">
+          <button class="dropbtn">Convert ▾</button>
+          <div class="dropdown-content">
+            <a href="word-to-pdf.html">Word → PDF</a>
+            <a href="pdf-to-word.html">PDF → Word</a>
+            <a href="image-to-pdf.html">Image → PDF</a>
+            <a href="pdf-to-image.html">PDF → Image</a>
+          </div>
+        </div>
+        <div class="dropdown">
+          <button class="dropbtn">Edit ▾</button>
+          <div class="dropdown-content">
+            <a href="merge-pdf.html">Merge</a>
+            <a href="split-pdf.html">Split</a>
+            <a href="rotate-pdf.html">Rotate</a>
+            <a href="compress-pdf.html">Compress</a>
+            <a href="reorder-pages.html">Reorder Pages</a>
+          </div>
+        </div>
+        <div class="dropdown">
+          <button class="dropbtn">Security ▾</button>
+          <div class="dropdown-content">
+            <a href="lock-pdf.html">Lock PDF</a>
+            <a href="unlock-pdf.html">Unlock PDF</a>
+          </div>
+        </div>
+        <div class="dropdown">
+          <button class="dropbtn">Tools ▾</button>
+          <div class="dropdown-content">
+            <a href="add-watermark.html">Add Watermark</a>
+            <a href="excel-to-pdf.html">Excel to PDF</a>
+            <a href="extract-images.html">Extract Images</a>
+            <a href="add-page-numbers.html">Add Page Numbers</a>
+            <a href="qr-code-pdf.html">QR Code Generator</a>
+          </div>
+        </div>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <button id="mobileMenuToggle" class="mobile-menu-toggle">⋮</button>
+        <button id="themeToggle" class="theme-btn">🌙</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="tool-header">
+      <h1>📱 QR Code Generator</h1>
+      <p>Generate QR codes and save as PDF (Client-side)</p>
+    </div>
+
+    <div class="ad ad-top">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXX" data-ad-slot="1111111111"></ins>
+    </div>
+
+    <div class="settings-panel">
+      <h3>🔧 QR Code Settings</h3>
+      
+      <div class="setting-group">
+        <label for="qrContent">Content *</label>
+        <textarea id="qrContent" rows="4" placeholder="Enter URL, text, or any content for QR code" required
+                  style="width:100%; padding:0.75rem; border:1px solid var(--border); border-radius:6px; background:var(--bg); color:var(--text); font-family:inherit; font-size:1rem; resize:vertical;"></textarea>
+      </div>
+
+      <div class="setting-group">
+        <label for="qrTitle">Title (Optional)</label>
+        <input type="text" id="qrTitle" placeholder="Enter title to display below QR code"
+               style="width:100%; padding:0.75rem; border:1px solid var(--border); border-radius:6px; background:var(--bg); color:var(--text); font-family:inherit; font-size:1rem;">
+      </div>
+
+      <div class="setting-group">
+        <label for="qrSize">QR Code Size</label>
+        <select id="qrSize">
+          <option value="256">Small (256x256)</option>
+          <option value="512" selected>Medium (512x512)</option>
+          <option value="1024">Large (1024x1024)</option>
+        </select>
+      </div>
+
+      <div class="setting-group">
+        <label>Quick Links</label>
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+          <button class="btn-secondary" onclick="setQuickLink('website')">🌐 Website</button>
+          <button class="btn-secondary" onclick="setQuickLink('email')">📧 Email</button>
+          <button class="btn-secondary" onclick="setQuickLink('phone')">📞 Phone</button>
+          <button class="btn-secondary" onclick="setQuickLink('wifi')">📶 WiFi</button>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align: center; margin: 2rem 0;">
+      <button class="btn" onclick="generateQR()">📱 Generate QR Code</button>
+    </div>
+
+    <div id="qrPreview" style="display:none; text-align: center; margin: 2rem 0;">
+      <h3 style="margin-bottom: 1rem;">Preview:</h3>
+      <div id="qrcode" style="display: inline-block; padding: 2rem; background: white; border-radius: 12px; box-shadow: 0 4px 12px var(--shadow);"></div>
+    </div>
+
+    <div id="downloadSection" style="display:none; text-align:center; margin:2rem 0; padding:2rem; background:var(--bg-secondary); border-radius:12px; border:2px solid var(--success);">
+      <div style="font-size:3rem; margin-bottom:1rem;">✅</div>
+      <h3 style="color:var(--success); margin-bottom:1rem;">QR Code Generated!</h3>
+      <p style="color:var(--text-secondary); margin-bottom:1.5rem;">Your QR code is ready to download</p>
+      <button class="btn" onclick="downloadPDF()" style="font-size:1.1rem; padding:1rem 2rem;">📥 Download as PDF</button>
+      <button class="btn btn-secondary" onclick="downloadImage()" style="margin-left:1rem;">🖼️ Download as PNG</button>
+      <button class="btn btn-secondary" onclick="resetTool()" style="margin-left:1rem;">🔄 Create Another</button>
+    </div>
+
+    <div class="ad ad-bottom">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXX" data-ad-slot="3333333333"></ins>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <nav><a href="about.html">About</a> • <a href="contact.html">Contact</a> • <a href="privacy.html">Privacy Policy</a></nav>
+    <small>© 2025 PDF Suite Tools – All rights reserved.</small>
+  </footer>
+
+  <script src="theme.js"></script>
+  <script>
+    let qrCodeInstance = null;
+
+    function setQuickLink(type) {
+      const contentField = document.getElementById('qrContent');
+      const titleField = document.getElementById('qrTitle');
+      
+      switch(type) {
+        case 'website':
+          contentField.value = 'https://example.com';
+          titleField.value = 'Visit our website';
+          break;
+        case 'email':
+          contentField.value = 'mailto:contact@example.com';
+          titleField.value = 'Send us an email';
+          break;
+        case 'phone':
+          contentField.value = 'tel:+1234567890';
+          titleField.value = 'Call us';
+          break;
+        case 'wifi':
+          contentField.value = 'WIFI:T:WPA;S:NetworkName;P:Password;;';
+          titleField.value = 'Connect to WiFi';
+          break;
+      }
+    }
+
+    function generateQR() {
+      const content = document.getElementById('qrContent').value;
+      
+      if (!content) {
+        alert('Please enter content for the QR code');
+        return;
+      }
+
+      const size = parseInt(document.getElementById('qrSize').value);
+      const qrDiv = document.getElementById('qrcode');
+      
+      qrDiv.innerHTML = '';
+      
+      qrCodeInstance = new QRCode(qrDiv, {
+        text: content,
+        width: size,
+        height: size,
+        colorDark: "#000000",
+        colorLight: "#ffffff",
+        correctLevel: QRCode.CorrectLevel.H
+      });
+
+      document.getElementById('qrPreview').style.display = 'block';
+      document.getElementById('downloadSection').style.display = 'block';
+      
+      document.getElementById('downloadSection').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function downloadPDF() {
+      const { jsPDF } = window.jspdf;
+      const content = document.getElementById('qrContent').value;
+      const title = document.getElementById('qrTitle').value;
+      
+      const canvas = document.querySelector('#qrcode canvas');
+      if (!canvas) {
+        alert('Please generate QR code first');
+        return;
+      }
+
+      const imgData = canvas.toDataURL('image/png');
+      
+      const pdf = new jsPDF({
+        orientation: 'portrait',
+        unit: 'mm',
+        format: 'a4'
+      });
+
+      const pageWidth = pdf.internal.pageSize.getWidth();
+      
+      if (title) {
+        pdf.setFontSize(20);
+        pdf.text(title, pageWidth / 2, 30, { align: 'center' });
+      }
+
+      const qrSize = 100;
+      const x = (pageWidth - qrSize) / 2;
+      const y = title ? 50 : 30;
+      
+      pdf.addImage(imgData, 'PNG', x, y, qrSize, qrSize);
+      
+      pdf.setFontSize(10);
+      const lines = pdf.splitTextToSize(content, pageWidth - 40);
+      pdf.text(lines, 20, y + qrSize + 15);
+
+      pdf.save('qrcode.pdf');
+    }
+
+    function downloadImage() {
+      const canvas = document.querySelector('#qrcode canvas');
+      if (!canvas) {
+        alert('Please generate QR code first');
+        return;
+      }
+
+      const url = canvas.toDataURL('image/png');
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'qrcode.png';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
+
+    function resetTool() {
+      document.getElementById('qrContent').value = '';
+      document.getElementById('qrTitle').value = '';
+      document.getElementById('qrcode').innerHTML = '';
+      document.getElementById('qrPreview').style.display = 'none';
+      document.getElementById('downloadSection').style.display = 'none';
+      qrCodeInstance = null;
+    }
+  </script>
+</body>
+</html>

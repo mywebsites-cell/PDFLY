@@ -1,0 +1,19 @@
+# Flask Web Framework
+Flask==3.0.3
+Werkzeug==3.0.3
+
+# PDF Processing
+pdf2docx==0.5.8
+PyPDF2==3.0.1
+
+# Image Processing
+pdf2image==1.17.0
+Pillow==10.4.0
+
+# PDF Generation & Page Numbers
+reportlab==4.0.7
+
+# Additional Dependencies (auto-installed with above)
+# python-docx (installed with pdf2docx)
+# pdfminer.six (installed with pdf2docx)
+# lxml (installed with pdf2docx)

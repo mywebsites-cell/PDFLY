@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="favicon.PNG" />
+  <meta name="description" content="Extract all images from PDF files quickly. Download embedded images as PNGs or JPGs, preserving original resolution where possible." />
+  <meta name="keywords" content="extract images, images from PDF, PDF images, export images, PDF extractor" />
+  <title>Extract Images - PDFLY</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="navbar">
+    <div class="nav-inner container">
+      <a class="logo" href="index.html">
+        <img class="logo-img logo--light" src="images/logo-light.png" alt="PDFLY (light)" />
+        <img class="logo-img logo--dark" src="images/logo-dark.png" alt="PDFLY (dark)" />
+        <span class="logo-text">PDFLY</span>
+      </a>
+      <nav class="main-nav">
+        <a href="/home">Home</a>
+        <div class="dropdown">
+          <button class="dropbtn">Convert ▾</button>
+          <div class="dropdown-content">
+            <a href="word-to-pdf.html">Word → PDF</a>
+            <a href="pdf-to-word.html">PDF → Word</a>
+            <a href="image-to-pdf.html">Image → PDF</a>
+            <a href="pdf-to-image.html">PDF → Image</a>
+          </div>
+        </div>
+        <div class="dropdown">
+          <button class="dropbtn">Edit ▾</button>
+          <div class="dropdown-content">
+            <a href="merge-pdf.html">Merge</a>
+            <a href="split-pdf.html">Split</a>
+            <a href="rotate-pdf.html">Rotate</a>
+            <a href="compress-pdf.html">Compress</a>
+            <a href="reorder-pages.html">Reorder Pages</a>
+          </div>
+        </div>
+        <div class="dropdown">
+          <button class="dropbtn">Security ▾</button>
+          <div class="dropdown-content">
+            <a href="lock-pdf.html">Lock PDF</a>
+            <a href="unlock-pdf.html">Unlock PDF</a>
+          </div>
+        </div>
+        <div class="dropdown">
+          <button class="dropbtn">Tools ▾</button>
+          <div class="dropdown-content">
+            <a href="add-watermark.html">Add Watermark</a>
+            <a href="excel-to-pdf.html">Excel to PDF</a>
+            <a href="extract-images.html">Extract Images</a>
+            <a href="add-page-numbers.html">Add Page Numbers</a>
+            <a href="qr-code-pdf.html">QR Code Generator</a>
+          </div>
+        </div>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <button id="mobileMenuToggle" class="mobile-menu-toggle">⋮</button>
+        <button id="themeToggle" class="theme-btn">🌙</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="tool-header">
+      <h1>🖼️ Extract Images</h1>
+      <p>Extract all images from PDF in their original format (Server-powered)</p>
+    </div>
+
+    <div class="ad ad-top">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXX" data-ad-slot="1111111111"></ins>
+    </div>
+
+    <div class="upload-area" id="uploadArea">
+      <div class="upload-icon">📁</div>
+      <h3>Drop PDF file here</h3>
+      <p>or click to browse</p>
+      <button class="btn" onclick="document.getElementById('fileInput').click()">Select PDF</button>
+      <input type="file" id="fileInput" class="file-input" accept=".pdf">
+    </div>
+
+    <div id="fileInfo" class="file-list" style="display:none;">
+      <div class="file-item">
+        <div class="file-info">
+          <span class="file-icon">📄</span>
+          <div class="file-details">
+            <h4 id="fileName"></h4>
+            <p id="fileSize"></p>
+          </div>
+        </div>
+        <div class="file-actions">
+          <button class="icon-btn" onclick="removeFile()">🗑️</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="progress-container" id="progressContainer" style="display:none;">
+      <div class="progress">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+      <p id="progressText" style="text-align:center; margin-top:1rem; color:var(--text-secondary);"></p>
+    </div>
+
+    <div id="downloadSection" style="display:none; text-align:center; margin:2rem 0; padding:2rem; background:var(--bg-secondary); border-radius:12px; border:2px solid var(--success);">
+      <div style="font-size:3rem; margin-bottom:1rem;">✅</div>
+      <h3 style="color:var(--success); margin-bottom:1rem;">Images Extracted Successfully!</h3>
+      <p style="color:var(--text-secondary); margin-bottom:1.5rem;" id="downloadInfo">
+        Your images are ready to download
+      </p>
+      <button class="btn" id="downloadBtn" onclick="downloadFile()" style="font-size:1.1rem; padding:1rem 2rem;">
+        📥 Download Images
+      </button>
+      <button class="btn btn-secondary" onclick="resetTool()" style="margin-left:1rem;">
+        🔄 Extract Another PDF
+      </button>
+    </div>
+
+    <div style="text-align: center; margin: 2rem 0;">
+      <button class="btn" id="extractBtn" style="display:none;" onclick="extractImages()">
+        🖼️ Extract Images
+      </button>
+    </div>
+
+    <div class="ad ad-bottom">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXX" data-ad-slot="3333333333"></ins>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <nav><a href="about.html">About</a> • <a href="contact.html">Contact</a> • <a href="privacy.html">Privacy Policy</a></nav>
+    <small>© 2025 PDF Suite Tools – All rights reserved.</small>
+  </footer>
+
+  <script src="theme.js"></script>
+  <script>
+    const API_URL = 'http://localhost:5000/extract-images';
+    let selectedFile = null;
+    let downloadBlob = null;
+    let downloadFilename = null;
+
+    document.getElementById('fileInput').addEventListener('change', function(e) {
+      if (e.target.files.length > 0) {
+        handleFileSelect(e.target.files[0]);
+      }
+    });
+
+    const uploadArea = document.getElementById('uploadArea');
+    uploadArea.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      uploadArea.classList.add('dragover');
+    });
+
+    uploadArea.addEventListener('dragleave', () => {
+      uploadArea.classList.remove('dragover');
+    });
+
+    uploadArea.addEventListener('drop', (e) => {
+      e.preventDefault();
+      uploadArea.classList.remove('dragover');
+      if (e.dataTransfer.files.length > 0) {
+        handleFileSelect(e.dataTransfer.files[0]);
+      }
+    });
+
+    function handleFileSelect(file) {
+      selectedFile = file;
+      document.getElementById('fileName').textContent = file.name;
+      document.getElementById('fileSize').textContent = formatFileSize(file.size);
+      document.getElementById('fileInfo').style.display = 'block';
+      document.getElementById('extractBtn').style.display = 'inline-flex';
+      document.getElementById('downloadSection').style.display = 'none';
+    }
+
+    function removeFile() {
+      selectedFile = null;
+      downloadBlob = null;
+      downloadFilename = null;
+      document.getElementById('fileInfo').style.display = 'none';
+      document.getElementById('extractBtn').style.display = 'none';
+      document.getElementById('downloadSection').style.display = 'none';
+      document.getElementById('fileInput').value = '';
+    }
+
+    async function extractImages() {
+      if (!selectedFile) return;
+
+      const formData = new FormData();
+      formData.append('file', selectedFile);
+
+      document.getElementById('progressContainer').style.display = 'block';
+      document.getElementById('progressText').textContent = 'Extracting images from PDF...';
+      document.getElementById('progressBar').style.width = '50%';
+      document.getElementById('extractBtn').disabled = true;
+
+      try {
+        const response = await fetch(API_URL, {
+          method: 'POST',
+          body: formData
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.error || 'Extraction failed');
+        }
+
+        document.getElementById('progressText').textContent = 'Processing images...';
+        document.getElementById('progressBar').style.width = '100%';
+        
+        // Store the blob for later download
+        downloadBlob = await response.blob();
+        
+        // Determine filename from Content-Disposition header or content-type
+        const contentType = response.headers.get('content-type');
+        const contentDisposition = response.headers.get('content-disposition');
+        
+        if (contentDisposition) {
+          const match = contentDisposition.match(/filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/);
+          if (match && match[1]) {
+            downloadFilename = match[1].replace(/['"]/g, '');
+          }
+        }
+        
+        if (!downloadFilename) {
+          if (contentType && contentType.includes('zip')) {
+            downloadFilename = selectedFile.name.replace('.pdf', '_images.zip');
+          } else {
+            // Single image - determine extension from content type
+            const ext = contentType.includes('png') ? 'png' : 
+                        contentType.includes('jpeg') || contentType.includes('jpg') ? 'jpg' :
+                        contentType.includes('tiff') ? 'tiff' : 'png';
+            downloadFilename = selectedFile.name.replace('.pdf', `_image.${ext}`);
+          }
+        }
+
+        // Show download section
+        document.getElementById('progressContainer').style.display = 'none';
+        document.getElementById('downloadSection').style.display = 'block';
+        
+        const imageCount = contentType && contentType.includes('zip') ? 'Multiple images' : '1 image';
+        document.getElementById('downloadInfo').textContent = `${imageCount} extracted successfully`;
+
+      } catch (error) {
+        document.getElementById('progressText').textContent = '❌ Error: ' + error.message;
+        document.getElementById('progressBar').style.width = '0%';
+        console.error('Extraction error:', error);
+        setTimeout(() => {
+          document.getElementById('progressContainer').style.display = 'none';
+        }, 3000);
+      } finally {
+        document.getElementById('extractBtn').disabled = false;
+      }
+    }
+
+    function downloadFile() {
+      if (!downloadBlob) {
+        alert('No file available to download');
+        return;
+      }
+
+      // Create unique filename with timestamp to avoid browser cache issues
+      const timestamp = Date.now();
+      const finalFilename = downloadFilename.replace(
+        /(\.[^.]+)$/, 
+        `_${timestamp}$1`
+      );
+
+      const url = window.URL.createObjectURL(downloadBlob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = finalFilename;
+      a.style.display = 'none';
+      document.body.appendChild(a);
+      
+      // Trigger download
+      a.click();
+      
+      // Cleanup
+      setTimeout(() => {
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+      }, 100);
+    }
+
+    function resetTool() {
+      removeFile();
+    }
+
+    function formatFileSize(bytes) {
+      if (bytes === 0) return '0 Bytes';
+      const k = 1024;
+      const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+      const i = Math.floor(Math.log(bytes) / Math.log(k));
+      return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
+    }
+  </script>
+</body>
+</html>
