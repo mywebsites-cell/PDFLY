@@ -1,47 +1,46 @@
 {
-  "buildCommand": "echo 'Build complete'",
+  "buildCommand": "echo 'Static site'",
   "outputDirectory": ".",
   "public": true,
   "rewrites": [
     {
-      "source": "/api/:path*",
-      "destination": "http://localhost:5000/:path*"
+      "source": "/style.css",
+      "destination": "/frontend/style.css"
+    },
+    {
+      "source": "/theme.js",
+      "destination": "/frontend/theme.js"
+    },
+    {
+      "source": "/favicon.PNG",
+      "destination": "/frontend/favicon.PNG"
+    },
+    {
+      "source": "/images/:path*",
+      "destination": "/frontend/images/:path*"
+    },
+    {
+      "source": "/shared.js",
+      "destination": "/frontend/shared.js"
+    },
+    {
+      "source": "/(.*).html",
+      "destination": "/frontend/$1.html"
+    },
+    {
+      "source": "/(?!frontend|api|index.html)(.*)",
+      "destination": "/index.html"
     }
   ],
-  "routes": [
+  "headers": [
     {
-      "src": "/(.*)",
-      "dest": "index.html"
-    },
-    {
-      "src": "/style.css",
-      "dest": "/style.css"
-    },
-    {
-      "src": "/theme.js",
-      "dest": "/theme.js"
-    },
-    {
-      "src": "/favicon.PNG",
-      "dest": "/favicon.PNG"
-    },
-    {
-      "src": "/images/(.*)",
-      "dest": "/images/$1"
-    },
-    {
-      "src": "/frontend/(.*)",
-      "dest": "/frontend/$1"
+      "source": "/frontend/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600"
+        }
+      ]
     }
-  ],
-  "env": {
-    "BACKEND_URL": "@backend_url"
-  },
-  "functions": {
-    "backend/app.py": {
-      "runtime": "python3.9",
-      "memory": 1024,
-      "maxDuration": 60
-    }
-  }
+  ]
 }
