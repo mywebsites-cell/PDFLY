@@ -12,7 +12,7 @@
 <body>
   <header class="navbar">
     <div class="nav-inner container">
-      <a class="logo" href="index">
+      <a class="logo" href="/">
         <img class="logo-img logo--light" src="images/logo-light.png" alt="PDFLY (light)" />
         <img class="logo-img logo--dark" src="images/logo-dark.png" alt="PDFLY (dark)" />
         <span class="logo-text">PDFLY</span>
@@ -137,7 +137,7 @@
 
   <script src="theme.js"></script>
   <script>
-    const API_URL = 'http://localhost:5000/extract-images';
+    const API_URL = (window.location.hostname === 'localhost' ? 'http://localhost:5000' : 'https://pdfly-zeta.vercel.app'/extract-images';
     let selectedFile = null;
     let downloadBlob = null;
     let downloadFilename = null;
