@@ -149,11 +149,22 @@ def serve_index():
 
 @app.route('/<path:path>')
 def serve_static_files(path):
+    # direct file (css/js/images)
     full_path = FRONTEND_DIR / path
     if full_path.exists():
         return send_from_directory(FRONTEND_DIR, path)
-    else:
+
+    # clean URL support: /tool-name -> /tool-name.html
+    html_candidate = FRONTEND_DIR / f"{path}.html"
+    if html_candidate.exists():
+        return send_from_directory(FRONTEND_DIR, f"{path}.html")
+
+    # special alias
+    if path in ("home", "index", "index.html"):
         return send_from_directory(FRONTEND_DIR, 'index.html')
+
+    # fallback to home
+    return send_from_directory(FRONTEND_DIR, 'index.html')
 
 
 # ---------------- Diagnostics ----------------
