@@ -1,46 +1,10 @@
 {
-  "buildCommand": "echo 'Static site'",
-  "outputDirectory": ".",
-  "public": true,
   "rewrites": [
     {
-      "source": "/style.css",
-      "destination": "/frontend/style.css"
-    },
-    {
-      "source": "/theme.js",
-      "destination": "/frontend/theme.js"
-    },
-    {
-      "source": "/favicon.PNG",
-      "destination": "/frontend/favicon.PNG"
-    },
-    {
-      "source": "/images/:path*",
-      "destination": "/frontend/images/:path*"
-    },
-    {
-      "source": "/shared.js",
-      "destination": "/frontend/shared.js"
-    },
-    {
-      "source": "/(.*).html",
-      "destination": "/frontend/$1.html"
-    },
-    {
-      "source": "/(?!frontend|api|index.html)(.*)",
-      "destination": "/index.html"
+      "source": "/:path((?!api|_next|.*\\.).*)",
+      "destination": "/frontend/:path.html"
     }
   ],
-  "headers": [
-    {
-      "source": "/frontend/(.*)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=3600"
-        }
-      ]
-    }
-  ]
+  "cleanUrls": true,
+  "trailingSlash": false
 }
