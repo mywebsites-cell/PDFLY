@@ -1,6 +1,9 @@
-build:
-  - apt-get update
-  - apt-get install -y libreoffice poppler-utils
-  - pip install -r backend/requirements.txt
-
-startCommand: cd backend && gunicorn app:app --bind 0.0.0.0:$PORT
+services:
+  - type: web
+    name: pdfly-backend
+    runtime: python
+    buildCommand: 'apt-get update && apt-get install -y libreoffice poppler-utils && pip install -r requirements.txt'
+    startCommand: 'cd backend && gunicorn app:app --bind 0.0.0.0:$PORT'
+    envVars:
+      - key: PYTHON_VERSION
+        value: '3.11.7'
