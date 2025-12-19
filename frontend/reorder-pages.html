@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="favicon.PNG" />
+  <title>Reorder Pages - PDFLY</title>
+    <meta name="description" content="Drag-and-drop reorder PDF pages in your browser. Rearrange pages visually and download the reordered PDF without uploading to a server." />
+    <meta name="keywords" content="reorder pages, rearrange PDF, reorder PDF, drag and drop, PDF editor" />
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <style>
+    .pages-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+    .page-card {
+      background: var(--bg-secondary);
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      padding: 0.5rem;
+      cursor: move;
+      transition: all 0.2s;
+      position: relative;
+    }
+    .page-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 4px 12px var(--shadow);
+      border-color: var(--primary);
+    }
+    .page-card.dragging {
+      opacity: 0.5;
+    }
+    .page-preview {
+      width: 100%;
+      height: 200px;
+      background: white;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 0.5rem;
+    }
+    .page-preview canvas {
+      max-width: 100%;
+      max-height: 100%;
+    }
+    .page-number {
+      text-align: center;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .page-actions {
+      display: flex;
+      gap: 0.25rem;
+      margin-top: 0.5rem;
+    }
+    .page-actions button {
+      flex: 1;
+      padding: 0.25rem;
+      font-size: 0.8rem;
+    }
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <div class="nav-inner container">
+      <a class="logo" href="/home">
+          <img class="logo-img logo--light" src="images/logo-light.png" alt="PDFLY (light)" />
+          <img class="logo-img logo--dark" src="images/logo-dark.png" alt="PDFLY (dark)" />
+          <span class="logo-text">PDFLY</span>
+      </a>
+      <nav class="main-nav">
+        <a href="/home">Home</a>
+        <div class="dropdown">
+          <button class="dropbtn">Convert ▾</button>
+          <div class="dropdown-content">
+            <a href="word-to-pdf.html">Word → PDF</a>
+            <a href="pdf-to-word.html">PDF → Word</a>
+            <a href="image-to-pdf.html">Image → PDF</a>
+            <a href="pdf-to-image.html">PDF → Image</a>
+          </div>
+        </div>
+        <div class="dropdown">
+          <button class="dropbtn">Edit ▾</button>
+          <div class="dropdown-content">
+            <a href="merge-pdf.html">Merge</a>
+            <a href="split-pdf.html">Split</a>
+            <a href="rotate-pdf.html">Rotate</a>
+            <a href="compress-pdf.html">Compress</a>
+            <a href="reorder-pages.html">Reorder Pages</a>
+          </div>
+        </div>
+        <div class="dropdown">
+          <button class="dropbtn">Security ▾</button>
+          <div class="dropdown-content">
+            <a href="lock-pdf.html">Lock PDF</a>
+            <a href="unlock-pdf.html">Unlock PDF</a>
+          </div>
+        </div>
+        <div class="dropdown">
+          <button class="dropbtn">Tools ▾</button>
+          <div class="dropdown-content">
+            <a href="add-watermark.html">Add Watermark</a>
+            <a href="excel-to-pdf.html">Excel to PDF</a>
+            <a href="extract-images.html">Extract Images</a>
+            <a href="add-page-numbers.html">Add Page Numbers</a>
+            <a href="qr-code-pdf.html">QR Code Generator</a>
+          </div>
+        </div>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <button id="mobileMenuToggle" class="mobile-menu-toggle">⋮</button>
+        <button id="themeToggle" class="theme-btn">🌙</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="tool-header">
+      <h1>🔀 Reorder Pages</h1>
+      <p>Drag and drop to reorder, delete, or duplicate PDF pages (Client-side)</p>
+    </div>
+
+    <div class="ad ad-top">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXX" data-ad-slot="1111111111"></ins>
+    </div>
+
+    <div class="upload-area" id="uploadArea">
+      <div class="upload-icon">📁</div>
+      <h3>Drop PDF file here</h3>
+      <p>or click to browse</p>
+      <button class="btn" onclick="document.getElementById('fileInput').click()">Select PDF</button>
+      <input type="file" id="fileInput" class="file-input" accept=".pdf">
+    </div>
+
+    <div id="pagesContainer" style="display:none;">
+      <h3 style="margin-top: 2rem;">Drag pages to reorder:</h3>
+      <div class="pages-grid" id="pagesGrid"></div>
+    </div>
+
+    <div class="progress-container" id="progressContainer" style="display:none;">
+      <div class="progress">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+      <p id="progressText" style="text-align:center; margin-top:1rem; color:var(--text-secondary);"></p>
+    </div>
+
+    <div id="downloadSection" style="display:none; text-align:center; margin:2rem 0; padding:2rem; background:var(--bg-secondary); border-radius:12px; border:2px solid var(--success);">
+      <div style="font-size:3rem; margin-bottom:1rem;">✅</div>
+      <h3 style="color:var(--success); margin-bottom:1rem;">Pages Reordered!</h3>
+      <p style="color:var(--text-secondary); margin-bottom:1.5rem;">Your reordered PDF is ready to download</p>
+      <button class="btn" onclick="downloadFile()" style="font-size:1.1rem; padding:1rem 2rem;">📥 Download PDF</button>
+      <button class="btn btn-secondary" onclick="resetTool()" style="margin-left:1rem;">🔄 Reorder Another PDF</button>
+    </div>
+
+    <div style="text-align: center; margin: 2rem 0;">
+      <button class="btn" id="saveBtn" style="display:none;" onclick="savePDF()">💾 Save Reordered PDF</button>
+    </div>
+
+    <div class="ad ad-bottom">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXX" data-ad-slot="3333333333"></ins>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <nav><a href="about.html">About</a> • <a href="contact.html">Contact</a> • <a href="privacy.html">Privacy Policy</a></nav>
+    <small>© 2025 PDF Suite Tools – All rights reserved.</small>
+  </footer>
+
+  <script src="theme.js"></script>
+  <script>
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+    let pdfDoc = null;
+    let pdfBytes = null;
+    let pages = [];
+    let draggedIndex = null;
+    let downloadBlob = null;
+    let downloadFilename = null;
+
+    document.getElementById('fileInput').addEventListener('change', function(e) {
+      if (e.target.files.length > 0) {
+        loadPDF(e.target.files[0]);
+      }
+    });
+
+    const uploadArea = document.getElementById('uploadArea');
+    uploadArea.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      uploadArea.classList.add('dragover');
+    });
+
+    uploadArea.addEventListener('dragleave', () => {
+      uploadArea.classList.remove('dragover');
+    });
+
+    uploadArea.addEventListener('drop', (e) => {
+      e.preventDefault();
+      uploadArea.classList.remove('dragover');
+      if (e.dataTransfer.files.length > 0) {
+        loadPDF(e.dataTransfer.files[0]);
+      }
+    });
+
+    async function loadPDF(file) {
+      try {
+        const arrayBuffer = await file.arrayBuffer();
+        pdfBytes = arrayBuffer;
+        pdfDoc = await PDFLib.PDFDocument.load(arrayBuffer);
+        
+        const loadingTask = pdfjsLib.getDocument({ data: arrayBuffer });
+        const pdf = await loadingTask.promise;
+        
+        pages = [];
+        for (let i = 1; i <= pdf.numPages; i++) {
+          pages.push({ index: i - 1, page: await pdf.getPage(i) });
+        }
+        
+        downloadFilename = file.name.replace('.pdf', '_reordered.pdf');
+        
+        renderPages();
+        document.getElementById('pagesContainer').style.display = 'block';
+        document.getElementById('saveBtn').style.display = 'inline-flex';
+        document.getElementById('downloadSection').style.display = 'none';
+      } catch (error) {
+        alert('Error loading PDF: ' + error.message);
+        console.error(error);
+      }
+    }
+
+    async function renderPages() {
+      const grid = document.getElementById('pagesGrid');
+      grid.innerHTML = '';
+      
+      for (let i = 0; i < pages.length; i++) {
+        const pageCard = document.createElement('div');
+        pageCard.className = 'page-card';
+        pageCard.draggable = true;
+        pageCard.dataset.index = i;
+        
+        pageCard.addEventListener('dragstart', handleDragStart);
+        pageCard.addEventListener('dragover', handleDragOver);
+        pageCard.addEventListener('drop', handleDrop);
+        pageCard.addEventListener('dragend', handleDragEnd);
+        
+        const preview = document.createElement('div');
+        preview.className = 'page-preview';
+        
+        const canvas = document.createElement('canvas');
+        const viewport = pages[i].page.getViewport({ scale: 0.5 });
+        canvas.width = viewport.width;
+        canvas.height = viewport.height;
+        
+        const context = canvas.getContext('2d');
+        await pages[i].page.render({
+          canvasContext: context,
+          viewport: viewport
+        }).promise;
+        
+        preview.appendChild(canvas);
+        pageCard.appendChild(preview);
+        
+        const pageNum = document.createElement('div');
+        pageNum.className = 'page-number';
+        pageNum.textContent = `Page ${i + 1}`;
+        pageCard.appendChild(pageNum);
+        
+        const actions = document.createElement('div');
+        actions.className = 'page-actions';
+        actions.innerHTML = `
+          <button class="btn" onclick="duplicatePage(${i})" style="font-size: 0.8rem; padding: 0.25rem;">📋 Duplicate</button>
+          <button class="btn" onclick="deletePage(${i})" style="font-size: 0.8rem; padding: 0.25rem; background: var(--danger);">🗑️ Delete</button>
+        `;
+        pageCard.appendChild(actions);
+        
+        grid.appendChild(pageCard);
+      }
+    }
+
+    function handleDragStart(e) {
+      draggedIndex = parseInt(e.target.dataset.index);
+      e.target.classList.add('dragging');
+    }
+
+    function handleDragOver(e) {
+      e.preventDefault();
+    }
+
+    function handleDrop(e) {
+      e.preventDefault();
+      const dropIndex = parseInt(e.target.closest('.page-card').dataset.index);
+      
+      if (draggedIndex !== dropIndex) {
+        const draggedPage = pages[draggedIndex];
+        pages.splice(draggedIndex, 1);
+        pages.splice(dropIndex, 0, draggedPage);
+        renderPages();
+      }
+    }
+
+    function handleDragEnd(e) {
+      e.target.classList.remove('dragging');
+    }
+
+    function duplicatePage(index) {
+      pages.splice(index + 1, 0, { ...pages[index] });
+      renderPages();
+    }
+
+    function deletePage(index) {
+      if (pages.length === 1) {
+        alert('Cannot delete the last page');
+        return;
+      }
+      pages.splice(index, 1);
+      renderPages();
+    }
+
+    async function savePDF() {
+      document.getElementById('progressContainer').style.display = 'block';
+      document.getElementById('progressText').textContent = 'Creating reordered PDF...';
+      document.getElementById('progressBar').style.width = '30%';
+      document.getElementById('saveBtn').disabled = true;
+
+      try {
+        const originalDoc = await PDFLib.PDFDocument.load(pdfBytes);
+        const newDoc = await PDFLib.PDFDocument.create();
+        
+        for (let i = 0; i < pages.length; i++) {
+          document.getElementById('progressBar').style.width = `${30 + ((i + 1) / pages.length) * 60}%`;
+          const [copiedPage] = await newDoc.copyPages(originalDoc, [pages[i].index]);
+          newDoc.addPage(copiedPage);
+        }
+        
+        document.getElementById('progressText').textContent = 'Saving PDF...';
+        document.getElementById('progressBar').style.width = '100%';
+        
+        const pdfBytesOut = await newDoc.save();
+        downloadBlob = new Blob([pdfBytesOut], { type: 'application/pdf' });
+
+        document.getElementById('progressContainer').style.display = 'none';
+        document.getElementById('downloadSection').style.display = 'block';
+        
+      } catch (error) {
+        document.getElementById('progressText').textContent = '❌ Error: ' + error.message;
+        console.error(error);
+        setTimeout(() => {
+          document.getElementById('progressContainer').style.display = 'none';
+        }, 3000);
+      } finally {
+        document.getElementById('saveBtn').disabled = false;
+      }
+    }
+
+    function downloadFile() {
+      if (!downloadBlob) {
+        alert('No file available to download');
+        return;
+      }
+      const url = URL.createObjectURL(downloadBlob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = downloadFilename;
+      document.body.appendChild(a);
+      a.click();
+      URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+    }
+
+    function resetTool() {
+      pdfDoc = null;
+      pdfBytes = null;
+      pages = [];
+      downloadBlob = null;
+      downloadFilename = null;
+      document.getElementById('pagesContainer').style.display = 'none';
+      document.getElementById('saveBtn').style.display = 'none';
+      document.getElementById('downloadSection').style.display = 'none';
+      document.getElementById('fileInput').value = '';
+    }
+  </script>
+</body>
+</html>

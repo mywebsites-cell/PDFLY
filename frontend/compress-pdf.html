@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="favicon.PNG" />
+  <meta name="description" content="Compress PDF files to reduce file size while preserving quality. Choose compression levels for images and optimize PDFs for web or email sharing." />
+  <meta name="keywords" content="compress PDF, reduce PDF size, PDF compression, optimize PDF, shrink PDF" />
+  <title>Compress PDF - PDFLY</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+</head>
+<body>
+  <header class="navbar">
+    <div class="nav-inner container">
+      <a class="logo" href="/home">
+        <img class="logo-img logo--light" src="images/logo-light.png" alt="PDFLY (light)" />
+        <img class="logo-img logo--dark" src="images/logo-dark.png" alt="PDFLY (dark)" />
+        <span class="logo-text">PDFLY</span>
+      </a>
+      <nav class="main-nav">
+        <a href="/home">Home</a>
+        <div class="dropdown">
+          <button class="dropbtn">Convert ▾</button>
+          <div class="dropdown-content">
+            <a href="word-to-pdf.html">Word → PDF</a>
+            <a href="pdf-to-word.html">PDF → Word</a>
+            <a href="image-to-pdf.html">Image → PDF</a>
+            <a href="pdf-to-image.html">PDF → Image</a>
+          </div>
+        </div>
+        <div class="dropdown">
+          <button class="dropbtn">Edit ▾</button>
+          <div class="dropdown-content">
+            <a href="merge-pdf.html">Merge</a>
+            <a href="split-pdf.html">Split</a>
+            <a href="rotate-pdf.html">Rotate</a>
+            <a href="compress-pdf.html">Compress</a>
+            <a href="reorder-pages.html">Reorder Pages</a>
+          </div>
+        </div>
+        <div class="dropdown">
+          <button class="dropbtn">Security ▾</button>
+          <div class="dropdown-content">
+            <a href="lock-pdf.html">Lock PDF</a>
+            <a href="unlock-pdf.html">Unlock PDF</a>
+          </div>
+        </div>
+        <div class="dropdown">
+          <button class="dropbtn">Tools ▾</button>
+          <div class="dropdown-content">
+            <a href="add-watermark.html">Add Watermark</a>
+            <a href="excel-to-pdf.html">Excel to PDF</a>
+            <a href="extract-images.html">Extract Images</a>
+            <a href="add-page-numbers.html">Add Page Numbers</a>
+            <a href="qr-code-pdf.html">QR Code Generator</a>
+          </div>
+        </div>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <button id="mobileMenuToggle" class="mobile-menu-toggle">⋮</button>
+        <button id="themeToggle" class="theme-btn">🌙</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="tool-header">
+      <h1>🗜️ Compress PDF</h1>
+      <p>Reduce PDF file size by optimizing images (Client-side processing)</p>
+    </div>
+
+    <div class="ad ad-top">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXX" data-ad-slot="1111111111"></ins>
+    </div>
+
+    <div class="upload-area" id="uploadArea">
+      <div class="upload-icon">📁</div>
+      <h3>Drop PDF file here</h3>
+      <p>or click to browse</p>
+      <button class="btn" onclick="document.getElementById('fileInput').click()">Select PDF</button>
+      <input type="file" id="fileInput" class="file-input" accept=".pdf">
+    </div>
+
+    <div id="fileInfo" class="file-list" style="display:none;">
+      <div class="file-item">
+        <div class="file-info">
+          <span class="file-icon">📄</span>
+          <div class="file-details">
+            <h4 id="fileName"></h4>
+            <p id="fileSize"></p>
+          </div>
+        </div>
+        <div class="file-actions">
+          <button class="icon-btn" onclick="removeFile()">🗑️</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="settings-panel" id="settingsPanel" style="display:none;">
+      <h3>⚙️ Compression Settings</h3>
+      <div class="setting-group">
+        <label>Compression Level</label>
+        <select id="compressionLevel">
+          <option value="0.3">High Compression (Lower Quality)</option>
+          <option value="0.5" selected>Medium Compression (Balanced)</option>
+          <option value="0.7">Low Compression (Higher Quality)</option>
+        </select>
+      </div>
+      <div class="setting-group">
+        <label>Image Resolution (DPI)</label>
+        <select id="imageDPI">
+          <option value="72">72 DPI (Screen)</option>
+          <option value="150" selected>150 DPI (Web)</option>
+          <option value="300">300 DPI (Print)</option>
+        </select>
+      </div>
+      <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 1rem;">
+        <strong>Note:</strong> Compression works best on image-heavy PDFs.
+      </p>
+    </div>
+
+    <div class="progress-container" id="progressContainer" style="display:none;">
+      <div class="progress">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+      <p id="progressText" style="text-align:center; margin-top:1rem; color:var(--text-secondary);"></p>
+    </div>
+
+    <div id="downloadSection" style="display:none; text-align:center; margin:2rem 0; padding:2rem; background:var(--bg-secondary); border-radius:12px; border:2px solid var(--success);">
+      <div style="font-size:3rem; margin-bottom:1rem;">✅</div>
+      <h3 style="color:var(--success); margin-bottom:1rem;">Compression Complete!</h3>
+      <div style="display:flex; justify-content:center; gap:2rem; flex-wrap:wrap; margin-bottom:1.5rem;">
+        <div>
+          <p style="color:var(--text-secondary);">Original</p>
+          <p style="font-size:1.5rem; font-weight:700;" id="originalSize">-</p>
+        </div>
+        <div>
+          <p style="color:var(--text-secondary);">Compressed</p>
+          <p style="font-size:1.5rem; font-weight:700; color:var(--success);" id="compressedSize">-</p>
+        </div>
+        <div>
+          <p style="color:var(--text-secondary);">Saved</p>
+          <p style="font-size:1.5rem; font-weight:700; color:var(--primary);" id="reductionPercent">-</p>
+        </div>
+      </div>
+      <button class="btn" onclick="downloadFile()" style="font-size:1.1rem; padding:1rem 2rem;">📥 Download Compressed PDF</button>
+      <button class="btn btn-secondary" onclick="resetTool()" style="margin-left:1rem;">🔄 Compress Another PDF</button>
+    </div>
+
+    <div style="text-align: center; margin: 2rem 0;">
+      <button class="btn" id="compressBtn" style="display:none;" onclick="compressPDF()">🗜️ Compress PDF</button>
+    </div>
+
+    <div class="ad ad-bottom">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXX" data-ad-slot="3333333333"></ins>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <nav><a href="about.html">About</a> • <a href="contact.html">Contact</a> • <a href="privacy.html">Privacy Policy</a></nav>
+    <small>© 2025 PDF Suite Tools – All rights reserved.</small>
+  </footer>
+
+  <script src="theme.js"></script>
+  <script>
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+    let selectedFile = null;
+    let originalSize = 0;
+    let downloadBlob = null;
+    let downloadFilename = null;
+
+    document.getElementById('fileInput').addEventListener('change', function(e) {
+      if (e.target.files.length > 0) {
+        handleFileSelect(e.target.files[0]);
+      }
+    });
+
+    const uploadArea = document.getElementById('uploadArea');
+    uploadArea.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      uploadArea.classList.add('dragover');
+    });
+
+    uploadArea.addEventListener('dragleave', () => {
+      uploadArea.classList.remove('dragover');
+    });
+
+    uploadArea.addEventListener('drop', (e) => {
+      e.preventDefault();
+      uploadArea.classList.remove('dragover');
+      if (e.dataTransfer.files.length > 0) {
+        handleFileSelect(e.dataTransfer.files[0]);
+      }
+    });
+
+    function handleFileSelect(file) {
+      selectedFile = file;
+      originalSize = file.size;
+      
+      document.getElementById('fileName').textContent = file.name;
+      document.getElementById('fileSize').textContent = formatFileSize(file.size);
+      document.getElementById('fileInfo').style.display = 'block';
+      document.getElementById('settingsPanel').style.display = 'block';
+      document.getElementById('compressBtn').style.display = 'inline-flex';
+      document.getElementById('downloadSection').style.display = 'none';
+    }
+
+    function removeFile() {
+      selectedFile = null;
+      downloadBlob = null;
+      downloadFilename = null;
+      document.getElementById('fileInfo').style.display = 'none';
+      document.getElementById('settingsPanel').style.display = 'none';
+      document.getElementById('compressBtn').style.display = 'none';
+      document.getElementById('downloadSection').style.display = 'none';
+      document.getElementById('fileInput').value = '';
+    }
+
+    async function compressPDF() {
+      if (!selectedFile) return;
+
+      const quality = parseFloat(document.getElementById('compressionLevel').value);
+      const dpi = parseInt(document.getElementById('imageDPI').value);
+
+      document.getElementById('progressContainer').style.display = 'block';
+      document.getElementById('progressText').textContent = 'Loading PDF...';
+      document.getElementById('progressBar').style.width = '10%';
+      document.getElementById('compressBtn').disabled = true;
+
+      try {
+        const arrayBuffer = await selectedFile.arrayBuffer();
+        const loadingTask = pdfjsLib.getDocument({ data: arrayBuffer });
+        const pdfDoc = await loadingTask.promise;
+        const numPages = pdfDoc.numPages;
+
+        const newPdf = await PDFLib.PDFDocument.create();
+
+        for (let i = 1; i <= numPages; i++) {
+          document.getElementById('progressText').textContent = `Processing page ${i}/${numPages}...`;
+          document.getElementById('progressBar').style.width = `${(i / numPages) * 100}%`;
+
+          const page = await pdfDoc.getPage(i);
+          const viewport = page.getViewport({ scale: dpi / 72 });
+
+          const canvas = document.createElement('canvas');
+          canvas.width = viewport.width;
+          canvas.height = viewport.height;
+          const context = canvas.getContext('2d');
+
+          await page.render({
+            canvasContext: context,
+            viewport: viewport
+          }).promise;
+
+          const compressedImage = canvas.toDataURL('image/jpeg', quality);
+          const imageBytes = await fetch(compressedImage).then(r => r.arrayBuffer());
+
+          const img = await newPdf.embedJpg(imageBytes);
+          const newPage = newPdf.addPage([viewport.width, viewport.height]);
+          newPage.drawImage(img, {
+            x: 0,
+            y: 0,
+            width: viewport.width,
+            height: viewport.height
+          });
+        }
+
+        document.getElementById('progressText').textContent = 'Saving compressed PDF...';
+        const pdfBytes = await newPdf.save();
+        const compressedSize = pdfBytes.length;
+
+        downloadBlob = new Blob([pdfBytes], { type: 'application/pdf' });
+        downloadFilename = selectedFile.name.replace('.pdf', '_compressed.pdf');
+
+        const reduction = ((originalSize - compressedSize) / originalSize * 100).toFixed(1);
+        document.getElementById('originalSize').textContent = formatFileSize(originalSize);
+        document.getElementById('compressedSize').textContent = formatFileSize(compressedSize);
+        document.getElementById('reductionPercent').textContent = reduction + '%';
+
+        document.getElementById('progressContainer').style.display = 'none';
+        document.getElementById('downloadSection').style.display = 'block';
+
+      } catch (error) {
+        document.getElementById('progressText').textContent = '❌ Error: ' + error.message;
+        console.error('Compression error:', error);
+        setTimeout(() => {
+          document.getElementById('progressContainer').style.display = 'none';
+        }, 3000);
+      } finally {
+        document.getElementById('compressBtn').disabled = false;
+      }
+    }
+
+    function downloadFile() {
+      if (!downloadBlob) {
+        alert('No file available to download');
+        return;
+      }
+      const url = URL.createObjectURL(downloadBlob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = downloadFilename;
+      document.body.appendChild(a);
+      a.click();
+      URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+    }
+
+    function resetTool() {
+      removeFile();
+    }
+
+    function formatFileSize(bytes) {
+      if (bytes === 0) return '0 Bytes';
+      const k = 1024;
+      const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+      const i = Math.floor(Math.log(bytes) / Math.log(k));
+      return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>PDFLY – Free Online PDF & Document Tools</title>
+  <meta name="description" content="PDFLY – convert, merge, split, compress, rotate PDFs; convert Word ↔ PDF; image ↔ PDF. Fast, mobile-friendly and free." />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="icon" href="/favicon.PNG" />
+  <link rel="stylesheet" href="/style.css" />
+  <meta property="og:title" content="PDF Suite Tools – Free Online PDF & Document Tools" />
+  <meta property="og:description" content="Convert Word ↔ PDF, Image ↔ PDF, merge, split, compress and more." />
+</head>
+<body>
+  <header class="navbar">
+    <div class="nav-inner container">
+      <a class="logo" href="/home">
+        <img class="logo-img logo--light" src="/images/logo-light.png" alt="PDFLY (light)" />
+        <img class="logo-img logo--dark" src="/images/logo-dark.png" alt="PDFLY (dark)" />
+        <span class="logo-text">PDFLY</span>
+      </a>
+
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="/home" class="active">Home</a>
+        <div class="dropdown">
+          <button class="dropbtn">Convert ▾</button>
+          <div class="dropdown-content">
+            <a href="/word-to-pdf">Word → PDF</a>
+            <a href="/pdf-to-word">PDF → Word</a>
+            <a href="/image-to-pdf">Image → PDF</a>
+            <a href="/pdf-to-image">PDF → Image</a>
+          </div>
+        </div>
+        <div class="dropdown">
+          <button class="dropbtn">Edit ▾</button>
+          <div class="dropdown-content">
+            <a href="/merge-pdf">Merge</a>
+            <a href="/split-pdf">Split</a>
+            <a href="/rotate-pdf">Rotate</a>
+            <a href="/compress-pdf">Compress</a>
+            <a href="/reorder-pages">Reorder Pages</a>
+          </div>
+        </div>
+        <div class="dropdown">
+          <button class="dropbtn">Security ▾</button>
+          <div class="dropdown-content">
+            <a href="/lock-pdf">Lock PDF</a>
+            <a href="/unlock-pdf">Unlock PDF</a>
+          </div>
+        </div>
+        <div class="dropdown">
+          <button class="dropbtn">Tools ▾</button>
+          <div class="dropdown-content">
+            <a href="/add-watermark">Add Watermark</a>
+            <a href="/excel-to-pdf">Excel to PDF</a>
+            <a href="/extract-images">Extract Images</a>
+            <a href="/add-page-numbers">Add Page Numbers</a>
+            <a href="/qr-code-pdf">QR Code Generator</a>
+          </div>
+        </div>
+        <a href="/about">About</a>
+        <a href="/contact">Contact</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button id="mobileMenuToggle" class="mobile-menu-toggle">⋮</button>
+        <button id="themeToggle" class="theme-btn" aria-label="Toggle theme">🌙</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <h1 class="page-title">PDFLY – Free Online PDF & Document Tools</h1>
+    <p class="lead">Fast, private and easy-to-use PDF & document utilities – client-side where possible. Use Word↔PDF with your server for best fidelity.</p>
+
+    <!-- Top Ad placeholder (AdSense) -->
+    <div class="ad ad-top">
+      <!-- Replace ca-pub & slot with your own AdSense data -->
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-XXXXXXXXXXXX"
+           data-ad-slot="1111111111"
+           data-ad-format="auto"></ins>
+    </div>
+
+    <section class="grid" aria-label="Tools list">
+      <a class="card" href="/word-to-pdf">
+        <h3>📝 Word → PDF</h3>
+        <p>DOCX → PDF (server-powered).</p>
+      </a>
+      <a class="card" href="/pdf-to-word">
+        <h3>📄 PDF → Word</h3>
+        <p>PDF → editable DOCX (server-powered).</p>
+      </a>
+      <a class="card" href="/image-to-pdf">
+        <h3>🖼️ Image → PDF</h3>
+        <p>Create a PDF from images (client-side).</p>
+      </a>
+      <a class="card" href="/pdf-to-image">
+        <h3>📷 PDF → Image</h3>
+        <p>Export PDF pages as PNG images (server-powered).</p>
+      </a>
+      <a class="card" href="/excel-to-pdf">
+        <h3>📊 Excel → PDF</h3>
+        <p>Convert XLSX/XLS spreadsheets to PDF (server-powered).</p>
+      </a>
+
+      <a class="card" href="/merge-pdf">
+        <h3>🔗 Merge PDFs</h3>
+        <p>Combine multiple PDFs into one (client-side).</p>
+      </a>
+      <a class="card" href="/split-pdf">
+        <h3>✂️ Split PDF</h3>
+        <p>Split a PDF into individual pages (client-side).</p>
+      </a>
+      <a class="card" href="/rotate-pdf">
+        <h3>🔄 Rotate PDF</h3>
+        <p>Rotate pages in the browser (90/180/270).</p>
+      </a>
+      <a class="card" href="/compress-pdf">
+        <h3>🗜️ Compress PDF</h3>
+        <p>Reduce PDF size – client-side raster compression.</p>
+      </a>
+      <a class="card" href="/reorder-pages">
+        <h3>🔀 Reorder Pages</h3>
+        <p>Drag and drop to reorder PDF pages (client-side).</p>
+      </a>
+
+      <a class="card" href="/lock-pdf">
+        <h3>🔒 Lock PDF</h3>
+        <p>Password protect your PDFs (server-powered).</p>
+      </a>
+      <a class="card" href="/unlock-pdf">
+        <h3>🔓 Unlock PDF</h3>
+        <p>Remove password protection (server-powered).</p>
+      </a>
+
+      <a class="card" href="/add-watermark">
+        <h3>💧 Add Watermark</h3>
+        <p>Add text watermark to your PDFs (client-side).</p>
+      </a>
+      <a class="card" href="/extract-images">
+        <h3>🖼️ Extract Images</h3>
+        <p>Extract all images from PDF as PNG files (server-powered).</p>
+      </a>
+      <a class="card" href="/add-page-numbers">
+        <h3>🔢 Add Page Numbers</h3>
+        <p>Add page numbers to your PDF (server-powered).</p>
+      </a>
+      <a class="card" href="/qr-code-pdf">
+        <h3>📱 QR Code Generator</h3>
+        <p>Generate QR codes and save as PDF (client-side).</p>
+      </a>
+    </section>
+
+    <div class="ad ad-mid">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-XXXXXXXXXXXX"
+           data-ad-slot="2222222222"
+           data-ad-format="auto"></ins>
+    </div>
+
+    <section class="help">
+      <h2>Help & Tips</h2>
+      <ul>
+        <li><strong>Word → PDF / PDF → Word:</strong> For best results, upload DOCX files and keep them under 50 MB.</li>
+        <li><strong>Image → PDF:</strong> Use JPG or PNG; choose high resolution if you need print-quality output.</li>
+        <li><strong>Compress:</strong> Works best for image-heavy documents – try different quality settings.</li>
+        <li><strong>Privacy:</strong> Client-side tools run in your browser. Server conversions (Word↔PDF) are processed on your server and auto-deleted.</li>
+      </ul>
+    </section>
+
+    <div class="ad ad-bottom">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-XXXXXXXXXXXX"
+           data-ad-slot="3333333333"
+           data-ad-format="auto"></ins>
+    </div>
+
+  <footer class="footer">
+    <nav><a href="/about">About</a> • <a href="/contact">Contact</a> • <a href="/privacy">Privacy Policy</a></nav>
+    <small>© 2025 PDFLY – All rights reserved.</small>
+  </footer>
+
+  <script src="/theme.js"></script>
+  <!-- AdSense loader (replace client ID with your own globally or remove before testing locally) -->
+  <script>
+    (function(){
+      // Load AdSense if client id replaced
+      const pub = 'ca-pub-XXXXXXXXXXXX';
+      if (pub && pub.indexOf('XXXXXXXX') === -1) {
+        const s = document.createElement('script'); s.async = true;
+        s.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js';
+        s.setAttribute('data-ad-client', pub);
+        document.head.appendChild(s);
+      }
+    })();
+    // init ads
+    (window.adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</body>
+</html>

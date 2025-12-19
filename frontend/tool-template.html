@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>TOOL NAME - DocTools</title>
+  <meta name="description" content="TOOL NAME — free online tool. Files are not stored." />
+  <meta name="keywords" content="online tool, free tool, PDF tool, document utility, privacy" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="icon" href="favicon.PNG" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="navbar">
+    <a class="logo" href="/home">
+      <img class="logo-img logo--light" src="images/logo-light.png" alt="PDFLY (light)" />
+      <img class="logo-img logo--dark" src="images/logo-dark.png" alt="PDFLY (dark)" />
+      <span class="logo-text">PDFLY</span>
+    </a>
+    <nav>
+      <a href="/word-to-pdf">Word → PDF</a>
+      <a href="/pdf-to-word">PDF → Word</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h1 style="text-align:center; margin-top:10px;">TOOL NAME</h1>
+
+    <section class="tool-container">
+      <!-- Replace below inputs with tool-specific interface -->
+      <input type="file" id="inputFile" accept=".pdf,.docx,image/*" />
+      <p class="hint">Choose file and press Convert</p>
+      <button id="doBtn">Do TOOL</button>
+    </section>
+  </main>
+
+  <script src="shared.js"></script>
+  <script>
+    // Example wiring — replace function with your real implementation
+    document.getElementById('doBtn').addEventListener('click', async () => {
+      const btn = document.getElementById('doBtn');
+      const f = document.getElementById('inputFile').files[0];
+      if (!f) { alert('Please select a file'); return; }
+      try {
+        setBusy(btn, true);
+        // Example: simulate processing and then show the download button
+        // Replace this block by your real processing (server call or client-side transform)
+        await new Promise(r => setTimeout(r, 800));
+
+        // Example result Blob — replace with actual Blob returned by your process
+        const exampleBlob = new Blob(["Example result file content"], { type: 'text/plain' });
+
+        // showDownloadButton is provided globally by `theme.js` (loaded on all tool pages)
+        if (window.showDownloadButton) {
+          window.showDownloadButton({
+            containerSelector: '.container',
+            filename: 'example-result.txt',
+            blobOrUrl: exampleBlob,
+            mime: 'text/plain',
+            text: 'Download Result',
+            note: 'Your processed file is ready — click to download.'
+          });
+        } else {
+          // fallback: trigger direct download
+          const a = document.createElement('a');
+          a.href = URL.createObjectURL(exampleBlob);
+          a.download = 'example-result.txt';
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+        }
+      } catch (err) {
+        alert('Error: ' + err.message);
+      } finally {
+        setBusy(btn, false);
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Merge multiple PDF files into a single document quickly in your browser. Reorder inputs and produce one consolidated PDF for sharing." />
+  <meta name="keywords" content="merge PDF, combine PDFs, join PDF, merge documents, PDF merge" />
+  <title>Merge PDF - PDFLY</title>
+  <link rel="icon" href="favicon.PNG" />
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+</head>
+<body>
+  <header class="navbar">
+    <div class="nav-inner container">
+      <a class="logo" href="/home">
+          <img class="logo-img logo--light" src="images/logo-light.png" alt="PDFLY (light)" />
+          <img class="logo-img logo--dark" src="images/logo-dark.png" alt="PDFLY (dark)" />
+          <span class="logo-text">PDFLY</span>
+      </a>
+      <nav class="main-nav">
+        <a href="/home">Home</a>
+        <div class="dropdown">
+          <button class="dropbtn">Convert ▾</button>
+          <div class="dropdown-content">
+            <a href="word-to-pdf.html">Word → PDF</a>
+            <a href="pdf-to-word.html">PDF → Word</a>
+            <a href="image-to-pdf.html">Image → PDF</a>
+            <a href="pdf-to-image.html">PDF → Image</a>
+          </div>
+        </div>
+        <div class="dropdown">
+          <button class="dropbtn">Edit ▾</button>
+          <div class="dropdown-content">
+            <a href="merge-pdf.html">Merge</a>
+            <a href="split-pdf.html">Split</a>
+            <a href="rotate-pdf.html">Rotate</a>
+            <a href="compress-pdf.html">Compress</a>
+            <a href="reorder-pages.html">Reorder Pages</a>
+          </div>
+        </div>
+        <div class="dropdown">
+          <button class="dropbtn">Security ▾</button>
+          <div class="dropdown-content">
+            <a href="lock-pdf.html">Lock PDF</a>
+            <a href="unlock-pdf.html">Unlock PDF</a>
+          </div>
+        </div>
+        <div class="dropdown">
+          <button class="dropbtn">Tools ▾</button>
+          <div class="dropdown-content">
+            <a href="add-watermark.html">Add Watermark</a>
+            <a href="excel-to-pdf.html">Excel to PDF</a>
+            <a href="extract-images.html">Extract Images</a>
+            <a href="add-page-numbers.html">Add Page Numbers</a>
+            <a href="qr-code-pdf.html">QR Code Generator</a>
+          </div>
+        </div>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <button id="mobileMenuToggle" class="mobile-menu-toggle">⋮</button>
+        <button id="themeToggle" class="theme-btn">🌙</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="tool-header">
+      <h1>🔗 Merge PDFs</h1>
+      <p>Combine multiple PDF files into one document (Client-side processing)</p>
+    </div>
+
+    <div class="ad ad-top">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXX" data-ad-slot="1111111111"></ins>
+    </div>
+
+    <div class="upload-area" id="uploadArea">
+      <div class="upload-icon">📁</div>
+      <h3>Drop PDF files here</h3>
+      <p>or click to browse (Multiple PDFs supported)</p>
+      <button class="btn" onclick="document.getElementById('fileInput').click()">Select PDFs</button>
+      <input type="file" id="fileInput" class="file-input" accept=".pdf" multiple>
+    </div>
+
+    <div id="fileList" class="file-list" style="display:none;"></div>
+
+    <div class="progress-container" id="progressContainer" style="display:none;">
+      <div class="progress">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+      <p id="progressText" style="text-align:center; margin-top:1rem; color:var(--text-secondary);"></p>
+    </div>
+
+    <div id="downloadSection" style="display:none; text-align:center; margin:2rem 0; padding:2rem; background:var(--bg-secondary); border-radius:12px; border:2px solid var(--success);">
+      <div style="font-size:3rem; margin-bottom:1rem;">✅</div>
+      <h3 style="color:var(--success); margin-bottom:1rem;">PDFs Merged!</h3>
+      <p style="color:var(--text-secondary); margin-bottom:1.5rem;">Your merged PDF is ready to download</p>
+      <button class="btn" onclick="downloadFile()" style="font-size:1.1rem; padding:1rem 2rem;">📥 Download PDF</button>
+      <button class="btn btn-secondary" onclick="resetTool()" style="margin-left:1rem;">🔄 Merge More PDFs</button>
+    </div>
+
+    <div style="text-align: center; margin: 2rem 0;">
+      <button class="btn" id="mergeBtn" style="display:none;" onclick="mergePDFs()">🔗 Merge PDFs</button>
+    </div>
+
+    <div class="ad ad-bottom">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXX" data-ad-slot="3333333333"></ins>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <nav><a href="about.html">About</a> • <a href="contact.html">Contact</a> • <a href="privacy.html">Privacy Policy</a></nav>
+    <small>© 2025 PDF Suite Tools – All rights reserved.</small>
+  </footer>
+
+  <script src="theme.js"></script>
+  <script>
+    let selectedFiles = [];
+    let downloadBlob = null;
+    let downloadFilename = null;
+
+    document.getElementById('fileInput').addEventListener('change', function(e) {
+      handleFileSelect(Array.from(e.target.files));
+    });
+
+    const uploadArea = document.getElementById('uploadArea');
+    uploadArea.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      uploadArea.classList.add('dragover');
+    });
+
+    uploadArea.addEventListener('dragleave', () => {
+      uploadArea.classList.remove('dragover');
+    });
+
+    uploadArea.addEventListener('drop', (e) => {
+      e.preventDefault();
+      uploadArea.classList.remove('dragover');
+      handleFileSelect(Array.from(e.dataTransfer.files).filter(f => f.type === 'application/pdf'));
+    });
+
+    function handleFileSelect(files) {
+      selectedFiles = files.filter(f => f.type === 'application/pdf');
+      if (selectedFiles.length === 0) return;
+
+      displayFileList();
+      document.getElementById('mergeBtn').style.display = 'inline-flex';
+      document.getElementById('downloadSection').style.display = 'none';
+    }
+
+    function displayFileList() {
+      const fileList = document.getElementById('fileList');
+      fileList.innerHTML = '';
+      fileList.style.display = 'block';
+
+      selectedFiles.forEach((file, index) => {
+        const fileItem = document.createElement('div');
+        fileItem.className = 'file-item';
+        fileItem.innerHTML = `
+          <div class="file-info">
+            <span class="file-icon">📄</span>
+            <div class="file-details">
+              <h4>${file.name}</h4>
+              <p>${formatFileSize(file.size)}</p>
+            </div>
+          </div>
+          <div class="file-actions">
+            <button class="icon-btn" onclick="moveFile(${index}, -1)" ${index === 0 ? 'disabled' : ''}>↑</button>
+            <button class="icon-btn" onclick="moveFile(${index}, 1)" ${index === selectedFiles.length - 1 ? 'disabled' : ''}>↓</button>
+            <button class="icon-btn" onclick="removeFile(${index})">🗑️</button>
+          </div>
+        `;
+        fileList.appendChild(fileItem);
+      });
+    }
+
+    function moveFile(index, direction) {
+      const newIndex = index + direction;
+      if (newIndex < 0 || newIndex >= selectedFiles.length) return;
+      [selectedFiles[index], selectedFiles[newIndex]] = [selectedFiles[newIndex], selectedFiles[index]];
+      displayFileList();
+    }
+
+    function removeFile(index) {
+      selectedFiles.splice(index, 1);
+      if (selectedFiles.length === 0) {
+        document.getElementById('fileList').style.display = 'none';
+        document.getElementById('mergeBtn').style.display = 'none';
+      } else {
+        displayFileList();
+      }
+    }
+
+    async function mergePDFs() {
+      if (selectedFiles.length < 2) {
+        alert('Please select at least 2 PDF files to merge');
+        return;
+      }
+
+      document.getElementById('progressContainer').style.display = 'block';
+      document.getElementById('mergeBtn').disabled = true;
+
+      try {
+        const mergedPdf = await PDFLib.PDFDocument.create();
+
+        for (let i = 0; i < selectedFiles.length; i++) {
+          document.getElementById('progressText').textContent = `Processing ${i + 1}/${selectedFiles.length}...`;
+          document.getElementById('progressBar').style.width = `${((i + 1) / selectedFiles.length) * 100}%`;
+
+          const fileBytes = await selectedFiles[i].arrayBuffer();
+          const pdf = await PDFLib.PDFDocument.load(fileBytes);
+          const copiedPages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
+          copiedPages.forEach(page => mergedPdf.addPage(page));
+        }
+
+        document.getElementById('progressText').textContent = 'Generating merged PDF...';
+        const mergedPdfBytes = await mergedPdf.save();
+        downloadBlob = new Blob([mergedPdfBytes], { type: 'application/pdf' });
+        downloadFilename = 'merged.pdf';
+
+        document.getElementById('progressContainer').style.display = 'none';
+        document.getElementById('downloadSection').style.display = 'block';
+
+      } catch (error) {
+        document.getElementById('progressText').textContent = '❌ Error: ' + error.message;
+        console.error('Merge error:', error);
+        setTimeout(() => {
+          document.getElementById('progressContainer').style.display = 'none';
+        }, 3000);
+      } finally {
+        document.getElementById('mergeBtn').disabled = false;
+      }
+    }
+
+    function downloadFile() {
+      if (!downloadBlob) {
+        alert('No file available to download');
+        return;
+      }
+      const url = URL.createObjectURL(downloadBlob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = downloadFilename;
+      document.body.appendChild(a);
+      a.click();
+      URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+    }
+
+    function resetTool() {
+      selectedFiles = [];
+      downloadBlob = null;
+      downloadFilename = null;
+      document.getElementById('fileList').style.display = 'none';
+      document.getElementById('mergeBtn').style.display = 'none';
+      document.getElementById('downloadSection').style.display = 'none';
+      document.getElementById('fileInput').value = '';
+    }
+
+    function formatFileSize(bytes) {
+      if (bytes === 0) return '0 Bytes';
+      const k = 1024;
+      const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+      const i = Math.floor(Math.log(bytes) / Math.log(k));
+      return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
+    }
+  </script>
+</body>
+</html>

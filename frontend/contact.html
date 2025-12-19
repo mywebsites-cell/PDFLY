@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="favicon.PNG" />
+  <title>Contact Us - PDFLY</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="navbar">
+    <div class="nav-inner container">
+      <a class="logo" href="/home">
+        <img class="logo-img logo--light" src="images/logo-light.png" alt="PDFLY (light)" />
+        <img class="logo-img logo--dark" src="images/logo-dark.png" alt="PDFLY (dark)" />
+        <span class="logo-text">PDFLY</span>
+      </a>
+      <nav class="main-nav">
+        <a href="/home">Home</a>
+        <div class="dropdown">
+          <button class="dropbtn">Convert ▾</button>
+          <div class="dropdown-content">
+            <a href="word-to-pdf.html">Word → PDF</a>
+            <a href="pdf-to-word.html">PDF → Word</a>
+            <a href="image-to-pdf.html">Image → PDF</a>
+            <a href="pdf-to-image.html">PDF → Image</a>
+          </div>
+        </div>
+        <div class="dropdown">
+          <button class="dropbtn">Edit ▾</button>
+          <div class="dropdown-content">
+            <a href="merge-pdf.html">Merge</a>
+            <a href="split-pdf.html">Split</a>
+            <a href="rotate-pdf.html">Rotate</a>
+            <a href="compress-pdf.html">Compress</a>
+            <a href="reorder-pages.html">Reorder Pages</a>
+          </div>
+        </div>
+        <div class="dropdown">
+          <button class="dropbtn">Security ▾</button>
+          <div class="dropdown-content">
+            <a href="lock-pdf.html">Lock PDF</a>
+            <a href="unlock-pdf.html">Unlock PDF</a>
+          </div>
+        </div>
+        <div class="dropdown">
+          <button class="dropbtn">Tools ▾</button>
+          <div class="dropdown-content">
+            <a href="add-watermark.html">Add Watermark</a>
+            <a href="excel-to-pdf.html">Excel to PDF</a>
+            <a href="extract-images.html">Extract Images</a>
+            <a href="add-page-numbers.html">Add Page Numbers</a>
+            <a href="qr-code-pdf.html">QR Code Generator</a>
+          </div>
+        </div>
+        <a href="about.html">About</a>
+        <a href="contact.html" class="active">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <button id="mobileMenuToggle" class="mobile-menu-toggle">⋮</button>
+        <button id="themeToggle" class="theme-btn">🌙</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="tool-header">
+      <h1>Contact Us</h1>
+      <p>Get in touch with us</p>
+    </div>
+
+    <div style="max-width: 700px; margin: 0 auto;">
+      <section style="background: var(--bg-secondary); padding: 2rem; border-radius: 12px; margin-bottom: 2rem;">
+        <h2 style="color: var(--primary); margin-bottom: 1.5rem;">Send Us a Message</h2>
+        
+        <form id="contactForm" style="display: grid; gap: 1.5rem;">
+          <div class="setting-group">
+            <label for="name">Name *</label>
+            <input type="text" id="name" name="name" required 
+                   style="width:100%; padding:0.75rem; border:1px solid var(--border); border-radius:6px; background:var(--bg); color:var(--text); font-family:inherit; font-size:1rem;">
+          </div>
+
+          <div class="setting-group">
+            <label for="email">Your Email *</label>
+            <input type="email" id="email" name="email" required 
+                   style="width:100%; padding:0.75rem; border:1px solid var(--border); border-radius:6px; background:var(--bg); color:var(--text); font-family:inherit; font-size:1rem;">
+          </div>
+
+          <div class="setting-group">
+            <label for="subject">Subject *</label>
+            <input type="text" id="subject" name="subject" required 
+                   style="width:100%; padding:0.75rem; border:1px solid var(--border); border-radius:6px; background:var(--bg); color:var(--text); font-family:inherit; font-size:1rem;">
+          </div>
+
+          <div class="setting-group">
+            <label for="message">Message *</label>
+            <textarea id="message" name="message" rows="6" required 
+                      style="width:100%; padding:0.75rem; border:1px solid var(--border); border-radius:6px; background:var(--bg); color:var(--text); font-family:inherit; font-size:1rem; resize:vertical;"></textarea>
+          </div>
+
+          <div style="text-align: center;">
+            <button type="submit" class="btn">📧 Send Message</button>
+          </div>
+        </form>
+      </section>
+
+      <section style="background: var(--bg-secondary); padding: 2rem; border-radius: 12px; margin-bottom: 2rem;">
+        <h2 style="color: var(--primary); margin-bottom: 1.5rem;">Contact Us</h2>
+        
+        <div style="display: grid; gap: 1.5rem;">
+          <div style="display: flex; align-items: start; gap: 1rem;">
+            <span style="font-size: 1.5rem;">📧</span>
+            <div>
+              <h3 style="color: var(--text); margin-bottom: 0.25rem;">Email</h3>
+              <p style="color: var(--text-secondary);">mywebsites0000011@gmail.com</p>
+            </div>
+          </div>
+
+          <div style="display: flex; align-items: start; gap: 1rem;">
+            <span style="font-size: 1.5rem;">💬</span>
+            <div>
+              <h3 style="color: var(--text); margin-bottom: 0.25rem;">Response Time</h3>
+              <p style="color: var(--text-secondary);">We typically respond within 24-48 hours</p>
+            </div>
+          </div>
+
+          <div style="display: flex; align-items: start; gap: 1rem;">
+            <span style="font-size: 1.5rem;">🌐</span>
+            <div>
+              <h3 style="color: var(--text); margin-bottom: 0.25rem;">Follow Us</h3>
+              <p style="color: var(--text-secondary);">Stay updated with our latest features and news</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section style="background: var(--bg-secondary); padding: 2rem; border-radius: 12px; margin-bottom: 2rem;">
+        <h2 style="color: var(--primary); margin-bottom: 1rem;">Frequently Asked Questions</h2>
+        
+        <div style="display: grid; gap: 1rem;">
+          <div>
+            <h4 style="color: var(--text); margin-bottom: 0.5rem;">How secure are my files?</h4>
+            <p style="color: var(--text-secondary); font-size: 0.95rem;">
+              Client-side tools process files entirely in your browser. Server-side conversions are automatically deleted after processing.
+            </p>
+          </div>
+
+          <div>
+            <h4 style="color: var(--text); margin-bottom: 0.5rem;">Is there a file size limit?</h4>
+            <p style="color: var(--text-secondary); font-size: 0.95rem;">
+              Server-side conversions support files up to 200MB. Client-side tools have no strict limit but depend on your browser's capabilities.
+            </p>
+          </div>
+
+          <div>
+            <h4 style="color: var(--text); margin-bottom: 0.5rem;">Can I use these tools for commercial purposes?</h4>
+            <p style="color: var(--text-secondary); font-size: 0.95rem;">
+              Yes, all our tools are free to use for both personal and commercial purposes.
+            </p>
+          </div>
+
+          <div>
+            <h4 style="color: var(--text); margin-bottom: 0.5rem;">Do you store my files?</h4>
+            <p style="color: var(--text-secondary); font-size: 0.95rem;">
+              No. Client-side tools never upload files to our servers. Server-side conversions are processed and immediately deleted.
+            </p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <nav><a href="about.html">About</a> • <a href="contact.html">Contact</a> • <a href="privacy.html">Privacy Policy</a></nav>
+    <small>© 2025 PDF Suite Tools – All rights reserved.</small>
+  </footer>
+
+  <script src="theme.js"></script>
+  <script>
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Get form data
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const subject = document.getElementById('subject').value;
+      const message = document.getElementById('message').value;
+      
+      // Create email body with website identifier
+      const emailBody = `Message from: ${name}
+Email: ${email}
+
+Website: PDF Suite Tools (PDFForge)
+-----------------------------------
+
+Subject: ${subject}
+
+Message:
+${message}`;
+      
+      // Encode for mailto link
+      const mailtoLink = `mailto:mywebsites0000011@gmail.com?subject=${encodeURIComponent('PDF Suite Tools - ' + subject)}&body=${encodeURIComponent(emailBody)}`;
+      
+      // Open Gmail
+      window.location.href = mailtoLink;
+    });
+  </script>
+</body>
+</html>

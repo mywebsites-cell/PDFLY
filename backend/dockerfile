@@ -1,0 +1,22 @@
+# Use official python image
+FROM python:3.11-slim
+
+# Install libreoffice (Debian/Ubuntu)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libreoffice \
+    fonts-dejavu-core \
+    && rm -rf /var/lib/apt/lists/*
+
+# Create app dir
+WORKDIR /app
+COPY requirements.txt /app/requirements.txt
+RUN pip install --no-cache-dir -r /app/requirements.txt
+
+# Copy app
+COPY app.py /app/app.py
+RUN mkdir -p /app/uploads
+VOLUME /app/uploads
+
+EXPOSE 5000
+CMD ["python", "app.py"]
+

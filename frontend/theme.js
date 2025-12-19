@@ -1,0 +1,144 @@
+// theme.js - Theme toggle functionality & Mobile menu
+(function() {
+  const themeToggle = document.getElementById('themeToggle');
+  
+  // Load saved theme
+  const savedTheme = localStorage.getItem('theme') || 'light';
+  document.documentElement.setAttribute('data-theme', savedTheme);
+  
+  if (themeToggle) {
+    themeToggle.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+    
+    themeToggle.addEventListener('click', function() {
+      const currentTheme = document.documentElement.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      
+      document.documentElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      themeToggle.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+    });
+  }
+
+  // Mobile Menu Toggle
+  const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+  const mainNav = document.querySelector('.main-nav');
+  
+  if (mobileMenuToggle && mainNav) {
+    mobileMenuToggle.addEventListener('click', function() {
+      mainNav.classList.toggle('active');
+      const isActive = mainNav.classList.contains('active');
+      mobileMenuToggle.textContent = isActive ? '✕' : '⋮';
+    });
+
+    // Handle dropdown clicks in mobile menu
+    const dropdowns = mainNav.querySelectorAll('.dropdown');
+    dropdowns.forEach(dropdown => {
+      const dropbtn = dropdown.querySelector('.dropbtn');
+      const dropdownContent = dropdown.querySelector('.dropdown-content');
+      
+      if (dropbtn && dropdownContent) {
+        dropbtn.addEventListener('click', function(e) {
+          if (window.innerWidth <= 768) {
+            e.preventDefault();
+            dropdownContent.classList.toggle('active');
+          }
+        });
+      }
+    });
+
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', function(e) {
+      if (window.innerWidth <= 768) {
+        if (!mainNav.contains(e.target) && !mobileMenuToggle.contains(e.target)) {
+          mainNav.classList.remove('active');
+          mobileMenuToggle.textContent = '⋮';
+        }
+      }
+    });
+
+    // Close mobile menu on window resize
+    window.addEventListener('resize', function() {
+      if (window.innerWidth > 768) {
+        mainNav.classList.remove('active');
+        mobileMenuToggle.textContent = '⋮';
+      }
+    });
+  }
+
+    // ------------------------------
+    // Global download UI helpers
+    // Provides `showDownloadButton({ containerSelector, filename, blobOrUrl, mime, text })`
+    // and `removeDownloadButton()` on window so tools can show a download button after processing.
+    // Works standalone (does not require `shared.js`).
+
+    function triggerDownload(blobOrUrl, filename, mime) {
+      // blobOrUrl may be a Blob/ArrayBuffer or a string URL
+      if (!blobOrUrl) return;
+      if (typeof blobOrUrl === 'string') {
+        // remote URL
+        const a = document.createElement('a');
+        a.href = blobOrUrl;
+        a.download = filename || '';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        return;
+      }
+
+      // assume Blob or ArrayBuffer
+      const blob = blobOrUrl instanceof Blob ? blobOrUrl : new Blob([blobOrUrl], { type: mime || 'application/octet-stream' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename || 'download';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 1500);
+    }
+
+    function showDownloadButton(opts) {
+      opts = opts || {};
+      const container = document.querySelector(opts.containerSelector || '.container') || document.body;
+
+      // remove existing area if present
+      removeDownloadButton();
+
+      const area = document.createElement('div');
+      area.className = 'download-area';
+      area.id = 'globalDownloadArea';
+
+      const btn = document.createElement('button');
+      btn.className = 'btn';
+      btn.type = 'button';
+      btn.textContent = opts.text || 'Download';
+      btn.addEventListener('click', function() {
+        triggerDownload(opts.blobOrUrl, opts.filename || 'result.pdf', opts.mime || 'application/pdf');
+      });
+
+      area.appendChild(btn);
+
+      if (opts.note) {
+        const note = document.createElement('small');
+        note.className = 'small-note';
+        note.textContent = opts.note;
+        area.appendChild(note);
+      }
+
+      // append after the main container for most tool pages; fallback to body
+      container.appendChild(area);
+
+      // return the element so caller can keep reference if needed
+      return area;
+    }
+
+    function removeDownloadButton() {
+      const prev = document.getElementById('globalDownloadArea');
+      if (prev && prev.parentNode) prev.parentNode.removeChild(prev);
+    }
+
+    // expose globally
+    window.showDownloadButton = showDownloadButton;
+    window.removeDownloadButton = removeDownloadButton;
+    window.triggerDownload = triggerDownload;
+})();
