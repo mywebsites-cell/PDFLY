@@ -146,7 +146,11 @@ def handle_options():
 def serve_index():
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     return send_from_directory(str(BASE_DIR), 'index.html')
+=======
+    return send_from_directory(FRONTEND_DIR, 'index.html')
+>>>>>>> 6f483ce856cce007036ca9bdb94c84f227f68abe
 =======
     return send_from_directory(FRONTEND_DIR, 'index.html')
 >>>>>>> 6f483ce856cce007036ca9bdb94c84f227f68abe
@@ -162,7 +166,11 @@ def serve_static_files(path):
     else:
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         return send_from_directory(str(BASE_DIR), 'index.html')
+=======
+        return send_from_directory(FRONTEND_DIR, 'index.html')
+>>>>>>> 6f483ce856cce007036ca9bdb94c84f227f68abe
 =======
         return send_from_directory(FRONTEND_DIR, 'index.html')
 >>>>>>> 6f483ce856cce007036ca9bdb94c84f227f68abe
