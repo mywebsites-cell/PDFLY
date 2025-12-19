@@ -12,7 +12,11 @@ if exist backend\app.py (
 REM Start frontend clean-URL server
 start "Frontend" cmd /k "python serve.py 8000"
 
+<<<<<<< HEAD
 echo Backend available at http://localhost:5000
 echo Frontend available at http://localhost:8000 (clean URLs enabled)
 echo Both windows opening - press any key when ready to close...
+=======
+echo Frontend available at http://localhost:8000 (clean URLs enabled)
+>>>>>>> 6f483ce856cce007036ca9bdb94c84f227f68abe
 pause

@@ -144,7 +144,11 @@ def handle_options():
 # ---------------- Serve Frontend ----------------
 @app.route('/')
 def serve_index():
+<<<<<<< HEAD
     return send_from_directory(str(BASE_DIR), 'index.html')
+=======
+    return send_from_directory(FRONTEND_DIR, 'index.html')
+>>>>>>> 6f483ce856cce007036ca9bdb94c84f227f68abe
 
 @app.route('/<path:path>')
 def serve_static_files(path):
@@ -152,7 +156,11 @@ def serve_static_files(path):
     if full_path.exists():
         return send_from_directory(FRONTEND_DIR, path)
     else:
+<<<<<<< HEAD
         return send_from_directory(str(BASE_DIR), 'index.html')
+=======
+        return send_from_directory(FRONTEND_DIR, 'index.html')
+>>>>>>> 6f483ce856cce007036ca9bdb94c84f227f68abe
 
 
 # ---------------- Utilities ----------------
