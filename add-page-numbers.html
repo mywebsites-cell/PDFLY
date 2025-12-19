@@ -4,15 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="favicon.PNG" />
-  <meta name="description" content="Extract all images from PDF files quickly. Download embedded images as PNGs or JPGs, preserving original resolution where possible." />
-  <meta name="keywords" content="extract images, images from PDF, PDF images, export images, PDF extractor" />
-  <title>Extract Images - PDFLY</title>
+  <meta name="description" content="Add page numbers to PDFs quickly and reliably. Upload your file, pick numbering style and position, then download the numbered PDF securely." />
+  <meta name="keywords" content="add page numbers, page numbering, paginate PDF, number PDF, PDF tools" />
+  <title>Add Page Numbers - PDFLY</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header class="navbar">
     <div class="nav-inner container">
-      <a class="logo" href="index.html">
+      <a class="logo" href="index">
         <img class="logo-img logo--light" src="images/logo-light.png" alt="PDFLY (light)" />
         <img class="logo-img logo--dark" src="images/logo-dark.png" alt="PDFLY (dark)" />
         <span class="logo-text">PDFLY</span>
@@ -22,41 +22,41 @@
         <div class="dropdown">
           <button class="dropbtn">Convert ▾</button>
           <div class="dropdown-content">
-            <a href="word-to-pdf.html">Word → PDF</a>
-            <a href="pdf-to-word.html">PDF → Word</a>
-            <a href="image-to-pdf.html">Image → PDF</a>
-            <a href="pdf-to-image.html">PDF → Image</a>
+            <a href="/word-to-pdf">Word → PDF</a>
+            <a href="/pdf-to-word">PDF → Word</a>
+            <a href="/image-to-pdf">Image → PDF</a>
+            <a href="/pdf-to-image">PDF → Image</a>
           </div>
         </div>
         <div class="dropdown">
           <button class="dropbtn">Edit ▾</button>
           <div class="dropdown-content">
-            <a href="merge-pdf.html">Merge</a>
-            <a href="split-pdf.html">Split</a>
-            <a href="rotate-pdf.html">Rotate</a>
-            <a href="compress-pdf.html">Compress</a>
-            <a href="reorder-pages.html">Reorder Pages</a>
+            <a href="merge-pdf">Merge</a>
+            <a href="split-pdf">Split</a>
+            <a href="rotate-pdf">Rotate</a>
+            <a href="compress-pdf">Compress</a>
+            <a href="reorder-pages">Reorder Pages</a>
           </div>
         </div>
         <div class="dropdown">
           <button class="dropbtn">Security ▾</button>
           <div class="dropdown-content">
-            <a href="lock-pdf.html">Lock PDF</a>
-            <a href="unlock-pdf.html">Unlock PDF</a>
+            <a href="lock-pdf">Lock PDF</a>
+            <a href="unlock-pdf">Unlock PDF</a>
           </div>
         </div>
         <div class="dropdown">
           <button class="dropbtn">Tools ▾</button>
           <div class="dropdown-content">
-            <a href="add-watermark.html">Add Watermark</a>
-            <a href="excel-to-pdf.html">Excel to PDF</a>
-            <a href="extract-images.html">Extract Images</a>
-            <a href="add-page-numbers.html">Add Page Numbers</a>
-            <a href="qr-code-pdf.html">QR Code Generator</a>
+            <a href="add-watermark">Add Watermark</a>
+            <a href="excel-to-pdf">Excel to PDF</a>
+            <a href="extract-images">Extract Images</a>
+            <a href="add-page-numbers">Add Page Numbers</a>
+            <a href="qr-code-pdf">QR Code Generator</a>
           </div>
         </div>
-        <a href="about.html">About</a>
-        <a href="contact.html">Contact</a>
+        <a href="about">About</a>
+        <a href="contact">Contact</a>
       </nav>
       <div class="nav-actions">
         <button id="mobileMenuToggle" class="mobile-menu-toggle">⋮</button>
@@ -67,8 +67,8 @@
 
   <main class="container">
     <div class="tool-header">
-      <h1>🖼️ Extract Images</h1>
-      <p>Extract all images from PDF in their original format (Server-powered)</p>
+      <h1>🔢 Add Page Numbers</h1>
+      <p>Add page numbers to your PDF (Server-powered)</p>
     </div>
 
     <div class="ad ad-top">
@@ -98,6 +98,28 @@
       </div>
     </div>
 
+    <div class="settings-panel" id="settingsPanel" style="display:none;">
+      <h3>⚙️ Page Number Settings</h3>
+      
+      <div class="setting-group">
+        <label for="position">Position</label>
+        <select id="position">
+          <option value="bottom-center">Bottom Center</option>
+          <option value="bottom-right">Bottom Right</option>
+          <option value="bottom-left">Bottom Left</option>
+          <option value="top-center">Top Center</option>
+          <option value="top-right">Top Right</option>
+          <option value="top-left">Top Left</option>
+        </select>
+      </div>
+
+      <div class="setting-group">
+        <label for="startNumber">Start From</label>
+        <input type="number" id="startNumber" value="1" min="1" 
+               style="width:100%; padding:0.75rem; border:1px solid var(--border); border-radius:6px; background:var(--bg); color:var(--text); font-family:inherit; font-size:1rem;">
+      </div>
+    </div>
+
     <div class="progress-container" id="progressContainer" style="display:none;">
       <div class="progress">
         <div class="progress-bar" id="progressBar"></div>
@@ -107,22 +129,14 @@
 
     <div id="downloadSection" style="display:none; text-align:center; margin:2rem 0; padding:2rem; background:var(--bg-secondary); border-radius:12px; border:2px solid var(--success);">
       <div style="font-size:3rem; margin-bottom:1rem;">✅</div>
-      <h3 style="color:var(--success); margin-bottom:1rem;">Images Extracted Successfully!</h3>
-      <p style="color:var(--text-secondary); margin-bottom:1.5rem;" id="downloadInfo">
-        Your images are ready to download
-      </p>
-      <button class="btn" id="downloadBtn" onclick="downloadFile()" style="font-size:1.1rem; padding:1rem 2rem;">
-        📥 Download Images
-      </button>
-      <button class="btn btn-secondary" onclick="resetTool()" style="margin-left:1rem;">
-        🔄 Extract Another PDF
-      </button>
+      <h3 style="color:var(--success); margin-bottom:1rem;">Page Numbers Added!</h3>
+      <p style="color:var(--text-secondary); margin-bottom:1.5rem;">Your PDF is ready to download</p>
+      <button class="btn" onclick="downloadFile()" style="font-size:1.1rem; padding:1rem 2rem;">📥 Download PDF</button>
+      <button class="btn btn-secondary" onclick="resetTool()" style="margin-left:1rem;">🔄 Process Another File</button>
     </div>
 
     <div style="text-align: center; margin: 2rem 0;">
-      <button class="btn" id="extractBtn" style="display:none;" onclick="extractImages()">
-        🖼️ Extract Images
-      </button>
+      <button class="btn" id="addBtn" style="display:none;" onclick="addPageNumbers()">🔢 Add Page Numbers</button>
     </div>
 
     <div class="ad ad-bottom">
@@ -131,13 +145,13 @@
   </main>
 
   <footer class="footer">
-    <nav><a href="about.html">About</a> • <a href="contact.html">Contact</a> • <a href="privacy.html">Privacy Policy</a></nav>
+    <nav><a href="about">About</a> • <a href="contact">Contact</a> • <a href="privacy">Privacy Policy</a></nav>
     <small>© 2025 PDF Suite Tools – All rights reserved.</small>
   </footer>
 
   <script src="theme.js"></script>
   <script>
-    const API_URL = 'http://localhost:5000/extract-images';
+    const API_URL = 'http://localhost:5000/add-page-numbers';
     let selectedFile = null;
     let downloadBlob = null;
     let downloadFilename = null;
@@ -171,7 +185,8 @@
       document.getElementById('fileName').textContent = file.name;
       document.getElementById('fileSize').textContent = formatFileSize(file.size);
       document.getElementById('fileInfo').style.display = 'block';
-      document.getElementById('extractBtn').style.display = 'inline-flex';
+      document.getElementById('settingsPanel').style.display = 'block';
+      document.getElementById('addBtn').style.display = 'inline-flex';
       document.getElementById('downloadSection').style.display = 'none';
     }
 
@@ -180,21 +195,24 @@
       downloadBlob = null;
       downloadFilename = null;
       document.getElementById('fileInfo').style.display = 'none';
-      document.getElementById('extractBtn').style.display = 'none';
+      document.getElementById('settingsPanel').style.display = 'none';
+      document.getElementById('addBtn').style.display = 'none';
       document.getElementById('downloadSection').style.display = 'none';
       document.getElementById('fileInput').value = '';
     }
 
-    async function extractImages() {
+    async function addPageNumbers() {
       if (!selectedFile) return;
 
       const formData = new FormData();
       formData.append('file', selectedFile);
+      formData.append('position', document.getElementById('position').value);
+      formData.append('start_number', document.getElementById('startNumber').value);
 
       document.getElementById('progressContainer').style.display = 'block';
-      document.getElementById('progressText').textContent = 'Extracting images from PDF...';
+      document.getElementById('progressText').textContent = 'Adding page numbers...';
       document.getElementById('progressBar').style.width = '50%';
-      document.getElementById('extractBtn').disabled = true;
+      document.getElementById('addBtn').disabled = true;
 
       try {
         const response = await fetch(API_URL, {
@@ -203,55 +221,27 @@
         });
 
         if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(errorData.error || 'Extraction failed');
+          const error = await response.json();
+          throw new Error(error.error || 'Failed to add page numbers');
         }
 
-        document.getElementById('progressText').textContent = 'Processing images...';
+        document.getElementById('progressText').textContent = 'Processing...';
         document.getElementById('progressBar').style.width = '100%';
         
-        // Store the blob for later download
         downloadBlob = await response.blob();
-        
-        // Determine filename from Content-Disposition header or content-type
-        const contentType = response.headers.get('content-type');
-        const contentDisposition = response.headers.get('content-disposition');
-        
-        if (contentDisposition) {
-          const match = contentDisposition.match(/filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/);
-          if (match && match[1]) {
-            downloadFilename = match[1].replace(/['"]/g, '');
-          }
-        }
-        
-        if (!downloadFilename) {
-          if (contentType && contentType.includes('zip')) {
-            downloadFilename = selectedFile.name.replace('.pdf', '_images.zip');
-          } else {
-            // Single image - determine extension from content type
-            const ext = contentType.includes('png') ? 'png' : 
-                        contentType.includes('jpeg') || contentType.includes('jpg') ? 'jpg' :
-                        contentType.includes('tiff') ? 'tiff' : 'png';
-            downloadFilename = selectedFile.name.replace('.pdf', `_image.${ext}`);
-          }
-        }
+        downloadFilename = selectedFile.name.replace('.pdf', '_numbered.pdf');
 
-        // Show download section
         document.getElementById('progressContainer').style.display = 'none';
         document.getElementById('downloadSection').style.display = 'block';
-        
-        const imageCount = contentType && contentType.includes('zip') ? 'Multiple images' : '1 image';
-        document.getElementById('downloadInfo').textContent = `${imageCount} extracted successfully`;
 
       } catch (error) {
         document.getElementById('progressText').textContent = '❌ Error: ' + error.message;
-        document.getElementById('progressBar').style.width = '0%';
-        console.error('Extraction error:', error);
+        console.error('Error:', error);
         setTimeout(() => {
           document.getElementById('progressContainer').style.display = 'none';
         }, 3000);
       } finally {
-        document.getElementById('extractBtn').disabled = false;
+        document.getElementById('addBtn').disabled = false;
       }
     }
 
@@ -260,29 +250,14 @@
         alert('No file available to download');
         return;
       }
-
-      // Create unique filename with timestamp to avoid browser cache issues
-      const timestamp = Date.now();
-      const finalFilename = downloadFilename.replace(
-        /(\.[^.]+)$/, 
-        `_${timestamp}$1`
-      );
-
       const url = window.URL.createObjectURL(downloadBlob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = finalFilename;
-      a.style.display = 'none';
+      a.download = downloadFilename;
       document.body.appendChild(a);
-      
-      // Trigger download
       a.click();
-      
-      // Cleanup
-      setTimeout(() => {
-        window.URL.revokeObjectURL(url);
-        document.body.removeChild(a);
-      }, 100);
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
     }
 
     function resetTool() {

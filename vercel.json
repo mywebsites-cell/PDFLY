@@ -1,25 +1,4 @@
 {
-  "rewrites": [
-    { "source": "/", "destination": "/index.html" },
-    { "source": "/home", "destination": "/index.html" },
-    { "source": "/merge-pdf", "destination": "/frontend/merge-pdf.html" },
-    { "source": "/split-pdf", "destination": "/frontend/split-pdf.html" },
-    { "source": "/rotate-pdf", "destination": "/frontend/rotate-pdf.html" },
-    { "source": "/compress-pdf", "destination": "/frontend/compress-pdf.html" },
-    { "source": "/reorder-pages", "destination": "/frontend/reorder-pages.html" },
-    { "source": "/word-to-pdf", "destination": "/frontend/word-to-pdf.html" },
-    { "source": "/pdf-to-word", "destination": "/frontend/pdf-to-word.html" },
-    { "source": "/image-to-pdf", "destination": "/frontend/image-to-pdf.html" },
-    { "source": "/pdf-to-image", "destination": "/frontend/pdf-to-image.html" },
-    { "source": "/excel-to-pdf", "destination": "/frontend/excel-to-pdf.html" },
-    { "source": "/lock-pdf", "destination": "/frontend/lock-pdf.html" },
-    { "source": "/unlock-pdf", "destination": "/frontend/unlock-pdf.html" },
-    { "source": "/add-watermark", "destination": "/frontend/add-watermark.html" },
-    { "source": "/extract-images", "destination": "/frontend/extract-images.html" },
-    { "source": "/add-page-numbers", "destination": "/frontend/add-page-numbers.html" },
-    { "source": "/qr-code-pdf", "destination": "/frontend/qr-code-pdf.html" },
-    { "source": "/about", "destination": "/frontend/about.html" },
-    { "source": "/contact", "destination": "/frontend/contact.html" },
-    { "source": "/privacy", "destination": "/frontend/privacy.html" }
-  ]
+  "cleanUrls": true,
+  "trailingSlash": false
 }
