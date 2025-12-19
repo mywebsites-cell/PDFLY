@@ -2,9 +2,14 @@
 set -e
 export DEBIAN_FRONTEND=noninteractive
 
-echo "==> Installing system dependencies..."
+echo "==> Installing system dependencies (lean LibreOffice + Poppler)..."
 apt-get update
-apt-get install -y libreoffice poppler-utils fonts-dejavu-core fonts-dejavu-extra
+apt-get install -y --no-install-recommends \
+	libreoffice-writer libreoffice-calc libreoffice-impress libreoffice-draw libreoffice-core libreoffice-common \
+	fonts-dejavu-core fonts-dejavu-extra \
+	poppler-utils
+apt-get clean
+rm -rf /var/lib/apt/lists/*
 
 echo "==> Installing Python dependencies..."
 pip install -r requirements.txt
