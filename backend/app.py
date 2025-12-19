@@ -155,6 +155,38 @@ def serve_static_files(path):
         return send_from_directory(FRONTEND_DIR, 'index.html')
 
 
+# ---------------- Diagnostics ----------------
+@app.route('/diagnostics')
+def diagnostics():
+    info = {
+        'python_version': platform.python_version(),
+        'libreoffice_cmd': LIBREOFFICE_CMD,
+        'libreoffice_installed': bool(LIBREOFFICE_CMD),
+        'poppler_path': POPPLER_PATH or 'PATH'
+    }
+
+    # Try to get LibreOffice version
+    try:
+        if LIBREOFFICE_CMD:
+            res = subprocess.run([LIBREOFFICE_CMD, '--headless', '--version'], capture_output=True, text=True)
+            info['libreoffice_version'] = (res.stdout or res.stderr).strip()
+        else:
+            info['libreoffice_version'] = None
+    except Exception as e:
+        info['libreoffice_version'] = f'error: {e}'
+
+    # Try to get pdftoppm version
+    try:
+        if platform.system() == "Windows" and POPPLER_PATH:
+            cmd = [str(Path(POPPLER_PATH) / 'pdftoppm.exe'), '-v']
+        else:
+            cmd = ['pdftoppm', '-v']
+        res2 = subprocess.run(cmd, capture_output=True, text=True)
+        info['pdftoppm_version'] = (res2.stdout or res2.stderr).strip()
+    except Exception as e:
+        info['pdftoppm_version'] = f'error: {e}'
+
+    return jsonify(info)
 # ---------------- Utilities ----------------
 def allowed_filename(fname):
     return Path(fname).suffix.lower() in ALLOWED_EXT
