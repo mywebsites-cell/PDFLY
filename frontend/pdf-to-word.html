@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Convert Word (DOCX) documents to high-fidelity PDF. Preserve layout, fonts and images for reliable sharing and archiving." />
-  <meta name="keywords" content="Word to PDF, DOCX to PDF, convert Word, document to PDF, Word conversion" />
-   <link rel="icon" href="/favicon.PNG" />
-  <title>Word to PDF - PDFLY</title>
+  <meta name="description" content="Convert PDF documents into editable Word (DOCX) files with layout and text extraction. Ideal for editing or repurposing PDF content quickly." />
+  <meta name="keywords" content="PDF to Word, convert PDF to DOCX, editable Word, PDF conversion, extract text" />
+  <title>PDF to Word - PDFLY</title>
+  <link rel="icon" href="/favicon.PNG" />
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
@@ -67,8 +67,8 @@
 
   <main class="container">
     <div class="tool-header">
-      <h1>📝 Word to PDF</h1>
-      <p>Convert DOCX, DOC, RTF, ODT files to PDF with high fidelity (Server-powered)</p>
+      <h1>📄 PDF to Word</h1>
+      <p>Convert PDF files to editable DOCX documents (Server-powered)</p>
     </div>
 
     <script type="text/javascript">
@@ -86,10 +86,10 @@
 
     <div class="upload-area" id="uploadArea">
       <div class="upload-icon">📁</div>
-      <h3>Drop Word files here</h3>
-      <p>or click to browse (DOCX, DOC, RTF, ODT - Max 200MB)</p>
+      <h3>Drop PDF file here</h3>
+      <p>or click to browse (Max 200MB)</p>
       <button class="btn" onclick="document.getElementById('fileInput').click()">Select File</button>
-      <input type="file" id="fileInput" class="file-input" accept=".doc,.docx,.rtf,.odt">
+      <input type="file" id="fileInput" class="file-input" accept=".pdf">
     </div>
 
     <div id="fileInfo" class="file-list" style="display:none;">
@@ -114,14 +114,15 @@
       <p id="progressText" style="text-align:center; margin-top:1rem; color:var(--text-secondary);"></p>
     </div>
 
+    <!-- Download Ready Section -->
     <div id="downloadSection" style="display:none; text-align:center; margin:2rem 0; padding:2rem; background:var(--bg-secondary); border-radius:12px; border:2px solid var(--success);">
       <div style="font-size:3rem; margin-bottom:1rem;">✅</div>
       <h3 style="color:var(--success); margin-bottom:1rem;">Conversion Complete!</h3>
       <p style="color:var(--text-secondary); margin-bottom:1.5rem;">
-        Your PDF is ready to download
+        Your Word document is ready to download
       </p>
-      <button class="btn" id="downloadBtn" onclick="downloadFile()" style="font-size:1.1rem; padding:1rem 2rem;">
-        📥 Download PDF
+      <button class="btn" onclick="downloadFile()" style="font-size:1.1rem; padding:1rem 2rem;">
+        📥 Download DOCX
       </button>
       <button class="btn btn-secondary" onclick="resetTool()" style="margin-left:1rem;">
         🔄 Convert Another File
@@ -130,7 +131,7 @@
 
     <div style="text-align: center; margin: 2rem 0;">
       <button class="btn" id="convertBtn" style="display:none;" onclick="convertFile()">
-        🔄 Convert to PDF
+        📄 Convert to Word
       </button>
     </div>
 
@@ -146,7 +147,6 @@
     <div class="ad ad-bottom-banner">
       <script type="text/javascript" src="https://www.highperformanceformat.com/3f0207e61000b922d449a7a10ac84d14/invoke.js"></script>
     </div>
-
   </main>
 
   <footer class="footer">
@@ -160,7 +160,6 @@
     let selectedFile = null;
     let downloadBlob = null;
     let downloadFilename = null;
-    let isDownloading = false; // Prevent duplicate downloads
 
     document.getElementById('fileInput').addEventListener('change', function(e) {
       if (e.target.files.length > 0) {
@@ -193,14 +192,12 @@
       document.getElementById('fileInfo').style.display = 'block';
       document.getElementById('convertBtn').style.display = 'inline-flex';
       document.getElementById('downloadSection').style.display = 'none';
-      isDownloading = false;
     }
 
     function removeFile() {
       selectedFile = null;
       downloadBlob = null;
       downloadFilename = null;
-      isDownloading = false;
       document.getElementById('fileInfo').style.display = 'none';
       document.getElementById('convertBtn').style.display = 'none';
       document.getElementById('downloadSection').style.display = 'none';
@@ -212,10 +209,10 @@
 
       const formData = new FormData();
       formData.append('file', selectedFile);
-      formData.append('target', 'pdf');
+      formData.append('target', 'docx');
 
       document.getElementById('progressContainer').style.display = 'block';
-      document.getElementById('progressText').textContent = 'Uploading and converting...';
+      document.getElementById('progressText').textContent = 'Converting PDF to Word...';
       document.getElementById('progressBar').style.width = '50%';
       document.getElementById('convertBtn').disabled = true;
 
@@ -226,23 +223,18 @@
         });
 
         if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(errorData.error || 'Conversion failed');
+          const error = await response.json();
+          throw new Error(error.error || 'Conversion failed');
         }
 
         document.getElementById('progressText').textContent = 'Processing...';
         document.getElementById('progressBar').style.width = '100%';
         
-        // Store blob for manual download
         downloadBlob = await response.blob();
-        
-        // Get filename - use simple name without parsing headers
-        downloadFilename = selectedFile.name.replace(/\.(docx?|rtf|odt)$/i, '.pdf');
+        downloadFilename = selectedFile.name.replace('.pdf', '.docx');
 
-        // Hide progress, show download section
         document.getElementById('progressContainer').style.display = 'none';
         document.getElementById('downloadSection').style.display = 'block';
-        isDownloading = false; // Reset flag
 
       } catch (error) {
         document.getElementById('progressText').textContent = '❌ Error: ' + error.message;
@@ -256,58 +248,19 @@
     }
 
     function downloadFile() {
-      // Prevent duplicate downloads
-      if (isDownloading) {
-        console.log('Download already in progress, ignoring duplicate request');
-        return;
-      }
-
       if (!downloadBlob) {
         alert('No file available to download');
         return;
       }
 
-      isDownloading = true;
-      const downloadBtn = document.getElementById('downloadBtn');
-      
-      // Disable button and show loading state
-      downloadBtn.disabled = true;
-      downloadBtn.textContent = '⏳ Downloading...';
-
-      try {
-        // Create blob URL
-        const url = URL.createObjectURL(downloadBlob);
-        
-        // Create hidden link
-        const a = document.createElement('a');
-        a.style.display = 'none';
-        a.href = url;
-        a.download = downloadFilename;
-        
-        // Add to DOM, click, and remove
-        document.body.appendChild(a);
-        a.click();
-        
-        // Cleanup after a short delay
-        setTimeout(() => {
-          document.body.removeChild(a);
-          URL.revokeObjectURL(url);
-          
-          // Re-enable button
-          downloadBtn.disabled = false;
-          downloadBtn.textContent = '📥 Download PDF';
-          isDownloading = false;
-        }, 1000);
-
-      } catch (error) {
-        console.error('Download error:', error);
-        alert('Download failed. Please try again.');
-        
-        // Re-enable button on error
-        downloadBtn.disabled = false;
-        downloadBtn.textContent = '📥 Download PDF';
-        isDownloading = false;
-      }
+      const url = window.URL.createObjectURL(downloadBlob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = downloadFilename;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
     }
 
     function resetTool() {
