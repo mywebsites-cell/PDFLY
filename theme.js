@@ -283,87 +283,87 @@
   const infoPages = ['/about', '/contact', '/privacy'];
   if (isHome || infoPages.some(p => path.includes(p))) return;
 
-  // Map of tips per tool (fallback to generic)
+  // Map of tips per tool with short labels (fallback to generic)
   const tipsMap = {
     'word-to-pdf': [
-      'Upload DOCX, DOC, RTF or ODT (up to 200MB).',
-      'Best fidelity with DOCX; preserves layout, fonts and images.',
-      'Server-side conversion; files are auto-deleted after processing.'
+      { label: 'Formats', text: 'Upload DOCX, DOC, RTF or ODT (≤200MB).' },
+      { label: 'Fidelity', text: 'Best results with DOCX; preserves layout, fonts, images.' },
+      { label: 'Privacy', text: 'Server-side conversion; files auto-delete after processing.' }
     ],
     'pdf-to-word': [
-      'Works best for digitally-created PDFs (not photos of documents).',
-      'For scans, use OCR first to improve text extraction quality.',
-      'Keep complex PDFs under 200MB for faster conversion.'
+      { label: 'Best Input', text: 'Works best for digitally-created PDFs (not photos).' },
+      { label: 'OCR Tip', text: 'Run OCR on scans to improve text extraction.' },
+      { label: 'Size', text: 'Keep complex PDFs under 200MB for faster results.' }
     ],
     'image-to-pdf': [
-      'Add multiple JPG/PNG images; drag to reorder before saving.',
-      'For print-quality, start with high-resolution images.',
-      'All processing happens client-side in your browser.'
+      { label: 'Multiple Images', text: 'Add JPG/PNG; drag to reorder before saving.' },
+      { label: 'Quality', text: 'Use high-resolution images for print-quality output.' },
+      { label: 'Privacy', text: 'Processed entirely client-side in your browser.' }
     ],
     'pdf-to-image': [
-      'Export pages as PNG; higher DPI yields sharper results.',
-      'Ideal for sharing page previews or thumbnails.',
-      'Large PDFs may take longer; be patient during processing.'
+      { label: 'DPI', text: 'Higher DPI yields sharper page images.' },
+      { label: 'Use Cases', text: 'Great for sharing previews or thumbnails.' },
+      { label: 'Performance', text: 'Large PDFs may take longer to render.' }
     ],
     'merge-pdf': [
-      'Drag and drop files; reorder before merging.',
-      'Merging is client-side—your PDFs stay on your device.',
-      'Use clear filenames to keep track after merge.'
+      { label: 'Reorder', text: 'Drag files to set order before merging.' },
+      { label: 'Local', text: 'Merging is client-side—files stay on your device.' },
+      { label: 'Organization', text: 'Use clear filenames to track after merge.' }
     ],
     'split-pdf': [
-      'Split all pages or select ranges (e.g., 1-3,5,7-9).',
-      'Client-side processing; no uploads required.',
-      'Great for extracting just the pages you need.'
+      { label: 'Modes', text: 'Split all pages or specific ranges (e.g., 1-3,5,7-9).' },
+      { label: 'Local', text: 'Runs client-side; no upload required.' },
+      { label: 'Targeted', text: 'Extract just the pages you need.' }
     ],
     'compress-pdf': [
-      'Best for image-heavy PDFs—adjust quality for smaller size.',
-      'Try medium quality first; balance size and readability.',
-      'Preview output to ensure text remains legible.'
+      { label: 'Image-heavy', text: 'Compression helps most with image-heavy PDFs.' },
+      { label: 'Balance', text: 'Try medium quality for size vs. readability.' },
+      { label: 'Check', text: 'Preview to ensure text remains legible.' }
     ],
     'rotate-pdf': [
-      'Rotate pages by 90/180/270 degrees as needed.',
-      'Process locally in your browser; privacy-friendly.',
-      'Save the rotated version to keep changes.'
+      { label: 'Angles', text: 'Rotate by 90/180/270 degrees as needed.' },
+      { label: 'Local', text: 'Changes occur in-browser; nothing uploaded.' },
+      { label: 'Save', text: 'Export the rotated version to keep changes.' }
     ],
     'reorder-pages': [
-      'Drag and drop to change page order.',
-      'Use keyboard for fine control if supported.',
-      'Export the new sequence when done.'
+      { label: 'Drag & Drop', text: 'Drag pages to change order easily.' },
+      { label: 'Precision', text: 'Use keyboard/zoom for fine control.' },
+      { label: 'Export', text: 'Save when done to apply new sequence.' }
     ],
     'lock-pdf': [
-      'Add a password to restrict opening the PDF.',
-      'Use strong passwords; store them safely.',
-      'Server-side operation; files are auto-deleted.'
+      { label: 'Passwords', text: 'Add a password to restrict opening.' },
+      { label: 'Strength', text: 'Use strong, unique passwords; store safely.' },
+      { label: 'Privacy', text: 'Server-side; files auto-delete after processing.' }
     ],
     'unlock-pdf': [
-      'Remove password protection from PDFs you own.',
-      'Only use with documents you have the right to modify.',
-      'Server-side operation; files are auto-deleted.'
+      { label: 'Ownership', text: 'Only unlock PDFs you have rights to modify.' },
+      { label: 'Limitations', text: 'May not work on strong encryption policies.' },
+      { label: 'Privacy', text: 'Server-side; files auto-delete after processing.' }
     ],
     'excel-to-pdf': [
-      'Upload XLSX/XLS; preserves tables and formatting.',
-      'Check page breaks in Excel for ideal PDF layout.',
-      'Use landscape orientation for wide sheets.'
+      { label: 'Layouts', text: 'Preserves tables and formatting from XLSX/XLS.' },
+      { label: 'Page Breaks', text: 'Set breaks in Excel for ideal PDF layout.' },
+      { label: 'Orientation', text: 'Use landscape for wide sheets.' }
     ],
     'extract-images': [
-      'Extract embedded images from your PDF as PNG files.',
-      'Ideal for reusing graphics or figures.',
-      'Large PDFs may take longer to process.'
+      { label: 'Output', text: 'Extract embedded images as PNG files.' },
+      { label: 'Reuse', text: 'Ideal for reusing graphics or figures.' },
+      { label: 'Performance', text: 'Larger PDFs take longer to process.' }
     ],
     'add-page-numbers': [
-      'Add page numbers to header or footer positions.',
-      'Choose start number and style (e.g., 1, 1/10).',
-      'Review placement to avoid overlapping content.'
+      { label: 'Placement', text: 'Choose header or footer positions.' },
+      { label: 'Formats', text: 'Select styles like “1” or “1/10”.' },
+      { label: 'Safety', text: 'Avoid overlapping content; preview first.' }
     ],
     'add-watermark': [
-      'Apply text watermark at chosen position and opacity.',
-      'Use light opacity for readability; avoid covering content.',
-      'Preview before saving to confirm placement.'
+      { label: 'Opacity', text: 'Use light opacity for readability.' },
+      { label: 'Position', text: 'Center/diagonal placements are common.' },
+      { label: 'Preview', text: 'Check placement before saving.' }
     ],
     'qr-code-pdf': [
-      'Generate QR codes and export to PDF for printing.',
-      'Use high contrast for reliable scanning.',
-      'Test with a phone camera before distribution.'
+      { label: 'Contrast', text: 'High contrast improves scan reliability.' },
+      { label: 'Testing', text: 'Test with a phone camera before printing.' },
+      { label: 'Use Cases', text: 'Share URLs, contacts, or Wi‑Fi quickly.' }
     ]
   };
 
@@ -383,18 +383,22 @@
     h2.textContent = 'Help & Tips';
     const ul = document.createElement('ul');
 
-    const tips = tipsMap[toolKey] || [
-      'Fast, private tools—client-side where possible.',
-      'Server tasks auto-delete files after processing.',
-      'Use clear filenames and reasonable sizes for best results.'
+    const fallback = [
+      { label: 'Privacy', text: 'Client-side where possible; server tasks auto-delete files.' },
+      { label: 'Performance', text: 'Use sensible file sizes for faster processing.' },
+      { label: 'Support', text: 'See About/Contact for help and feedback.' }
     ];
 
-    tips.forEach(text => {
+    const tips = tipsMap[toolKey] || fallback;
+
+    tips.forEach(item => {
       const li = document.createElement('li');
-      const strong = document.createElement('strong');
-      // Add a short label where helpful
-      strong.textContent = '';
-      li.appendChild(document.createTextNode(text));
+      if (item.label) {
+        const strong = document.createElement('strong');
+        strong.textContent = item.label + ': ';
+        li.appendChild(strong);
+      }
+      li.appendChild(document.createTextNode(item.text));
       ul.appendChild(li);
     });
 
