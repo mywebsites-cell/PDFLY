@@ -21,5 +21,5 @@ COPY . /app
 # Render sets $PORT; expose for local runs
 EXPOSE 10000
 
-# Start with gunicorn using backend.app:app
-CMD ["gunicorn", "backend.app:app", "--bind", "0.0.0.0:$PORT"]
+# Start with gunicorn using backend.app:app (shell form to expand $PORT)
+CMD gunicorn backend.app:app --bind 0.0.0.0:$PORT
