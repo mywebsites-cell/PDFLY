@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /backend/
+Disallow: /uploads/
+
+Sitemap: https://pdfly.live/sitemap.xml
