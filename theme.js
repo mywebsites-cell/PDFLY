@@ -176,3 +176,23 @@
 
   document.addEventListener('DOMContentLoaded', loadAds);
 })();
+
+// -------- Warm-up Render backend to avoid cold start --------
+(function() {
+  // If frontend is on Vercel and backend on Render free tier,
+  // ping the backend in the background so the first tool request is fast.
+  const BACKEND_BASE = 'https://pdfly-7vu5.onrender.com';
+  if (!BACKEND_BASE) return;
+  window.addEventListener('load', function() {
+    // Delay slightly to avoid blocking page paint
+    setTimeout(() => {
+      try {
+        fetch(BACKEND_BASE + '/diagnostics', {
+          method: 'GET',
+          cache: 'no-store',
+          mode: 'no-cors'
+        }).catch(() => {});
+      } catch (e) {}
+    }, 500);
+  });
+})();
