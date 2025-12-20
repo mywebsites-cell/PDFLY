@@ -274,3 +274,159 @@
     configurable: true
   });
 })();
+
+// -------- Inject Help & Tips on tool pages (SEO-friendly) --------
+(function() {
+  // Skip home and simple info pages
+  const path = (window.location.pathname || '').toLowerCase();
+  const isHome = path === '/' || path === '/home' || path.endsWith('/index.html');
+  const infoPages = ['/about', '/contact', '/privacy'];
+  if (isHome || infoPages.some(p => path.includes(p))) return;
+
+  // Map of tips per tool (fallback to generic)
+  const tipsMap = {
+    'word-to-pdf': [
+      'Upload DOCX, DOC, RTF or ODT (up to 200MB).',
+      'Best fidelity with DOCX; preserves layout, fonts and images.',
+      'Server-side conversion; files are auto-deleted after processing.'
+    ],
+    'pdf-to-word': [
+      'Works best for digitally-created PDFs (not photos of documents).',
+      'For scans, use OCR first to improve text extraction quality.',
+      'Keep complex PDFs under 200MB for faster conversion.'
+    ],
+    'image-to-pdf': [
+      'Add multiple JPG/PNG images; drag to reorder before saving.',
+      'For print-quality, start with high-resolution images.',
+      'All processing happens client-side in your browser.'
+    ],
+    'pdf-to-image': [
+      'Export pages as PNG; higher DPI yields sharper results.',
+      'Ideal for sharing page previews or thumbnails.',
+      'Large PDFs may take longer; be patient during processing.'
+    ],
+    'merge-pdf': [
+      'Drag and drop files; reorder before merging.',
+      'Merging is client-side—your PDFs stay on your device.',
+      'Use clear filenames to keep track after merge.'
+    ],
+    'split-pdf': [
+      'Split all pages or select ranges (e.g., 1-3,5,7-9).',
+      'Client-side processing; no uploads required.',
+      'Great for extracting just the pages you need.'
+    ],
+    'compress-pdf': [
+      'Best for image-heavy PDFs—adjust quality for smaller size.',
+      'Try medium quality first; balance size and readability.',
+      'Preview output to ensure text remains legible.'
+    ],
+    'rotate-pdf': [
+      'Rotate pages by 90/180/270 degrees as needed.',
+      'Process locally in your browser; privacy-friendly.',
+      'Save the rotated version to keep changes.'
+    ],
+    'reorder-pages': [
+      'Drag and drop to change page order.',
+      'Use keyboard for fine control if supported.',
+      'Export the new sequence when done.'
+    ],
+    'lock-pdf': [
+      'Add a password to restrict opening the PDF.',
+      'Use strong passwords; store them safely.',
+      'Server-side operation; files are auto-deleted.'
+    ],
+    'unlock-pdf': [
+      'Remove password protection from PDFs you own.',
+      'Only use with documents you have the right to modify.',
+      'Server-side operation; files are auto-deleted.'
+    ],
+    'excel-to-pdf': [
+      'Upload XLSX/XLS; preserves tables and formatting.',
+      'Check page breaks in Excel for ideal PDF layout.',
+      'Use landscape orientation for wide sheets.'
+    ],
+    'extract-images': [
+      'Extract embedded images from your PDF as PNG files.',
+      'Ideal for reusing graphics or figures.',
+      'Large PDFs may take longer to process.'
+    ],
+    'add-page-numbers': [
+      'Add page numbers to header or footer positions.',
+      'Choose start number and style (e.g., 1, 1/10).',
+      'Review placement to avoid overlapping content.'
+    ],
+    'add-watermark': [
+      'Apply text watermark at chosen position and opacity.',
+      'Use light opacity for readability; avoid covering content.',
+      'Preview before saving to confirm placement.'
+    ],
+    'qr-code-pdf': [
+      'Generate QR codes and export to PDF for printing.',
+      'Use high contrast for reliable scanning.',
+      'Test with a phone camera before distribution.'
+    ]
+  };
+
+  function getToolKey() {
+    // Normalize pathname to match keys regardless of .html or clean URL
+    const keys = Object.keys(tipsMap);
+    for (const key of keys) {
+      if (path.includes(key)) return key;
+    }
+    return null;
+  }
+
+  function buildTipsSection(toolKey) {
+    const section = document.createElement('section');
+    section.className = 'help';
+    const h2 = document.createElement('h2');
+    h2.textContent = 'Help & Tips';
+    const ul = document.createElement('ul');
+
+    const tips = tipsMap[toolKey] || [
+      'Fast, private tools—client-side where possible.',
+      'Server tasks auto-delete files after processing.',
+      'Use clear filenames and reasonable sizes for best results.'
+    ];
+
+    tips.forEach(text => {
+      const li = document.createElement('li');
+      const strong = document.createElement('strong');
+      // Add a short label where helpful
+      strong.textContent = '';
+      li.appendChild(document.createTextNode(text));
+      ul.appendChild(li);
+    });
+
+    section.appendChild(h2);
+    section.appendChild(ul);
+    return section;
+  }
+
+  function injectTips() {
+    const toolKey = getToolKey();
+    if (!toolKey) return; // unknown page; skip
+
+    // Prevent duplicate injection
+    if (document.querySelector('section.help')) return;
+
+    const section = buildTipsSection(toolKey);
+
+    // Prefer placing above bottom banner ad inside ad-content if present
+    const adContent = document.querySelector('.ad-content') || document.querySelector('main.container');
+    const bottomAd = document.querySelector('.ad-bottom-banner');
+    if (bottomAd && bottomAd.parentElement) {
+      bottomAd.parentElement.insertBefore(section, bottomAd);
+    } else if (adContent) {
+      adContent.appendChild(section);
+    } else {
+      document.body.appendChild(section);
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', injectTips);
+  } else {
+    injectTips();
+  }
+})();
