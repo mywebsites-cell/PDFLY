@@ -287,83 +287,115 @@
   const tipsMap = {
     'word-to-pdf': [
       { label: 'Formats', text: 'Upload DOCX, DOC, RTF or ODT (≤200MB).' },
-      { label: 'Fidelity', text: 'Best results with DOCX; preserves layout, fonts, images.' },
-      { label: 'Privacy', text: 'Server-side conversion; files auto-delete after processing.' }
+      { label: 'Fonts', text: 'Embed fonts in Word to preserve exact appearance in PDF.' },
+      { label: 'Page Setup', text: 'Set page size/margins in Word (A4/Letter) before converting.' },
+      { label: 'Images', text: 'Use high‑resolution images for print‑quality output.' },
+      { label: 'Privacy', text: 'Server‑side conversion; files auto‑delete. ', link: { text: 'Privacy Policy', url: '/privacy' }, suffix: '.' }
     ],
     'pdf-to-word': [
-      { label: 'Best Input', text: 'Works best for digitally-created PDFs (not photos).' },
-      { label: 'OCR Tip', text: 'Run OCR on scans to improve text extraction.' },
-      { label: 'Size', text: 'Keep complex PDFs under 200MB for faster results.' }
+      { label: 'Best Input', text: 'Digitally‑created PDFs convert better than photos/scans.' },
+      { label: 'OCR', text: 'Run OCR on scanned PDFs to extract editable text.' },
+      { label: 'Tables', text: 'Complex tables may need manual touch‑ups after conversion.' },
+      { label: 'Fonts', text: 'Missing fonts can affect layout; install originals for fidelity.' },
+      { label: 'Privacy', text: 'Files processed on server; auto‑deleted. ', link: { text: 'Learn more', url: '/privacy' }, suffix: '.' }
     ],
     'image-to-pdf': [
-      { label: 'Multiple Images', text: 'Add JPG/PNG; drag to reorder before saving.' },
-      { label: 'Quality', text: 'Use high-resolution images for print-quality output.' },
-      { label: 'Privacy', text: 'Processed entirely client-side in your browser.' }
+      { label: 'Multiple', text: 'Add JPG/PNG files; drag to reorder pages.' },
+      { label: 'Fit', text: 'Choose fit/center options to control page padding.' },
+      { label: 'Quality', text: 'Use high‑resolution images for crisp PDFs.' },
+      { label: 'Order', text: 'Rename files or drag to keep desired sequence.' },
+      { label: 'Privacy', text: 'Runs entirely client‑side in your browser.' }
     ],
     'pdf-to-image': [
-      { label: 'DPI', text: 'Higher DPI yields sharper page images.' },
-      { label: 'Use Cases', text: 'Great for sharing previews or thumbnails.' },
-      { label: 'Performance', text: 'Large PDFs may take longer to render.' }
+      { label: 'DPI', text: 'Higher DPI yields sharper images; balance vs. file size.' },
+      { label: 'Format', text: 'PNG for quality/transparency; JPG for smaller size.' },
+      { label: 'Ranges', text: 'Export specific page ranges to save time.' },
+      { label: 'Performance', text: 'Very large PDFs may render slowly—be patient.' },
+      { label: 'Use', text: 'Ideal for previews, thumbnails, and sharing online.' }
     ],
     'merge-pdf': [
-      { label: 'Reorder', text: 'Drag files to set order before merging.' },
-      { label: 'Local', text: 'Merging is client-side—files stay on your device.' },
-      { label: 'Organization', text: 'Use clear filenames to track after merge.' }
+      { label: 'Reorder', text: 'Drag files to set merge order before combining.' },
+      { label: 'Local', text: 'Merging is client‑side—files stay on your device.' },
+      { label: 'Naming', text: 'Use clear filenames to track post‑merge content.' },
+      { label: 'Size', text: 'Avoid merging extremely large files to keep outputs manageable.' },
+      { label: 'Support', text: 'Questions? ', link: { text: 'Contact us', url: '/contact' }, suffix: '.' }
     ],
     'split-pdf': [
-      { label: 'Modes', text: 'Split all pages or specific ranges (e.g., 1-3,5,7-9).' },
-      { label: 'Local', text: 'Runs client-side; no upload required.' },
-      { label: 'Targeted', text: 'Extract just the pages you need.' }
+      { label: 'Modes', text: 'Split all pages or choose ranges (e.g., 1‑3,5,7‑9).' },
+      { label: 'Local', text: 'Runs client‑side; no uploads required.' },
+      { label: 'Targeted', text: 'Extract only the sections you need.' },
+      { label: 'Naming', text: 'Name outputs clearly for quick identification.' },
+      { label: 'Privacy', text: 'Client‑side processing keeps files local.' }
     ],
     'compress-pdf': [
-      { label: 'Image-heavy', text: 'Compression helps most with image-heavy PDFs.' },
+      { label: 'Images', text: 'Compression helps most on image‑heavy PDFs.' },
       { label: 'Balance', text: 'Try medium quality for size vs. readability.' },
-      { label: 'Check', text: 'Preview to ensure text remains legible.' }
+      { label: 'Preview', text: 'Check pages to ensure text remains legible.' },
+      { label: 'Version', text: 'Newer PDF versions may compress more efficiently.' },
+      { label: 'Limits', text: 'Text‑only PDFs often see minimal gains.' }
     ],
     'rotate-pdf': [
       { label: 'Angles', text: 'Rotate by 90/180/270 degrees as needed.' },
-      { label: 'Local', text: 'Changes occur in-browser; nothing uploaded.' },
-      { label: 'Save', text: 'Export the rotated version to keep changes.' }
+      { label: 'Pages', text: 'Apply rotation to selected pages or all pages.' },
+      { label: 'Local', text: 'Edits occur in‑browser; nothing uploaded.' },
+      { label: 'Save', text: 'Export the rotated version when finished.' },
+      { label: 'Backup', text: 'Keep originals in case you need to revert.' }
     ],
     'reorder-pages': [
-      { label: 'Drag & Drop', text: 'Drag pages to change order easily.' },
-      { label: 'Precision', text: 'Use keyboard/zoom for fine control.' },
-      { label: 'Export', text: 'Save when done to apply new sequence.' }
+      { label: 'Drag', text: 'Drag thumbnails to change page order.' },
+      { label: 'Zoom', text: 'Zoom in for precise identification of pages.' },
+      { label: 'Groups', text: 'Reorder in batches for long documents.' },
+      { label: 'Export', text: 'Save when done to apply the new sequence.' },
+      { label: 'Local', text: 'Runs client‑side for speed and privacy.' }
     ],
     'lock-pdf': [
       { label: 'Passwords', text: 'Add a password to restrict opening.' },
       { label: 'Strength', text: 'Use strong, unique passwords; store safely.' },
-      { label: 'Privacy', text: 'Server-side; files auto-delete after processing.' }
+      { label: 'Sharing', text: 'Share passwords securely—not via plain text.' },
+      { label: 'Limits', text: 'Some viewers handle encryption differently; test outputs.' },
+      { label: 'Privacy', text: 'Server‑side; files auto‑delete. ', link: { text: 'Privacy Policy', url: '/privacy' }, suffix: '.' }
     ],
     'unlock-pdf': [
-      { label: 'Ownership', text: 'Only unlock PDFs you have rights to modify.' },
-      { label: 'Limitations', text: 'May not work on strong encryption policies.' },
-      { label: 'Privacy', text: 'Server-side; files auto-delete after processing.' }
+      { label: 'Rights', text: 'Only unlock PDFs you are authorized to modify.' },
+      { label: 'Limits', text: 'Strong encryption or policy locks may not be removable.' },
+      { label: 'Legal', text: 'Respect licenses and terms when modifying PDFs.' },
+      { label: 'Alternate', text: 'If unlock fails, try “Print to PDF” as a workaround.' },
+      { label: 'Privacy', text: 'Server‑side; files auto‑delete. ', link: { text: 'Privacy Policy', url: '/privacy' }, suffix: '.' }
     ],
     'excel-to-pdf': [
       { label: 'Layouts', text: 'Preserves tables and formatting from XLSX/XLS.' },
-      { label: 'Page Breaks', text: 'Set breaks in Excel for ideal PDF layout.' },
-      { label: 'Orientation', text: 'Use landscape for wide sheets.' }
+      { label: 'Breaks', text: 'Set page breaks for ideal pagination.' },
+      { label: 'Fit', text: 'Use “Fit to page” scaling for wide sheets.' },
+      { label: 'Orientation', text: 'Landscape works better for wide tables.' },
+      { label: 'Print Area', text: 'Define print area to include only desired cells.' }
     ],
     'extract-images': [
-      { label: 'Output', text: 'Extract embedded images as PNG files.' },
-      { label: 'Reuse', text: 'Ideal for reusing graphics or figures.' },
-      { label: 'Performance', text: 'Larger PDFs take longer to process.' }
+      { label: 'Output', text: 'Extract embedded images as PNG/JPG files.' },
+      { label: 'DPI', text: 'Higher DPI yields better quality for reuse.' },
+      { label: 'Reuse', text: 'Ideal for graphics, figures, and illustrations.' },
+      { label: 'Performance', text: 'Large PDFs may take longer to process.' },
+      { label: 'Naming', text: 'Outputs are numbered—rename for clarity.' }
     ],
     'add-page-numbers': [
       { label: 'Placement', text: 'Choose header or footer positions.' },
-      { label: 'Formats', text: 'Select styles like “1” or “1/10”.' },
-      { label: 'Safety', text: 'Avoid overlapping content; preview first.' }
+      { label: 'Formats', text: 'Styles like “1”, “1/10”, or “Page 1”.' },
+      { label: 'Style', text: 'Set font size/color for readability.' },
+      { label: 'Start', text: 'Start numbering at a specific page if needed.' },
+      { label: 'Safety', text: 'Avoid overlapping content—preview before saving.' }
     ],
     'add-watermark': [
-      { label: 'Opacity', text: 'Use light opacity for readability.' },
+      { label: 'Opacity', text: 'Use light opacity to keep text readable.' },
       { label: 'Position', text: 'Center/diagonal placements are common.' },
-      { label: 'Preview', text: 'Check placement before saving.' }
+      { label: 'Font', text: 'Choose clear, professional fonts for text marks.' },
+      { label: 'Size', text: 'Scale watermark appropriately for page size.' },
+      { label: 'Preview', text: 'Check placement before saving final PDF.' }
     ],
     'qr-code-pdf': [
       { label: 'Contrast', text: 'High contrast improves scan reliability.' },
-      { label: 'Testing', text: 'Test with a phone camera before printing.' },
-      { label: 'Use Cases', text: 'Share URLs, contacts, or Wi‑Fi quickly.' }
+      { label: 'Size', text: 'Use ≥2cm code size for printed materials.' },
+      { label: 'Quiet Zone', text: 'Leave padding around the code for scanners.' },
+      { label: 'Testing', text: 'Test with a phone camera before publishing.' },
+      { label: 'Content', text: 'Store URLs, Wi‑Fi, contacts (vCard), or text.' }
     ]
   };
 
@@ -399,6 +431,17 @@
         li.appendChild(strong);
       }
       li.appendChild(document.createTextNode(item.text));
+      if (item.link) {
+        const a = document.createElement('a');
+        a.href = item.link.url;
+        a.textContent = item.link.text;
+        a.style.color = 'var(--primary)';
+        a.style.textDecoration = 'underline';
+        li.appendChild(a);
+      }
+      if (item.suffix) {
+        li.appendChild(document.createTextNode(item.suffix));
+      }
       ul.appendChild(li);
     });
 
