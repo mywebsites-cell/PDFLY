@@ -142,3 +142,37 @@
     window.removeDownloadButton = removeDownloadButton;
     window.triggerDownload = triggerDownload;
 })();
+
+// -------- AdSense loader (global) --------
+(function() {
+  const ADS_CLIENT = 'ca-pub-XXXXXXXXXXXX'; // replace with your AdSense client ID
+  let adsScriptLoaded = false;
+
+  function pushAds() {
+    const slots = document.querySelectorAll('ins.adsbygoogle');
+    slots.forEach(() => {
+      try {
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+      } catch (e) {
+        // ignore push errors
+      }
+    });
+  }
+
+  function loadAds() {
+    if (!ADS_CLIENT || ADS_CLIENT.includes('XXXXXXXX')) return; // keep placeholder safe
+    if (adsScriptLoaded) {
+      pushAds();
+      return;
+    }
+    const s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js';
+    s.setAttribute('data-ad-client', ADS_CLIENT);
+    s.onload = pushAds;
+    document.head.appendChild(s);
+    adsScriptLoaded = true;
+  }
+
+  document.addEventListener('DOMContentLoaded', loadAds);
+})();
