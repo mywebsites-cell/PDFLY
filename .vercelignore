@@ -1,0 +1,13 @@
+# Exclude backend and infra files from Vercel static deploy
+backend/
+Dockerfile
+Dockerfile*
+build.sh
+render.yaml
+railway.json
+Procfile
+runtime.txt
+serve.py
+requirements.txt
+backend/uploads/
+*.bat

@@ -1,0 +1,9 @@
+.git
+.gitignore
+.vercel
+.vercelignore
+run_website.bat
+railway.json
+render.yaml
+vercel.json
+backend/uploads/
