@@ -197,10 +197,9 @@
   });
 })();
 
-// -------- Block ad network redirects --------
+// -------- Block ad network redirects and pop-ups --------
 (function() {
-  // Prevent ads from redirecting users away from the page
-  // Blocks redirects to ad networks and unwanted URLs
+  // Prevent ads from redirecting users away from the page and block overlay pop-ups
   
   const blockedDomains = [
     'highperformanceformat.com',
@@ -209,6 +208,34 @@
     'doubleclick.net',
     'adnxs.com'
   ];
+  
+  // Monitor and block pop-ups/overlays
+  const originalOpen = window.open;
+  window.open = function(url, name, specs) {
+    console.log('Blocked pop-up attempt:', url);
+    return null;
+  };
+  
+  // Block overlay creation
+  const originalCreateElement = document.createElement;
+  document.createElement = function(tagName) {
+    const element = originalCreateElement.call(document, tagName);
+    
+    // Intercept before appendChild to block full-screen overlays
+    const originalAppendChild = element.appendChild;
+    element.appendChild = function(child) {
+      if (child && (child.style?.position === 'fixed' || child.style?.position === 'absolute')) {
+        // Check if it looks like an overlay
+        if ((child.style?.zIndex > 9000) || (child.style?.width === '100%' && child.style?.height === '100%')) {
+          console.log('Blocked overlay element');
+          return child;
+        }
+      }
+      return originalAppendChild.call(this, child);
+    };
+    
+    return element;
+  };
   
   // Monitor link clicks from ad containers
   document.addEventListener('click', function(e) {
