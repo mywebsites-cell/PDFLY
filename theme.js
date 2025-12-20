@@ -196,3 +196,54 @@
     }, 500);
   });
 })();
+
+// -------- Block ad network redirects --------
+(function() {
+  // Prevent ads from redirecting users away from the page
+  // Blocks redirects to ad networks and unwanted URLs
+  
+  const blockedDomains = [
+    'highperformanceformat.com',
+    'ads.google.com',
+    'googleads.com',
+    'doubleclick.net',
+    'adnxs.com'
+  ];
+  
+  // Monitor link clicks from ad containers
+  document.addEventListener('click', function(e) {
+    const target = e.target.closest('a');
+    if (!target) return;
+    
+    const href = target.getAttribute('href') || '';
+    const iframeParent = e.target.closest('iframe, [id*="ad"], [class*="ad"]');
+    
+    // If click originated from ad element and redirects to ad domain, prevent it
+    if (iframeParent) {
+      for (let domain of blockedDomains) {
+        if (href.includes(domain)) {
+          e.preventDefault();
+          e.stopPropagation();
+          console.log('Blocked ad redirect to:', href);
+          return;
+        }
+      }
+    }
+  }, true);
+  
+  // Monitor window.location changes from ad scripts
+  const originalSetLocation = Object.getOwnPropertyDescriptor(Window.prototype, 'location').set;
+  Object.defineProperty(Window.prototype, 'location', {
+    set: function(url) {
+      const urlStr = String(url);
+      for (let domain of blockedDomains) {
+        if (urlStr.includes(domain)) {
+          console.log('Blocked redirect to:', urlStr);
+          return;
+        }
+      }
+      originalSetLocation.call(this, url);
+    },
+    configurable: true
+  });
+})();
