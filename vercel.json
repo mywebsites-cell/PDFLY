@@ -1,7 +1,18 @@
 {
   "cleanUrls": true,
   "trailingSlash": false,
+  "headers": [
+    {
+      "source": "/sitemap.xml",
+      "headers": [{ "key": "Content-Type", "value": "application/xml; charset=UTF-8" }]
+    },
+    {
+      "source": "/robots.txt",
+      "headers": [{ "key": "Content-Type", "value": "text/plain; charset=UTF-8" }]
+    }
+  ],
   "rewrites": [
-    { "source": "/home", "destination": "/" }
+    { "source": "/home", "destination": "/" },
+    { "source": "/sitemap.xml", "destination": "/sitemap.xml" }
   ]
 }
