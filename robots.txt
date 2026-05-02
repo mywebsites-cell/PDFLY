@@ -1,6 +1,16 @@
 User-agent: *
 Allow: /
-Disallow: /backend/
-Disallow: /uploads/
+
+User-agent: GPTBot
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+User-agent: Bytespider
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
 
 Sitemap: https://pdfly.live/sitemap.xml
