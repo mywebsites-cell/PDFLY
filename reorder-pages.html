@@ -128,51 +128,7 @@
       <p>Drag and drop to reorder, delete, or duplicate PDF pages (Client-side)</p>
     </div>
 
-    <h3>Drop PDF file here</h3>
-      <p>or click to browse</p>
-      <button class="btn" onclick="document.getElementById('fileInput').click()">Select PDF</button>
-      <input type="file" id="fileInput" class="file-input" accept=".pdf">
-    </div>
-
-    <div id="pagesContainer" style="display:none;">
-      <h3 style="margin-top: 2rem;">Drag pages to reorder:</h3>
-      <div class="pages-grid" id="pagesGrid"></div>
-    </div>
-
-    <div class="progress-container" id="progressContainer" style="display:none;">
-      <div class="progress">
-        <div class="progress-bar" id="progressBar"></div>
-      </div>
-      <p id="progressText" style="text-align:center; margin-top:1rem; color:var(--text-secondary);"></p>
-    </div>
-
-    <div id="downloadSection" style="display:none; text-align:center; margin:2rem 0; padding:2rem; background:var(--bg-secondary); border-radius:12px; border:2px solid var(--success);">
-      <div style="font-size:3rem; margin-bottom:1rem;">✅</div>
-      <h3 style="color:var(--success); margin-bottom:1rem;">Pages Reordered!</h3>
-      <p style="color:var(--text-secondary); margin-bottom:1.5rem;">Your reordered PDF is ready to download</p>
-      <button class="btn" onclick="downloadFile()" style="font-size:1.1rem; padding:1rem 2rem;">📥 Download PDF</button>
-      <button class="btn btn-secondary" onclick="resetTool()" style="margin-left:1rem;">🔄 Reorder Another PDF</button>
-    </div>
-
-    <div style="text-align: center; margin: 2rem 0;">
-      <button class="btn" id="saveBtn" style="display:none;" onclick="savePDF()">💾 Save Reordered PDF</button>
-    </div>
-<section class="help">
-
-            <h2>Help & Tips</h2>
-
-            <ul>
-        <li><strong>Drag:</strong> Drag thumbnails to change page order.</li>
-        <li><strong>Zoom:</strong> Zoom in for precise identification of pages.</li>
-        <li><strong>Groups:</strong> Reorder in batches for long documents.</li>
-        <li><strong>Export:</strong> Save when done to apply the new sequence.</li>
-        <li><strong>Local:</strong> Runs client‑side for speed and privacy.</li>
-  </ul>
-</section>
-
-            
-  </div>
-      <div class="upload-area" id="uploadArea">
+    <div class="upload-area" id="uploadArea">
       <div class="upload-icon">📁</div>
       <h3>Drop PDF file here</h3>
       <p>or click to browse</p>
@@ -216,8 +172,8 @@
   </ul>
 </section>
 
-            </div>
-      </div></main>
+
+  </main>
 
   <footer class="footer">
     <nav><a href="/about">About</a> • <a href="/contact">Contact</a> • <a href="/privacy">Privacy Policy</a> • <a href="/terms">Terms of Service</a></nav>
