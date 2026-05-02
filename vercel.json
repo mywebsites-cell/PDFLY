@@ -14,14 +14,14 @@
   "redirects": [
     {
       "source": "/:path*",
-      "has": [{ "type": "host", "key": "host", "value": "www.pdfly.live" }],
+      "has": [{ "type": "host", "value": "www.pdfly.live" }],
       "destination": "https://pdfly.live/:path*",
       "statusCode": 301
     },
     {
       "source": "/:path*",
       "has": [
-        { "type": "host", "key": "host", "value": "pdfly.live" },
+        { "type": "host", "value": "pdfly.live" },
         { "type": "header", "key": "x-forwarded-proto", "value": "http" }
       ],
       "destination": "https://pdfly.live/:path*",
