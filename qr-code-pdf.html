@@ -74,36 +74,65 @@
       <p>Generate QR codes and save as PDF (Client-side)</p>
     </div>
 
-    <div class="ad-container">
-      <div class="ad ad-left-sidebar">
-          <script type="text/javascript">
-            atOptions = {
-              'key' : '6055f7e32563fba0867266619119fb48',
-              'format' : 'iframe',
-              'height' : 600,
-              'width' : 160,
-              'params' : {}
-            };
-          </script>
-          <script type="text/javascript" src="https://www.highperformanceformat.com/6055f7e32563fba0867266619119fb48/invoke.js"></script>
+    <div class="setting-group">
+        <label for="qrTitle">Title (Optional)</label>
+        <input type="text" id="qrTitle" placeholder="Enter title to display below QR code"
+               style="width:100%; padding:0.75rem; border:1px solid var(--border); border-radius:6px; background:var(--bg); color:var(--text); font-family:inherit; font-size:1rem;">
       </div>
-      <div class="ad-content">
-        <div class="ad ad-top-banner">
-          
 
-<script type="text/javascript">
-  atOptions = {
-    'key' : '3f0207e61000b922d449a7a10ac84d14',
-              'format' : 'iframe',
-              'height' : 90,
-              'width' : 728,
-              'params' : {}
-            };
-          </script>
-          <script type="text/javascript" src="https://www.highperformanceformat.com/3f0207e61000b922d449a7a10ac84d14/invoke.js"></script>
+      <div class="setting-group">
+        <label for="qrSize">QR Code Size</label>
+        <select id="qrSize">
+          <option value="256">Small (256x256)</option>
+          <option value="512" selected>Medium (512x512)</option>
+          <option value="1024">Large (1024x1024)</option>
+        </select>
+      </div>
+
+      <div class="setting-group">
+        <label>Quick Links</label>
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+          <button class="btn-secondary" onclick="setQuickLink('website')">🌐 Website</button>
+          <button class="btn-secondary" onclick="setQuickLink('email')">📧 Email</button>
+          <button class="btn-secondary" onclick="setQuickLink('phone')">📞 Phone</button>
+          <button class="btn-secondary" onclick="setQuickLink('wifi')">📶 WiFi</button>
         </div>
+      </div>
+    </div>
 
-    <div class="settings-panel">
+    <div style="text-align: center; margin: 2rem 0;">
+      <button class="btn" onclick="generateQR()">📱 Generate QR Code</button>
+    </div>
+
+    <div id="qrPreview" style="display:none; text-align: center; margin: 2rem 0;">
+      <h3 style="margin-bottom: 1rem;">Preview:</h3>
+      <div id="qrcode" style="display: inline-block; padding: 2rem; background: white; border-radius: 12px; box-shadow: 0 4px 12px var(--shadow);"></div>
+    </div>
+
+    <div id="downloadSection" style="display:none; text-align:center; margin:2rem 0; padding:2rem; background:var(--bg-secondary); border-radius:12px; border:2px solid var(--success);">
+      <div style="font-size:3rem; margin-bottom:1rem;">✅</div>
+      <h3 style="color:var(--success); margin-bottom:1rem;">QR Code Generated!</h3>
+      <p style="color:var(--text-secondary); margin-bottom:1.5rem;">Your QR code is ready to download</p>
+      <button class="btn" onclick="downloadPDF()" style="font-size:1.1rem; padding:1rem 2rem;">📥 Download as PDF</button>
+      <button class="btn btn-secondary" onclick="downloadImage()" style="margin-left:1rem;">🖼️ Download as PNG</button>
+      <button class="btn btn-secondary" onclick="resetTool()" style="margin-left:1rem;">🔄 Create Another</button>
+    </div>
+<section class="help">
+
+            <h2>Help & Tips</h2>
+
+            <ul>
+        <li><strong>Contrast:</strong> High contrast improves scan reliability.</li>
+        <li><strong>Size:</strong> Use ≥2cm code size for printed materials.</li>
+        <li><strong>Quiet Zone:</strong> Leave padding around the code for scanners.</li>
+        <li><strong>Testing:</strong> Test with a phone camera before publishing.</li>
+        <li><strong>Content:</strong> Store URLs, Wi‑Fi, contacts (vCard), or text.</li>
+  </ul>
+</section>
+
+            
+  </div>
+      <div class="settings-panel">
       <h3>🔧 QR Code Settings</h3>
       
       <div class="setting-group">
@@ -168,34 +197,8 @@
   </ul>
 </section>
 
-            <div class="ad ad-bottom-banner">
-          
-
-<script type="text/javascript">
-  atOptions = {
-    'key' : '3f0207e61000b922d449a7a10ac84d14',
-              'format' : 'iframe',
-              'height' : 90,
-              'width' : 728,
-              'params' : {}
-            };
-          </script>
-          <script type="text/javascript" src="https://www.highperformanceformat.com/3f0207e61000b922d449a7a10ac84d14/invoke.js"></script>
-        </div>
-      </div>
-      <div class="ad ad-right-sidebar">
-        <script type="text/javascript">
-          atOptions = {
-            'key' : '6055f7e32563fba0867266619119fb48',
-            'format' : 'iframe',
-            'height' : 600,
-            'width' : 160,
-            'params' : {}
-          };
-        </script>
-        <script type="text/javascript" src="https://www.highperformanceformat.com/6055f7e32563fba0867266619119fb48/invoke.js"></script>
-      </div>
-    </div></main>
+            </div>
+      </div></main>
 
   <footer class="footer">
     <nav><a href="/about">About</a> • <a href="/contact">Contact</a> • <a href="/privacy">Privacy Policy</a> • <a href="/terms">Terms of Service</a></nav>

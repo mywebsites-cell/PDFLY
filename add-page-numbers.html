@@ -72,36 +72,83 @@
       <p>Add page numbers to your PDF (Server-powered)</p>
     </div>
 
-    <div class="ad-container">
-      <div class="ad ad-left-sidebar">
-          <script type="text/javascript">
-            atOptions = {
-              'key' : '6055f7e32563fba0867266619119fb48',
-              'format' : 'iframe',
-              'height' : 600,
-              'width' : 160,
-              'params' : {}
-            };
-          </script>
-          <script type="text/javascript" src="https://www.highperformanceformat.com/6055f7e32563fba0867266619119fb48/invoke.js"></script>
-      </div>
-      <div class="ad-content">
-        <div class="ad ad-top-banner">
-          
+    <h3>Drop PDF file here</h3>
+      <p>or click to browse</p>
+      <button class="btn" onclick="document.getElementById('fileInput').click()">Select PDF</button>
+      <input type="file" id="fileInput" class="file-input" accept=".pdf">
+    </div>
 
-<script type="text/javascript">
-  atOptions = {
-    'key' : '3f0207e61000b922d449a7a10ac84d14',
-              'format' : 'iframe',
-              'height' : 90,
-              'width' : 728,
-              'params' : {}
-            };
-          </script>
-          <script type="text/javascript" src="https://www.highperformanceformat.com/3f0207e61000b922d449a7a10ac84d14/invoke.js"></script>
+    <div id="fileInfo" class="file-list" style="display:none;">
+      <div class="file-item">
+        <div class="file-info">
+          <span class="file-icon">📄</span>
+          <div class="file-details">
+            <h4 id="fileName"></h4>
+            <p id="fileSize"></p>
+          </div>
         </div>
+        <div class="file-actions">
+          <button class="icon-btn" onclick="removeFile()">🗑️</button>
+        </div>
+      </div>
+    </div>
 
-    <div class="upload-area" id="uploadArea">
+    <div class="settings-panel" id="settingsPanel" style="display:none;">
+      <h3>⚙️ Page Number Settings</h3>
+      
+      <div class="setting-group">
+        <label for="position">Position</label>
+        <select id="position">
+          <option value="bottom-center">Bottom Center</option>
+          <option value="bottom-right">Bottom Right</option>
+          <option value="bottom-left">Bottom Left</option>
+          <option value="top-center">Top Center</option>
+          <option value="top-right">Top Right</option>
+          <option value="top-left">Top Left</option>
+        </select>
+      </div>
+
+      <div class="setting-group">
+        <label for="startNumber">Start From</label>
+        <input type="number" id="startNumber" value="1" min="1" 
+               style="width:100%; padding:0.75rem; border:1px solid var(--border); border-radius:6px; background:var(--bg); color:var(--text); font-family:inherit; font-size:1rem;">
+      </div>
+    </div>
+
+    <div class="progress-container" id="progressContainer" style="display:none;">
+      <div class="progress">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+      <p id="progressText" style="text-align:center; margin-top:1rem; color:var(--text-secondary);"></p>
+    </div>
+
+    <div id="downloadSection" style="display:none; text-align:center; margin:2rem 0; padding:2rem; background:var(--bg-secondary); border-radius:12px; border:2px solid var(--success);">
+      <div style="font-size:3rem; margin-bottom:1rem;">✅</div>
+      <h3 style="color:var(--success); margin-bottom:1rem;">Page Numbers Added!</h3>
+      <p style="color:var(--text-secondary); margin-bottom:1.5rem;">Your PDF is ready to download</p>
+      <button class="btn" onclick="downloadFile()" style="font-size:1.1rem; padding:1rem 2rem;">📥 Download PDF</button>
+      <button class="btn btn-secondary" onclick="resetTool()" style="margin-left:1rem;">🔄 Process Another File</button>
+    </div>
+
+    <div style="text-align: center; margin: 2rem 0;">
+      <button class="btn" id="addBtn" style="display:none;" onclick="addPageNumbers()">🔢 Add Page Numbers</button>
+    </div>
+<section class="help">
+
+            <h2>Help & Tips</h2>
+
+            <ul>
+        <li><strong>Placement:</strong> Choose header or footer positions.</li>
+        <li><strong>Formats:</strong> Styles like "1", "1/10", or "Page 1".</li>
+        <li><strong>Style:</strong> Set font size/color for readability.</li>
+        <li><strong>Start:</strong> Start numbering at a specific page if needed.</li>
+        <li><strong>Safety:</strong> Avoid overlapping content—preview before saving.</li>
+  </ul>
+</section>
+
+            
+  </div>
+      <div class="upload-area" id="uploadArea">
       <div class="upload-icon">📁</div>
       <h3>Drop PDF file here</h3>
       <p>or click to browse</p>
@@ -177,34 +224,8 @@
   </ul>
 </section>
 
-            <div class="ad ad-bottom-banner">
-          
-
-<script type="text/javascript">
-  atOptions = {
-    'key' : '3f0207e61000b922d449a7a10ac84d14',
-              'format' : 'iframe',
-              'height' : 90,
-              'width' : 728,
-              'params' : {}
-            };
-          </script>
-          <script type="text/javascript" src="https://www.highperformanceformat.com/3f0207e61000b922d449a7a10ac84d14/invoke.js"></script>
-        </div>
-      </div>
-      <div class="ad ad-right-sidebar">
-        <script type="text/javascript">
-          atOptions = {
-            'key' : '6055f7e32563fba0867266619119fb48',
-            'format' : 'iframe',
-            'height' : 600,
-            'width' : 160,
-            'params' : {}
-          };
-        </script>
-        <script type="text/javascript" src="https://www.highperformanceformat.com/6055f7e32563fba0867266619119fb48/invoke.js"></script>
-      </div>
-    </div></main>
+            </div>
+      </div></main>
 
   <footer class="footer">
     <nav><a href="/about">About</a> • <a href="/contact">Contact</a> • <a href="/privacy">Privacy Policy</a> • <a href="/terms">Terms of Service</a></nav>

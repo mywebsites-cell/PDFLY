@@ -74,36 +74,97 @@
       <p>Reduce PDF file size by optimizing images (Client-side processing)</p>
     </div>
 
-    <div class="ad-container">
-      <div class="ad ad-left-sidebar">
-          <script type="text/javascript">
-            atOptions = {
-              'key' : '6055f7e32563fba0867266619119fb48',
-              'format' : 'iframe',
-              'height' : 600,
-              'width' : 160,
-              'params' : {}
-            };
-          </script>
-          <script type="text/javascript" src="https://www.highperformanceformat.com/6055f7e32563fba0867266619119fb48/invoke.js"></script>
-      </div>
-      <div class="ad-content">
-        <div class="ad ad-top-banner">
-          
+    <h3>Drop PDF file here</h3>
+      <p>or click to browse</p>
+      <button class="btn" onclick="document.getElementById('fileInput').click()">Select PDF</button>
+      <input type="file" id="fileInput" class="file-input" accept=".pdf">
+    </div>
 
-<script type="text/javascript">
-  atOptions = {
-    'key' : '3f0207e61000b922d449a7a10ac84d14',
-              'format' : 'iframe',
-              'height' : 90,
-              'width' : 728,
-              'params' : {}
-            };
-          </script>
-          <script type="text/javascript" src="https://www.highperformanceformat.com/3f0207e61000b922d449a7a10ac84d14/invoke.js"></script>
+    <div id="fileInfo" class="file-list" style="display:none;">
+      <div class="file-item">
+        <div class="file-info">
+          <span class="file-icon">📄</span>
+          <div class="file-details">
+            <h4 id="fileName"></h4>
+            <p id="fileSize"></p>
+          </div>
         </div>
+        <div class="file-actions">
+          <button class="icon-btn" onclick="removeFile()">🗑️</button>
+        </div>
+      </div>
+    </div>
 
-    <div class="upload-area" id="uploadArea">
+    <div class="settings-panel" id="settingsPanel" style="display:none;">
+      <h3>⚙️ Compression Settings</h3>
+      <div class="setting-group">
+        <label>Compression Level</label>
+        <select id="compressionLevel">
+          <option value="0.3">High Compression (Lower Quality)</option>
+          <option value="0.5" selected>Medium Compression (Balanced)</option>
+          <option value="0.7">Low Compression (Higher Quality)</option>
+        </select>
+      </div>
+      <div class="setting-group">
+        <label>Image Resolution (DPI)</label>
+        <select id="imageDPI">
+          <option value="72">72 DPI (Screen)</option>
+          <option value="150" selected>150 DPI (Web)</option>
+          <option value="300">300 DPI (Print)</option>
+        </select>
+      </div>
+      <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 1rem;">
+        <strong>Note:</strong> Compression works best on image-heavy PDFs.
+      </p>
+    </div>
+
+    <div class="progress-container" id="progressContainer" style="display:none;">
+      <div class="progress">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+      <p id="progressText" style="text-align:center; margin-top:1rem; color:var(--text-secondary);"></p>
+    </div>
+
+    <div id="downloadSection" style="display:none; text-align:center; margin:2rem 0; padding:2rem; background:var(--bg-secondary); border-radius:12px; border:2px solid var(--success);">
+      <div style="font-size:3rem; margin-bottom:1rem;">✅</div>
+      <h3 style="color:var(--success); margin-bottom:1rem;">Compression Complete!</h3>
+      <div style="display:flex; justify-content:center; gap:2rem; flex-wrap:wrap; margin-bottom:1.5rem;">
+        <div>
+          <p style="color:var(--text-secondary);">Original</p>
+          <p style="font-size:1.5rem; font-weight:700;" id="originalSize">-</p>
+        </div>
+        <div>
+          <p style="color:var(--text-secondary);">Compressed</p>
+          <p style="font-size:1.5rem; font-weight:700; color:var(--success);" id="compressedSize">-</p>
+        </div>
+        <div>
+          <p style="color:var(--text-secondary);">Saved</p>
+          <p style="font-size:1.5rem; font-weight:700; color:var(--primary);" id="reductionPercent">-</p>
+        </div>
+      </div>
+      <button class="btn" onclick="downloadFile()" style="font-size:1.1rem; padding:1rem 2rem;">📥 Download Compressed PDF</button>
+      <button class="btn btn-secondary" onclick="resetTool()" style="margin-left:1rem;">🔄 Compress Another PDF</button>
+    </div>
+
+    <div style="text-align: center; margin: 2rem 0;">
+      <button class="btn" id="compressBtn" style="display:none;" onclick="compressPDF()">🗜️ Compress PDF</button>
+    </div>
+<section class="help">
+
+            <h2>Help & Tips</h2>
+
+            <ul>
+        <li><strong>Images:</strong> Compression helps most on image‑heavy PDFs.</li>
+        <li><strong>Balance:</strong> Try medium quality for size vs. readability.</li>
+        <li><strong>Preview:</strong> Check pages to ensure text remains legible.</li>
+        <li><strong>Version:</strong> Newer PDF versions may compress more efficiently.</li>
+        <li><strong>Limits:</strong> Text‑only PDFs often see minimal gains.</li>
+  </ul>
+</section>
+
+            
+  </div>
+      <div class="upload-area" id="uploadArea">
       <div class="upload-icon">📁</div>
       <h3>Drop PDF file here</h3>
       <p>or click to browse</p>
@@ -193,34 +254,8 @@
   </ul>
 </section>
 
-            <div class="ad ad-bottom-banner">
-          
-
-<script type="text/javascript">
-  atOptions = {
-    'key' : '3f0207e61000b922d449a7a10ac84d14',
-              'format' : 'iframe',
-              'height' : 90,
-              'width' : 728,
-              'params' : {}
-            };
-          </script>
-          <script type="text/javascript" src="https://www.highperformanceformat.com/3f0207e61000b922d449a7a10ac84d14/invoke.js"></script>
-        </div>
-      </div>
-      <div class="ad ad-right-sidebar">
-        <script type="text/javascript">
-          atOptions = {
-            'key' : '6055f7e32563fba0867266619119fb48',
-            'format' : 'iframe',
-            'height' : 600,
-            'width' : 160,
-            'params' : {}
-          };
-        </script>
-        <script type="text/javascript" src="https://www.highperformanceformat.com/6055f7e32563fba0867266619119fb48/invoke.js"></script>
-      </div>
-    </div></main>
+            </div>
+      </div></main>
 
   <footer class="footer">
     <nav><a href="/about">About</a> • <a href="/contact">Contact</a> • <a href="/privacy">Privacy Policy</a> • <a href="/terms">Terms of Service</a></nav>
