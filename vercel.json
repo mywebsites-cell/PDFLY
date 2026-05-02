@@ -14,5 +14,9 @@
   "rewrites": [
     { "source": "/home", "destination": "/" },
     { "source": "/sitemap.xml", "destination": "/sitemap.xml" }
+  ],
+  "routes": [
+    { "handle": "filesystem" },
+    { "src": "/(.*)", "dest": "/404.html", "status": 404 }
   ]
 }
