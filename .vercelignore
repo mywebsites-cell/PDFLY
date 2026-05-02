@@ -1,5 +1,6 @@
 # Exclude backend and infra files from Vercel static deploy
 backend/
+frontend/
 Dockerfile
 Dockerfile*
 build.sh
@@ -8,6 +9,7 @@ railway.json
 Procfile
 runtime.txt
 serve.py
+*.py
 requirements.txt
 backend/uploads/
 *.bat

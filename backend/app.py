@@ -901,7 +901,7 @@ def status():
 
 if __name__ == "__main__":
     logger.info("="*60)
-    logger.info("Starting PDF Suite Tools Backend")
+    logger.info("Starting PDFLY Backend")
     logger.info("="*60)
     logger.info(f"Platform: {platform.system()}")
     logger.info(f"LibreOffice: {LIBREOFFICE_CMD if LIBREOFFICE_CMD else '❌ NOT FOUND'}")

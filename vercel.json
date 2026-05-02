@@ -11,6 +11,23 @@
       "headers": [{ "key": "Content-Type", "value": "text/plain; charset=UTF-8" }]
     }
   ],
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "www.pdfly.live" }],
+      "destination": "https://pdfly.live/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/:path*",
+      "has": [
+        { "type": "host", "value": "pdfly.live" },
+        { "type": "header", "key": "x-forwarded-proto", "value": "http" }
+      ],
+      "destination": "https://pdfly.live/:path*",
+      "statusCode": 301
+    }
+  ],
   "rewrites": [
     { "source": "/home", "destination": "/" },
     { "source": "/sitemap.xml", "destination": "/sitemap.xml" }
