@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # backend/app.py
-# Unified Flask backend – Full PDF Suite - PRODUCTION READY
+# Unified Flask backend – Full PDFLY - PRODUCTION READY
 # Fixes: Auto-detection, duplicate downloads, cross-platform support
 
 import os
