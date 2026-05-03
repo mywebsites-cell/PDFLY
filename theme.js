@@ -40,8 +40,29 @@
         dropbtn.addEventListener('click', function(e) {
           if (window.innerWidth <= 768) {
             e.preventDefault();
+            e.stopPropagation();
+            
+            // Close other dropdowns
+            dropdowns.forEach(d => {
+              if (d !== dropdown) {
+                d.querySelector('.dropdown-content').classList.remove('active');
+              }
+            });
+            
             dropdownContent.classList.toggle('active');
           }
+        });
+        
+        // Close dropdown when a link is clicked
+        const links = dropdownContent.querySelectorAll('a');
+        links.forEach(link => {
+          link.addEventListener('click', function() {
+            if (window.innerWidth <= 768) {
+              dropdownContent.classList.remove('active');
+              mainNav.classList.remove('active');
+              mobileMenuToggle.textContent = '⋮';
+            }
+          });
         });
       }
     });
