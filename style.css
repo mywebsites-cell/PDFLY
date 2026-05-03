@@ -699,6 +699,9 @@ body {
     box-shadow: 0 4px 12px var(--shadow);
     max-height: calc(100vh - 60px);
     overflow-y: auto;
+    z-index: 999;
+    align-items: stretch;
+    justify-content: flex-start;
   }
 }
 
@@ -856,11 +859,9 @@ body {
   font-size: 0.82rem;
   color: var(--text-secondary);
   line-height: 1.5;
-    z-index: 999;
-    align-items: stretch;
-    justify-content: flex-start;
-  }
+}
 
+@media (max-width: 768px) {
   .main-nav.active {
     display: flex;
   }
