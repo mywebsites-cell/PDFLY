@@ -165,7 +165,7 @@ body {
 .dropdown-content {
   display: none;
   position: absolute;
-  top: calc(100% + 6px);
+  top: calc(100% + 2px);
   left: 0;
   background: var(--bg);
   min-width: 210px;
