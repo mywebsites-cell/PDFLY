@@ -21,6 +21,54 @@
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
   }
   </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is Extract Images free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. 100% free, no sign-up required."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What format are the extracted images?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "All images are extracted as PNG files bundled in a ZIP download."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Will the extracted images be full quality?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Images are extracted at their original embedded resolution without any re-compression."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Are my files safe?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Files are uploaded to our server, processed and automatically deleted within 1 hour. We never store your files."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What if my PDF has no images?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The tool will return an empty ZIP or a message indicating no images were found in the document."
+        }
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
   <header class="navbar">
@@ -147,6 +195,31 @@
   </ul>
 </section>
 
+    <section class="faq">
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-items">
+        <div class="faq-item">
+          <h3>Is Extract Images free?</h3>
+          <p>Yes. 100% free, no sign-up required.</p>
+        </div>
+        <div class="faq-item">
+          <h3>What format are the extracted images?</h3>
+          <p>All images are extracted as PNG files bundled in a ZIP download.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Will the extracted images be full quality?</h3>
+          <p>Yes. Images are extracted at their original embedded resolution without any re-compression.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Are my files safe?</h3>
+          <p>Files are uploaded to our server, processed and automatically deleted within 1 hour. We never store your files.</p>
+        </div>
+        <div class="faq-item">
+          <h3>What if my PDF has no images?</h3>
+          <p>The tool will return an empty ZIP or a message indicating no images were found in the document.</p>
+        </div>
+      </div>
+    </section>
 
     
   </main>

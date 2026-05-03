@@ -22,6 +22,54 @@
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
   }
   </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is Split PDF free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. 100% free, no sign-up and no watermarks on split files."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does splitting work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Each page of your PDF is extracted as a separate PDF file. All split files are bundled in a ZIP for download."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Are my files uploaded to a server?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Splitting is done entirely in your browser. Your files never leave your device."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I split specific pages only?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Currently all pages are split individually. Custom range splitting is coming soon."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Will the split PDFs lose quality?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Pages are extracted without re-encoding so quality is identical to the original."
+        }
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
   <header class="navbar">
@@ -161,8 +209,32 @@
         <li><strong>Naming:</strong> Name outputs clearly for quick identification.</li>
         <li><strong>Privacy:</strong> Client‑side processing keeps files local.</li>
   </ul>
-</section>
-  </main>
+</section>  
+    <section class="faq">
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-items">
+        <div class="faq-item">
+          <h3>Is Split PDF free?</h3>
+          <p>Yes. 100% free, no sign-up and no watermarks on split files.</p>
+        </div>
+        <div class="faq-item">
+          <h3>How does splitting work?</h3>
+          <p>Each page of your PDF is extracted as a separate PDF file. All split files are bundled in a ZIP for download.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Are my files uploaded to a server?</h3>
+          <p>No. Splitting is done entirely in your browser. Your files never leave your device.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Can I split specific pages only?</h3>
+          <p>Currently all pages are split individually. Custom range splitting is coming soon.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Will the split PDFs lose quality?</h3>
+          <p>No. Pages are extracted without re-encoding so quality is identical to the original.</p>
+        </div>
+      </div>
+    </section>  </main>
 
   <footer class="footer">
     <nav><a href="/about">About</a> • <a href="/contact">Contact</a> • <a href="/privacy">Privacy Policy</a> • <a href="/terms">Terms of Service</a></nav>

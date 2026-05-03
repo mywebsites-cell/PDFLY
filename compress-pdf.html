@@ -23,6 +23,39 @@
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
   }
   </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is the PDF compressor free to use?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. PDFLY's PDF compressor is completely free with no sign-up and no watermarks added." }
+      },
+      {
+        "@type": "Question",
+        "name": "How much can I reduce a PDF file size?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Results vary by file content. Image-heavy PDFs can be reduced by 50–80%. Text-only PDFs see minimal reduction as text is already compact." }
+      },
+      {
+        "@type": "Question",
+        "name": "Will compression reduce the quality of my PDF?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Compression reduces image resolution. Use Medium or Low compression to balance file size and quality. Use High compression only when file size is critical." }
+      },
+      {
+        "@type": "Question",
+        "name": "Are my files uploaded to a server when compressing?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No. PDF compression on PDFLY is done entirely in your browser. Your files never leave your device." }
+      },
+      {
+        "@type": "Question",
+        "name": "What DPI setting should I use?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Use 72 DPI for screen-only documents, 150 DPI for web sharing and 300 DPI if you need print-quality output." }
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
   <header class="navbar">
@@ -175,7 +208,29 @@
         <li><strong>Limits:</strong> Text‑only PDFs often see minimal gains.</li>
   </ul>
 </section>
-
+<section class="faq">
+  <h2>Frequently Asked Questions</h2>
+  <div class="faq-item">
+    <h3>Is the PDF compressor free to use?</h3>
+    <p>Yes. PDFLY's PDF compressor is completely free with no sign-up and no watermarks added.</p>
+  </div>
+  <div class="faq-item">
+    <h3>How much can I reduce a PDF file size?</h3>
+    <p>Results vary by file content. Image-heavy PDFs can be reduced by 50–80%. Text-only PDFs see minimal reduction as text is already compact.</p>
+  </div>
+  <div class="faq-item">
+    <h3>Will compression reduce the quality of my PDF?</h3>
+    <p>Compression reduces image resolution. Use Medium or Low compression to balance file size and quality. Use High compression only when file size is critical.</p>
+  </div>
+  <div class="faq-item">
+    <h3>Are my files uploaded to a server when compressing?</h3>
+    <p>No. PDF compression on PDFLY is done entirely in your browser. Your files never leave your device.</p>
+  </div>
+  <div class="faq-item">
+    <h3>What DPI setting should I use?</h3>
+    <p>Use 72 DPI for screen-only documents, 150 DPI for web sharing and 300 DPI if you need print-quality output.</p>
+  </div>
+</section>
 
   </main>
 
