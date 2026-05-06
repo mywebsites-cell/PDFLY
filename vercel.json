@@ -13,8 +13,8 @@
   ],
   "redirects": [
     {
-      "source": "/:path*/",
-      "destination": "/:path",
+      "source": "/(.*)/",
+      "destination": "/$1",
       "statusCode": 301
     },
     {
