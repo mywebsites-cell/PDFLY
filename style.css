@@ -1016,6 +1016,23 @@ body {
   text-decoration: underline;
 }
 
+/* Override: .btn inside blog posts/cards must keep white text */
+.blog-post a.btn,
+.blog-card a.btn {
+  color: #fff;
+  text-decoration: none;
+  display: inline-flex;
+}
+
+.blog-post a.btn:hover,
+.blog-card a.btn:hover {
+  color: #fff;
+  text-decoration: none;
+  background: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--shadow);
+}
+
 .blog-cta {
   background: var(--bg-secondary);
   border: 2px solid var(--primary);
