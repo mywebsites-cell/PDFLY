@@ -21,4 +21,10 @@
   <url><loc>https://pdfly.live/contact</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://pdfly.live/privacy</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
   <url><loc>https://pdfly.live/terms</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://pdfly.live/blog/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://pdfly.live/blog/how-to-merge-pdf-files</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://pdfly.live/blog/compress-pdf-without-losing-quality</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://pdfly.live/blog/word-to-pdf-without-microsoft-word</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://pdfly.live/blog/best-free-pdf-tools-2026</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://pdfly.live/blog/how-to-password-protect-pdf</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
 </urlset>

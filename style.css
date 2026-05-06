@@ -835,6 +835,257 @@ body {
 }
 
 .step-num {
+  display: inline-flex;
+  width: 2.5rem;
+  height: 2.5rem;
+  background: var(--primary);
+  color: white;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.step-item h3 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+}
+
+.step-item p {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+/* Content sections - Week 3 */
+.content-section {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+}
+
+.content-section h2 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+}
+
+.content-section p {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+
+.content-section ul {
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.content-section li {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: 0.5rem;
+}
+
+.formats-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  font-size: 0.9rem;
+}
+
+.formats-table th,
+.formats-table td {
+  padding: 0.75rem;
+  border: 1px solid var(--border);
+  text-align: left;
+}
+
+.formats-table th {
+  background: var(--bg-secondary);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.formats-table td {
+  color: var(--text-secondary);
+}
+
+/* Blog styles */
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.blog-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
+.blog-card h2 {
+  font-size: 1.2rem;
+  margin-bottom: 0.75rem;
+}
+
+.blog-card h2 a {
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+.blog-card h2 a:hover {
+  color: var(--primary);
+}
+
+.blog-card p {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.blog-post {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.blog-post h1 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.blog-meta {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.blog-post h2 {
+  font-size: 1.5rem;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+}
+
+.blog-post h3 {
+  font-size: 1.2rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  color: var(--text-primary);
+}
+
+.blog-post p {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  margin-bottom: 1.25rem;
+  color: var(--text-secondary);
+}
+
+.blog-post ul, .blog-post ol {
+  margin-bottom: 1.25rem;
+  padding-left: 2rem;
+}
+
+.blog-post li {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  margin-bottom: 0.5rem;
+  color: var(--text-secondary);
+}
+
+.blog-post strong {
+  color: var(--text-primary);
+}
+
+.blog-post a {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.blog-post a:hover {
+  text-decoration: underline;
+}
+
+.blog-cta {
+  background: var(--bg-secondary);
+  border: 2px solid var(--primary);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin: 2rem 0;
+  text-align: center;
+}
+
+.blog-cta h3 {
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+  color: var(--primary);
+}
+
+.blog-cta p {
+  margin-bottom: 1rem;
+}
+
+/* Trust signals */
+.trust-section {
+  margin: 3rem 0;
+  text-align: center;
+}
+
+.trust-section h2 {
+  font-size: 1.8rem;
+  margin-bottom: 2rem;
+  color: var(--text-primary);
+}
+
+.trust-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.trust-badge {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.5rem 1rem;
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+.trust-badge:hover {
+  transform: translateY(-2px);
+  border-color: var(--primary);
+}
+
+.trust-icon {
+  font-size: 2.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.trust-badge h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+}
+
+.trust-badge p {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.step-num {
   width: 36px;
   height: 36px;
   border-radius: 50%;
