@@ -1,0 +1,51 @@
+# PDFLY
+
+> PDFLY is a free, browser-based PDF toolkit with 16 tools. Merge, split, compress, convert, rotate, watermark, lock and unlock PDFs — no sign-up, no watermarks. Files are processed privately and deleted automatically.
+
+Website: https://pdfly.live
+Contact: mywebsites0000011@gmail.com
+
+## About
+
+PDFLY offers 16 free PDF tools in one clean, no-sign-up interface. Everything runs fast in your browser or on a secure server, with no watermarks and no account required. Built for students, freelancers, and small businesses who need quick PDF edits without installing software.
+
+## Tools
+
+- [Merge PDF](https://pdfly.live/merge-pdf): Combine multiple PDF files into one, in any order.
+- [Split PDF](https://pdfly.live/split-pdf): Split a PDF into separate pages or extract page ranges.
+- [Compress PDF](https://pdfly.live/compress-pdf): Reduce PDF file size without losing quality.
+- [Rotate PDF](https://pdfly.live/rotate-pdf): Rotate individual or all pages of a PDF.
+- [Reorder Pages](https://pdfly.live/reorder-pages): Rearrange PDF pages with drag-and-drop.
+- [Word to PDF](https://pdfly.live/word-to-pdf): Convert Word (.docx) documents to PDF.
+- [PDF to Word](https://pdfly.live/pdf-to-word): Convert PDF to editable Word (.docx).
+- [Excel to PDF](https://pdfly.live/excel-to-pdf): Convert Excel (.xlsx) spreadsheets to PDF.
+- [Image to PDF](https://pdfly.live/image-to-pdf): Convert images (JPG, PNG, etc.) to PDF.
+- [PDF to Image](https://pdfly.live/pdf-to-image): Export PDF pages as PNG images.
+- [Extract Images](https://pdfly.live/extract-images): Extract all images from a PDF.
+- [Add Watermark](https://pdfly.live/add-watermark): Add text or image watermarks to PDFs.
+- [Add Page Numbers](https://pdfly.live/add-page-numbers): Add page numbers to a PDF.
+- [Lock PDF](https://pdfly.live/lock-pdf): Password-protect a PDF with AES-256 encryption.
+- [Unlock PDF](https://pdfly.live/unlock-pdf): Remove password protection from a PDF.
+- [QR Code Generator](https://pdfly.live/qr-code-pdf): Generate QR codes and save them as PDF.
+
+## Pages
+
+- [Home](https://pdfly.live/): Overview of all 16 free PDF tools.
+- [About](https://pdfly.live/about): About PDFLY.
+- [Contact](https://pdfly.live/contact): Contact form and support email.
+- [Privacy Policy](https://pdfly.live/privacy): Privacy and data-handling policy.
+- [Terms of Service](https://pdfly.live/terms): Terms of use.
+
+## Blog
+
+- [Blog index](https://pdfly.live/blog/): Guides and tutorials on PDF tasks.
+- [How to Merge PDF Files](https://pdfly.live/blog/how-to-merge-pdf-files)
+- [How to Compress a PDF Without Losing Quality](https://pdfly.live/blog/compress-pdf-without-losing-quality)
+- [Word to PDF: Complete Guide (No Microsoft Word Needed)](https://pdfly.live/blog/word-to-pdf-without-microsoft-word)
+- [Best Free PDF Tools in 2026](https://pdfly.live/blog/best-free-pdf-tools-2026)
+- [How to Password Protect a PDF](https://pdfly.live/blog/how-to-password-protect-pdf)
+- [How to Split a PDF](https://pdfly.live/blog/how-to-split-a-pdf)
+- [How to Convert Images to PDF](https://pdfly.live/blog/how-to-convert-images-to-pdf)
+- [How to Convert Excel to PDF](https://pdfly.live/blog/how-to-convert-excel-to-pdf)
+- [How to Rotate PDF Pages](https://pdfly.live/blog/how-to-rotate-pdf-pages)
+- [How to Add a Watermark to a PDF](https://pdfly.live/blog/how-to-add-watermark-to-pdf)

@@ -14,3 +14,6 @@ User-agent: CCBot
 Allow: /
 
 Sitemap: https://pdfly.live/sitemap.xml
+
+# AI crawlers: description of the site in Markdown
+LLMs: https://pdfly.live/llms.txt

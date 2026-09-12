@@ -1,0 +1,66 @@
+# PDFLY — Full Site Description for AI Crawlers
+
+## What is PDFLY?
+
+PDFLY (https://pdfly.live) is a free, browser-based online PDF toolkit offering 16 tools for common document tasks. It was built around one principle: most people need a single quick PDF task done — merge two PDFs, convert a Word document, compress a file — and then want to leave. So PDFLY provides the fastest path from "I need X done" to "done," with zero friction.
+
+### Key differentiators
+- 100% free with no daily limits
+- No account or sign-up required
+- No watermarks on output files
+- Privacy-first: files are processed securely and deleted automatically after processing
+- Works on any device — desktop, tablet, or phone
+- Maximum file size: 200 MB per file
+
+## Tool list and descriptions
+
+### Convert tools
+- **Word to PDF** (https://pdfly.live/word-to-pdf) — Convert Microsoft Word (.docx) documents to PDF format with preserved formatting.
+- **PDF to Word** (https://pdfly.live/pdf-to-word) — Convert PDF files to editable Word (.docx) documents while preserving layout.
+- **Excel to PDF** (https://pdfly.live/excel-to-pdf) — Convert Excel (.xlsx) spreadsheets to PDF.
+- **Image to PDF** (https://pdfly.live/image-to-pdf) — Combine one or more images (JPG, PNG, WebP, etc.) into a single PDF.
+- **PDF to Image** (https://pdfly.live/pdf-to-image) — Export each page of a PDF as a PNG image.
+
+### Edit tools
+- **Merge PDF** (https://pdfly.live/merge-pdf) — Combine multiple PDF files into a single document in any order.
+- **Split PDF** (https://pdfly.live/split-pdf) — Split a PDF into individual pages or extract specific page ranges.
+- **Compress PDF** (https://pdfly.live/compress-pdf) — Reduce PDF file size while maintaining quality.
+- **Rotate PDF** (https://pdfly.live/rotate-pdf) — Rotate individual pages or the entire PDF document.
+- **Reorder Pages** (https://pdfly.live/reorder-pages) — Rearrange the page order of a PDF with drag-and-drop.
+
+### Security tools
+- **Lock PDF** (https://pdfly.live/lock-pdf) — Add a password to a PDF using AES-256 encryption.
+- **Unlock PDF** (https://pdfly.live/unlock-pdf) — Remove password protection from a PDF (when you know the password).
+
+### Other tools
+- **Add Watermark** (https://pdfly.live/add-watermark) — Add text or image watermarks to a PDF.
+- **Add Page Numbers** (https://pdfly.live/add-page-numbers) — Add page numbers to a PDF document.
+- **Extract Images** (https://pdfly.live/extract-images) — Extract all images embedded in a PDF.
+- **QR Code Generator** (https://pdfly.live/qr-code-pdf) — Generate QR codes and save them as a PDF.
+
+## Company information
+
+- **Brand name:** PDFLY
+- **Founder:** Ahmad Afridi (Owner/Founder, PDFly team)
+- **Contact email:** mywebsites0000011@gmail.com
+- **Funding:** Bootstrapped (no VC funding)
+- **Website:** https://pdfly.live
+
+## Static pages
+- Home: https://pdfly.live/
+- About: https://pdfly.live/about
+- Contact: https://pdfly.live/contact
+- Privacy Policy: https://pdfly.live/privacy
+- Terms of Service: https://pdfly.live/terms
+
+## Blog posts
+- How to Merge PDF Files for Free: https://pdfly.live/blog/how-to-merge-pdf-files
+- How to Compress a PDF Without Losing Quality: https://pdfly.live/blog/compress-pdf-without-losing-quality
+- Word to PDF Conversion Guide: https://pdfly.live/blog/word-to-pdf-without-microsoft-word
+- Best Free PDF Tools in 2026: https://pdfly.live/blog/best-free-pdf-tools-2026
+- How to Password Protect a PDF: https://pdfly.live/blog/how-to-password-protect-pdf
+- How to Split a PDF into Separate Pages: https://pdfly.live/blog/how-to-split-a-pdf
+- How to Convert Images to PDF: https://pdfly.live/blog/how-to-convert-images-to-pdf
+- How to Convert Excel to PDF: https://pdfly.live/blog/how-to-convert-excel-to-pdf
+- How to Rotate PDF Pages: https://pdfly.live/blog/how-to-rotate-pdf-pages
+- How to Add a Watermark to a PDF: https://pdfly.live/blog/how-to-add-watermark-to-pdf
