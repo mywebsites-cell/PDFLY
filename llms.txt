@@ -38,7 +38,7 @@ PDFLY offers 16 free PDF tools in one clean, no-sign-up interface. Everything ru
 
 ## Blog
 
-- [Blog index](https://pdfly.live/blog/): Guides and tutorials on PDF tasks.
+- [Blog index](https://pdfly.live/blog): Guides and tutorials on PDF tasks.
 - [How to Merge PDF Files](https://pdfly.live/blog/how-to-merge-pdf-files)
 - [How to Compress a PDF Without Losing Quality](https://pdfly.live/blog/compress-pdf-without-losing-quality)
 - [Word to PDF: Complete Guide (No Microsoft Word Needed)](https://pdfly.live/blog/word-to-pdf-without-microsoft-word)
