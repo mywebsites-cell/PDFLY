@@ -121,9 +121,9 @@
           PDFLY uses a hybrid approach: some tools process files entirely on your device (client-side), while others use secure backend servers for complex conversions.
         </p>
         <ul>
-          <li><strong>Client-Side Tools:</strong> Merge, split, rotate, reorder, compress, add watermarks, and add page numbers all happen directly in your browser using JavaScript libraries. Your files never leave your device and are never stored on our servers.</li>
-          <li><strong>Server-Side Tools:</strong> Complex conversions like Word ↔ PDF, Image ↔ PDF, and Excel → PDF use our backend servers powered by LibreOffice, PyPDF2, and other open-source libraries. Files are automatically deleted within 1 hour of processing.</li>
-          <li><strong>Encryption:</strong> PDF locking uses AES-256 encryption, the same standard used by banks and governments. We use secure processing pipelines to ensure your passwords and files remain protected.</li>
+          <li><strong>Client-Side Tools:</strong> Merge, split, rotate, reorder, compress, image-to-PDF, add watermarks, and QR code generation all happen directly in your browser using JavaScript libraries. Your files never leave your device and are never stored on our servers.</li>
+          <li><strong>Server-Side Tools:</strong> Complex conversions like Word ↔ PDF, PDF → Image, Excel → PDF, lock/unlock PDF, extract images, and add page numbers use our backend servers powered by LibreOffice, PyPDF2, and other open-source libraries. Files are automatically deleted within 1 hour of processing.</li>
+          <li><strong>Encryption:</strong> PDF locking uses legacy RC4-128 PDF encryption. RC4 is outdated and should not be used for highly sensitive information.</li>
         </ul>
       </section>
 
@@ -136,7 +136,7 @@
           <li><strong>Frontend:</strong> Vanilla JavaScript, pdf-lib (for client-side PDF manipulation), jsPDF (for PDF generation from images)</li>
           <li><strong>Backend:</strong> Python Flask, LibreOffice (for document conversions), PyPDF2 (for encryption/decryption), Poppler (for PDF rendering), pdf2docx (for PDF to Word)</li>
           <li><strong>Infrastructure:</strong> Vercel (frontend hosting), Render (backend server), S3-compatible storage for temporary file processing</li>
-          <li><strong>Security:</strong> AES-256 encryption, automatic file deletion, HTTPS/TLS for all connections, no data logging</li>
+          <li><strong>Security:</strong> Legacy RC4-128 PDF encryption (not suitable for highly sensitive information), automatic file deletion, HTTPS/TLS for all connections, no data logging</li>
         </ul>
       </section>
 

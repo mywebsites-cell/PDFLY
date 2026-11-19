@@ -57,7 +57,7 @@
         "name": "How does splitting work?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Each page of your PDF is extracted as a separate PDF file. All split files are bundled in a ZIP for download."
+          "text": "Choose from three modes: split every page into individual files (bundled in a ZIP), extract a single page range into one PDF, or select specific pages by number into one PDF."
         }
       },
       {
@@ -73,7 +73,7 @@
         "name": "Can I split specific pages only?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Currently all pages are split individually. Custom range splitting is coming soon."
+          "text": "Yes. Use the Page Range mode to extract a range such as 5-10 into a single PDF, or the Extract mode to select specific pages by number such as 1,3,5."
         }
       },
       {
@@ -255,7 +255,7 @@
 
 
       <ul>
-        <li><strong>Modes:</strong> Split all pages or choose ranges (e.g., 1‑3,5,7‑9).</li>
+        <li><strong>Modes:</strong> Split all pages, extract a single range (e.g., 1‑3), or pick specific pages (e.g., 1,3,5).</li>
         <li><strong>Local:</strong> Runs client‑side; no uploads required.</li>
         <li><strong>Targeted:</strong> Extract only the sections you need.</li>
         <li><strong>Naming:</strong> Name outputs clearly for quick identification.</li>
@@ -271,7 +271,7 @@
         </div>
         <div class="faq-item">
           <h3>How does splitting work?</h3>
-          <p>Each page of your PDF is extracted as a separate PDF file. All split files are bundled in a ZIP for download.</p>
+          <p>Choose from three modes: split every page into individual files (bundled in a ZIP), extract a single page range into one PDF, or select specific pages by number into one PDF.</p>
         </div>
         <div class="faq-item">
           <h3>Are my files uploaded to a server?</h3>
@@ -279,7 +279,7 @@
         </div>
         <div class="faq-item">
           <h3>Can I split specific pages only?</h3>
-          <p>Currently all pages are split individually. Custom range splitting is coming soon.</p>
+          <p>Yes. Use the Page Range mode to extract a range such as 5-10 into one PDF, or the Extract mode to select specific pages by number such as 1,3,5.</p>
         </div>
         <div class="faq-item">
           <h3>Will the split PDFs lose quality?</h3>
@@ -292,11 +292,11 @@
   <h2>Why Use PDFLY for PDF Splitting?</h2>
   <p>Break large PDF files into individual pages or extract specific page ranges. Ideal for organizing multi-page documents, creating focused files, and distributing targeted content.</p>
   <ul>
-    <li><strong>Flexible Page Selection:</strong> Extract individual pages, ranges, or all pages as separate files with customizable naming</li>
+    <li><strong>Flexible Page Selection:</strong> Extract individual pages, a page range, or all pages as separate files</li>
     <li><strong>Maintain Quality:</strong> All splitting operations preserve original PDF quality, formatting, and content integrity</li>
-    <li><strong>Batch Splitting:</strong> Split multiple large PDFs simultaneously to save time on document processing</li>
-    <li><strong>Custom File Naming:</strong> Auto-generate sequential names or use custom naming conventions for organized output</li>
-    <li><strong>Preserve Bookmarks:</strong> Maintains PDF bookmarks and metadata for easier navigation in split files</li>
+    <li><strong>Three Splitting Modes:</strong> Split every page into its own file, extract a single range into one PDF, or pull selected pages by number</li>
+    <li><strong>Fast &amp; Private:</strong> Processing happens entirely in your browser with no uploads, so results are instant and files stay on your device</li>
+    <li><strong>No Watermarks:</strong> Output files are clean with no watermarks or added branding</li>
   </ul>
 </section>
 
@@ -309,7 +309,7 @@
     </tr>
     <tr>
       <td>Input Format</td>
-      <td>PDF (standard and password-protected)</td>
+      <td>PDF (standard, unencrypted)</td>
     </tr>
     <tr>
       <td>Output Format</td>
@@ -317,7 +317,7 @@
     </tr>
     <tr>
       <td>Maximum Pages</td>
-      <td>PDFs with up to 5000 pages can be split</td>
+      <td>Large multi-page PDFs supported; limited by your browser's memory</td>
     </tr>
     <tr>
       <td>Maximum File Size</td>
@@ -325,11 +325,11 @@
     </tr>
     <tr>
       <td>Output Files</td>
-      <td>Maximum 1000 output files per batch</td>
+      <td>One file per page in "All pages" mode (bundled as a ZIP)</td>
     </tr>
     <tr>
       <td>Metadata Handling</td>
-      <td>Basic metadata preserved; complex metadata may be simplified</td>
+      <td>Document metadata and bookmarks are not carried over to split files</td>
     </tr>
   </table>
 </section>
